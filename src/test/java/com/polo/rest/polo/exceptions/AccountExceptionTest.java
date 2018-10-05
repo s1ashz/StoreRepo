@@ -14,9 +14,7 @@ public class AccountExceptionTest {
 	
 	@Test
 	public void testInstance() {
-		
 		accountException = new AccountException( DEFAULT_MESSAGE );
-		
 		assertEquals(accountException.getMessage(), DEFAULT_MESSAGE );
 	}
 	

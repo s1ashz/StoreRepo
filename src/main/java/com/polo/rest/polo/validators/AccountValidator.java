@@ -1,83 +1,71 @@
 package com.polo.rest.polo.validators;
 
-import java.lang.reflect.Field;
+import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_INVALID_ACCOUNT_MESSAGE;
+import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_INVALID_PARENT_MESSAGE;
+import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_PARENT_NULL;
 
-import javax.security.auth.login.AccountException;
+import java.lang.reflect.Field;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.polo.rest.polo.dto.AccountDto;
-
+import com.polo.rest.polo.dto.ParentsDto;
+import com.polo.rest.polo.exceptions.AccountException;
 
 @Component
 public class AccountValidator
 {
-	private static String INT = "int";
-	private static String INTEGER = "Ingeter";
-
+	
     public AccountValidator() {
     }
     
-    public static void validateAccount( AccountDto accountDto) throws AccountException {
-    	
-    	for ( Field f: accountDto.getClass().getDeclaredFields() ) {
-    		try {
-    			f.setAccessible(true);
-    			
-    			System.out.println("------");
-    			System.out.println("NAME:   " + f.getName());
-    			System.out.println("TYPE:   " + f.getType());
-    			System.out.println("VALUE:  " + f.get(accountDto));
-    			
-    			String fieldType = f.getType().getName();
-    			
-    			if ( f.getName() == "name" && f.get(accountDto) == null) {
-    				throw new AccountException( "Account Name cannot be null" );
-    			}
-    			
-    			if ( f.getName() == "cardId" && f.get(accountDto) == "0") {
-    				throw new AccountException( "Account CardId cannot be 0" );
-    			}
-    			
-    			
-//    			if ( ( fieldType ==  INT ) || ( fieldType == INTEGER ) ) {
-//    				System.out.println("leeel int");
-//    			}
-    			
-    			
-//				if ( f.get(accountDto) != null ) {
-//					System.out.println("not null");
-//				}
-				
-				
-				
-				System.out.println("------");
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    public void validateAccount( AccountDto accountDto) throws AccountException {
+    	for ( Field accountField: accountDto.getClass().getDeclaredFields() ) {
+    			accountField.setAccessible(true);
+    			try {
+					validateAccountField(accountDto, accountField);
+					validateParents(accountField, accountDto);
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
     	}
-    	
     }
-    
-    public static void main(String[] args) {
-    	
-    	AccountDto accountDto = new AccountDto();
-    	//accountDto.setName("puta");
-    	accountDto.setBirthday("cona");
-    	
-    	try {
-			validateAccount( accountDto );
-		} catch (AccountException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.out.println( e.getMessage() );
+
+	private void validateParents(Field accountField, AccountDto accountDto) throws IllegalAccessException, SecurityException, AccountException {
+		if (checkFieldIsParentsDto(accountField) && !checkFieldNull(accountDto, accountField) ) {
+			for ( ParentsDto parentDto : accountDto.getParentsDtoList() ) {
+				if ( null == parentDto ) {
+					throw new AccountException( EXCEPTION_PARENT_NULL);
+				} else {
+					for ( Field parentsField : parentDto.getClass().getDeclaredFields() ) {
+						parentsField.setAccessible(true);
+						checkParentsFieldNotNull(parentDto, parentsField);
+					}
+				}
+			}
 		}
-    	
-    }
-    
+	}
+
+	private void checkParentsFieldNotNull(ParentsDto parentDto, Field parentsField)
+			throws IllegalAccessException, AccountException {
+		if ( null == parentsField.get( parentDto ) ) {
+			throw new AccountException( EXCEPTION_INVALID_PARENT_MESSAGE + parentsField.getName() );
+		}
+	}
+
+	private void validateAccountField(AccountDto accountDto, Field accountField) throws IllegalAccessException, AccountException {
+		if ( !checkFieldIsParentsDto(accountField) && checkFieldNull(accountDto, accountField) ) {
+			throw new AccountException( EXCEPTION_INVALID_ACCOUNT_MESSAGE + accountField.getName() );
+		}
+	}
+
+	private boolean checkFieldNull(AccountDto accountDto, Field accountField) throws IllegalAccessException {
+		return null == accountField.get(accountDto);
+	}
+
+	private boolean checkFieldIsParentsDto(Field accountField) {
+		return accountField.getType().getSimpleName().equals(List.class.getSimpleName() );
+	}
     
 }

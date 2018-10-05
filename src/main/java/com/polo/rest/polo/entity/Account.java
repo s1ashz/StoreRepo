@@ -1,16 +1,24 @@
 package com.polo.rest.polo.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Account
 {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+	
     private int cardId;
     private String name;
     private String postalCode;
     private String birthday;
     private String gender;
     private int mobileNumber;
-    private Parents parents;
     private String level;
     private String size;
     private String observations;
@@ -63,12 +71,6 @@ public class Account
     public void setMobileNumber( int mobileNumber ) {
         this.mobileNumber = mobileNumber;
     }
-    public Parents getParents() {
-        return parents;
-    }
-    public void setParents( Parents parents ) {
-        this.parents = parents;
-    }
     public String getLevel() {
         return level;
     }
@@ -105,13 +107,13 @@ public class Account
     public void setEnrolled( boolean enrolled ) {
         this.enrolled = enrolled;
     }
-    
-    @Override
-    public String toString() {
-        return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday="
-                + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parents=" + parents + ", level=" + level
-                + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled
-                + "]";
-    }
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode
+				+ ", birthday=" + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsList="
+				+", level=" + level + ", size=" + size + ", observations=" + observations + ", cc=" + cc
+				+ ", exam=" + exam + ", enrolled=" + enrolled + "]";
+	}
     
 }

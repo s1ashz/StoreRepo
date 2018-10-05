@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.polo.rest.polo.CreateObjectsTest;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Parents;
 
@@ -26,8 +27,8 @@ public class ConvertionManagerTest
     @Before
     public void before() {
         convertionManager = ConvertionManager.getConvertionManager();
-        dtoAccount = createAccountDto();
-        entityAccount = createAccountEntity();
+        dtoAccount = CreateObjectsTest.createAccountDto();
+        entityAccount = CreateObjectsTest.createAccountEntity();
     }
     
     @Test
@@ -60,10 +61,12 @@ public class ConvertionManagerTest
     public void testEntityParentConversion() {
         Account entityTest = convertionManager.convertAccountToEntity( dtoAccount );
         
-        assertEquals( entityTest.getParents().getName(), dtoAccount.getParentsDto().getName() );
-        assertEquals( entityTest.getParents().getEmail(), dtoAccount.getParentsDto().getEmail() );
-        assertEquals( entityTest.getParents().getMobileNumber(), dtoAccount.getParentsDto().getMobileNumber() );
-        assertNotEquals( entityTest.getParents().getId(), dtoAccount.getParentsDto().getId() );
+//        for ( int i = 0; i < entityTest.getParentsList().size(); i++ ) {
+//        	assertEquals( entityTest.getParentsList().get(i).getName(), dtoAccount.getParentsDtoList().get(i).getName() );
+//        	assertEquals( entityTest.getParentsList().get(i).getEmail(), dtoAccount.getParentsDtoList().get(i).getEmail() );
+//        	assertEquals( entityTest.getParentsList().get(i).getMobileNumber(), dtoAccount.getParentsDtoList().get(i).getMobileNumber() );
+//        }
+        
     }
     
     @Test
@@ -83,69 +86,6 @@ public class ConvertionManagerTest
         assertEquals( dtoTest.isExam(), entityAccount.isExam() );
         assertEquals( dtoTest.isEnrolled(), entityAccount.isEnrolled() );
         
-    }
-    
-    private AccountDto createAccountDto() {
-        
-        AccountDto dtoAccount = new AccountDto();
-        dtoAccount.setName( UUID.randomUUID().toString() );
-        dtoAccount.setCardId( new Random().nextInt( 10000 ) );
-        dtoAccount.setMobileNumber( new Random().nextInt( 10000 ) );
-        dtoAccount.setPostalCode( UUID.randomUUID().toString() );
-        dtoAccount.setBirthday( UUID.randomUUID().toString() );
-        dtoAccount.setGender( UUID.randomUUID().toString() );
-        dtoAccount.setLevel( UUID.randomUUID().toString() );
-        dtoAccount.setSize( UUID.randomUUID().toString() );
-        dtoAccount.setObservations( UUID.randomUUID().toString() );
-        dtoAccount.setCc( true );
-        dtoAccount.setExam( true );
-        dtoAccount.setEnrolled( true );
-        dtoAccount.setParentsDto( createParentDto() );
-        
-        return dtoAccount;
-    }
-    
-    private ParentsDto createParentDto() {
-
-        ParentsDto parentDto = new ParentsDto();
-        parentDto.setId( new Random().nextInt( 10000 ) );
-        parentDto.setMobileNumber( new Random().nextInt( 10000 ) );
-        parentDto.setName( UUID.randomUUID().toString() );
-        parentDto.setEmail( UUID.randomUUID().toString() );
-        
-        return parentDto;
-    }
-    
-    private Account createAccountEntity() {
-        
-        Account entityAccount = new Account();
-        entityAccount.setId( new Random().nextInt( 10000 ) );
-        entityAccount.setName( UUID.randomUUID().toString() );
-        entityAccount.setCardId( new Random().nextInt( 10000 ) );
-        entityAccount.setMobileNumber( new Random().nextInt( 10000 ) );
-        entityAccount.setPostalCode( UUID.randomUUID().toString() );
-        entityAccount.setBirthday( UUID.randomUUID().toString() );
-        entityAccount.setGender( UUID.randomUUID().toString() );
-        entityAccount.setLevel( UUID.randomUUID().toString() );
-        entityAccount.setSize( UUID.randomUUID().toString() );
-        entityAccount.setObservations( UUID.randomUUID().toString() );
-        entityAccount.setCc( true );
-        entityAccount.setExam( true );
-        entityAccount.setEnrolled( true );
-        entityAccount.setParents( createParentEntity() );
-        
-        return entityAccount;
-    }
-    
-    private Parents createParentEntity() {
-
-        Parents parentDto = new Parents();
-        parentDto.setId( new Random().nextInt( 10000 ) );
-        parentDto.setMobileNumber( new Random().nextInt( 10000 ) );
-        parentDto.setName( UUID.randomUUID().toString() );
-        parentDto.setEmail( UUID.randomUUID().toString() );
-        
-        return parentDto;
     }
     
 }

@@ -3,7 +3,6 @@ package com.polo.rest.polo.dto;
 public class ParentsDto
 {
 
-    private int id;
     private String name;
     private String email;
     private int mobileNumber;
@@ -11,12 +10,6 @@ public class ParentsDto
     public ParentsDto() {
     }
     
-    public int getId() {
-        return id;
-    }
-    public void setId( int id ) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -35,5 +28,10 @@ public class ParentsDto
     public void setMobileNumber( int mobileNumber ) {
         this.mobileNumber = mobileNumber;
     }
+
+	@Override
+	public String toString() {
+		return "ParentsDto [name=" + name + ", email=" + email + ", mobileNumber=" + mobileNumber + "]";
+	}
     
 }

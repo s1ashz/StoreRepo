@@ -1,9 +1,25 @@
 package com.polo.rest.polo.entity;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Parents
 {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+	
+	@ManyToOne
+    private Account account;
+	
     private String name;
     private String email;
     private int mobileNumber;
@@ -35,6 +51,11 @@ public class Parents
     public void setMobileNumber( int mobileNumber ) {
         this.mobileNumber = mobileNumber;
     }
-    
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
     
 }

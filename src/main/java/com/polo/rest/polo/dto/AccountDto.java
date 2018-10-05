@@ -1,6 +1,6 @@
 package com.polo.rest.polo.dto;
 
-import com.polo.rest.polo.entity.Parents;
+import java.util.List;
 
 public class AccountDto
 {
@@ -11,7 +11,7 @@ public class AccountDto
     private String birthday;
     private String gender;
     private int mobileNumber;
-    private ParentsDto parentsDto;
+    private List<ParentsDto> parentsDtoList;
     private String level;
     private String size;
     private String observations;
@@ -94,18 +94,19 @@ public class AccountDto
     public void setEnrolled( boolean enrolled ) {
         this.enrolled = enrolled;
     }
-    public ParentsDto getParentsDto() {
-        return parentsDto;
-    }
-    public void setParentsDto( ParentsDto parentsDto ) {
-        this.parentsDto = parentsDto;
-    }
-    
-    @Override
-    public String toString() {
-        return "Account [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday="
-                + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parents=" + parentsDto + ", level=" + level
-                + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled
-                + "]";
-    }
+	public List<ParentsDto> getParentsDtoList() {
+		return parentsDtoList;
+	}
+	public void setParentsDtoList(List<ParentsDto> parentsDtoList) {
+		this.parentsDtoList = parentsDtoList;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday="
+				+ birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsDtoList="
+				+ parentsDtoList + ", level=" + level + ", size=" + size + ", observations=" + observations + ", cc="
+				+ cc + ", exam=" + exam + ", enrolled=" + enrolled + "]";
+	}
+
 }
