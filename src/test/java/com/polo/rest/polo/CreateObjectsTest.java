@@ -8,7 +8,7 @@ import java.util.UUID;
 import com.polo.rest.polo.dto.AccountDto;
 import com.polo.rest.polo.dto.ParentsDto;
 import com.polo.rest.polo.entity.Account;
-import com.polo.rest.polo.entity.Parents;
+import com.polo.rest.polo.entity.Parent;
 
 public class CreateObjectsTest {
 
@@ -72,18 +72,18 @@ public class CreateObjectsTest {
 	        return entityAccount;
 	    }
 	    
-	 	public static List<Parents> createParentEntityList() {
-	 		List<Parents> parentsEntityList = new ArrayList<>();
-	        Parents parentDto1 = createParentEntity();
-	        Parents parentDto2 = createParentEntity();
+	 	public static List<Parent> createParentEntityList() {
+	 		List<Parent> parentsEntityList = new ArrayList<>();
+	        Parent parentDto1 = createParentEntity();
+	        Parent parentDto2 = createParentEntity();
 	        parentsEntityList.add(parentDto1);
 	        parentsEntityList.add(parentDto2);
 	        
 	        return parentsEntityList;
 	    }
 
-		private static Parents createParentEntity() {
-			Parents parentDto = new Parents();
+		private static Parent createParentEntity() {
+			Parent parentDto = new Parent();
 	        parentDto.setId( new Random().nextInt( randomIntSize ) );
 	        parentDto.setMobileNumber( new Random().nextInt( randomIntSize ) );
 	        parentDto.setName( UUID.randomUUID().toString() );

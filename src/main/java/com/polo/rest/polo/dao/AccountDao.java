@@ -1,12 +1,16 @@
-package com.polo.rest.polo.service;
+package com.polo.rest.polo.dao;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import com.polo.rest.polo.dto.AccountDto;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.repository.AccountRepository;
 
-@Component
+@Repository
 public class AccountDao {
 
 	@Autowired
@@ -19,5 +23,16 @@ public class AccountDao {
 	public void createAccount( Account account ) {
 		accountRepository.save( account );
 	}
+
+	public boolean checkAccountExists(Account accountEntity) {
+		return accountRepository.existsByCardId( accountEntity.getCardId() );
+	}
 	
+	public List<Account> getAllAccounts() {
+		return (List<Account>) accountRepository.findAll();
+	}
+
+	public void updateAccount(Account accountEntity) {
+		accountRepository.save( accountEntity );
+	}
 }
