@@ -10,9 +10,9 @@ public class AccountDto
     private String name;
     private String postalCode;
     private Date birthday;
-    private char gender;
+    private String gender;
     private int mobileNumber;
-    private List<ParentsDto> parentsDtoList;
+    private List<ParentsDto> parents;
     private String level;
     private String size;
     private String observations;
@@ -48,10 +48,10 @@ public class AccountDto
     public void setBirthday( Date birthday ) {
         this.birthday = birthday;
     }
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
-    public void setGender( char gender ) {
+    public void setGender( String gender ) {
         this.gender = gender;
     }
     public int getMobileNumber() {
@@ -96,11 +96,11 @@ public class AccountDto
     public void setEnrolled( boolean enrolled ) {
         this.enrolled = enrolled;
     }
-	public List<ParentsDto> getParentsDtoList() {
-		return parentsDtoList;
+	public List<ParentsDto> getParents() {
+		return parents;
 	}
-	public void setParentsDtoList(List<ParentsDto> parentsDtoList) {
-		this.parentsDtoList = parentsDtoList;
+	public void setParents(List<ParentsDto> parentsDtoList) {
+		this.parents = parentsDtoList;
 	}
     public String getEmail() {
         return email;
@@ -112,7 +112,7 @@ public class AccountDto
     @Override
     public String toString() {
         return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday=" + birthday
-                + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsDtoList=" + parentsDtoList + ", level="
+                + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsDtoList=" + parents + ", level="
                 + level + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled="
                 + enrolled + ", email=" + email + "]";
     }

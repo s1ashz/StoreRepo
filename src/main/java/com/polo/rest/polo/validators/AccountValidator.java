@@ -34,7 +34,7 @@ public class AccountValidator
 
 	private void validateParents(Field accountField, AccountDto accountDto) throws IllegalAccessException, SecurityException, AccountException {
 		if (checkFieldIsParentsDto(accountField) && !checkFieldNull(accountDto, accountField) ) {
-			for ( ParentsDto parentDto : accountDto.getParentsDtoList() ) {
+			for ( ParentsDto parentDto : accountDto.getParents() ) {
 				if ( null == parentDto ) {
 					throw new AccountException( EXCEPTION_PARENT_NULL);
 				} else {

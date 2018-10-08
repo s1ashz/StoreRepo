@@ -184,7 +184,7 @@ public class AccountControllerImpl
     	calendar.set( Calendar.YEAR, 2017 );
     	calendar.set( 1990, 5, 19 );
     	accountDto.setBirthday( new Date(2017,5,19) );
-    	accountDto.setGender('M');
+    	accountDto.setGender("M");
     	accountDto.setObservations("Observations");
     	accountDto.setPostalCode("postal");
     	accountDto.setSize("size");
@@ -204,7 +204,7 @@ public class AccountControllerImpl
     	parentsList.add(parents1);
     	parentsList.add(parents2);
     	
-    	accountDto.setParentsDtoList( parentsList );
+    	accountDto.setParents( parentsList );
     	//accountDto.setParentsDtoList( null );
 		return accountDto;
 	}

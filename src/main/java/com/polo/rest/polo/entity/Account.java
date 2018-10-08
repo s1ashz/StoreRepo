@@ -15,11 +15,13 @@ public class Account
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 	
+	METER ADDRESS
+	
     private int cardId;
     private String name;
     private String postalCode;
     private Date birthday;
-    private char gender;
+    private String gender;
     private int mobileNumber;
     private String level;
     private String size;
@@ -62,10 +64,10 @@ public class Account
     public void setBirthday( Date birthday ) {
         this.birthday = birthday;
     }
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
-    public void setGender( char gender ) {
+    public void setGender( String gender ) {
         this.gender = gender;
     }
     public int getMobileNumber() {

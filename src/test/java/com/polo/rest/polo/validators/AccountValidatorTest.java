@@ -111,8 +111,8 @@ public class AccountValidatorTest {
 	public void validateDtoFieldTest7() throws AccountException {
 		String nullFieldName;		
 		//Parents Test
-		nullFieldName = accountFieldNamesMap.get( accountDto.getParentsDtoList().toString() );
-		accountDto.setParentsDtoList(null);
+		nullFieldName = accountFieldNamesMap.get( accountDto.getParents().toString() );
+		accountDto.setParents(null);
 		assertNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
 	}
 	
@@ -120,7 +120,7 @@ public class AccountValidatorTest {
 	public void validateDtoFieldTest8() throws AccountException {
 		String nullFieldName;	
 		//Parent Name Test
-		for ( ParentsDto parent : accountDto.getParentsDtoList() ) {
+		for ( ParentsDto parent : accountDto.getParents() ) {
 			nullFieldName = parentsFieldNamesMap.get( parent.getName() );
 			parent.setName( null );
 			asserAccountException( accountDto, EXCEPTION_INVALID_PARENT_MESSAGE_TEST, nullFieldName );
@@ -131,7 +131,7 @@ public class AccountValidatorTest {
 	public void validateDtoFieldTest9() throws AccountException {
 		String nullFieldName;	
 		//Parent Email Test
-		for ( ParentsDto parent : accountDto.getParentsDtoList() ) {
+		for ( ParentsDto parent : accountDto.getParents() ) {
 			nullFieldName = parentsFieldNamesMap.get( parent.getEmail() );
 			parent.setEmail( null );
 			asserAccountException( accountDto, EXCEPTION_INVALID_PARENT_MESSAGE_TEST, nullFieldName );
@@ -166,7 +166,7 @@ public class AccountValidatorTest {
 	}
 	
 	private void fillMapWithParentsFieldsName() {
-		for ( ParentsDto parentDto : accountDto.getParentsDtoList() ) {
+		for ( ParentsDto parentDto : accountDto.getParents() ) {
 			for ( Field parentField : parentDto.getClass().getDeclaredFields() ) {
 				try {
 					parentField.setAccessible(true);

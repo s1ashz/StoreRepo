@@ -22,7 +22,7 @@ public class CreateObjectsTest {
 	        dtoAccount.setMobileNumber( new Random().nextInt( randomIntSize ) );
 	        dtoAccount.setPostalCode( UUID.randomUUID().toString() );
 	        dtoAccount.setBirthday( new Date(1880,5,25) );
-	        dtoAccount.setGender( 'M' );
+	        dtoAccount.setGender( "M" );
 	        dtoAccount.setLevel( UUID.randomUUID().toString() );
 	        dtoAccount.setSize( UUID.randomUUID().toString() );
 	        dtoAccount.setObservations( UUID.randomUUID().toString() );
@@ -30,7 +30,7 @@ public class CreateObjectsTest {
 	        dtoAccount.setExam( true );
 	        dtoAccount.setEnrolled( true );
 	        dtoAccount.setEmail( UUID.randomUUID().toString() );
-	        dtoAccount.setParentsDtoList( createParentDtoList() );
+	        dtoAccount.setParents( createParentDtoList() );
 	        
 	        return dtoAccount;
 	    }
@@ -62,7 +62,7 @@ public class CreateObjectsTest {
 	        entityAccount.setMobileNumber( new Random().nextInt( randomIntSize ) );
 	        entityAccount.setPostalCode( UUID.randomUUID().toString() );
 	        entityAccount.setBirthday( new Date(1880,5,25) );
-	        entityAccount.setGender( 'M' );
+	        entityAccount.setGender( "M" );
 	        entityAccount.setLevel( UUID.randomUUID().toString() );
 	        entityAccount.setSize( UUID.randomUUID().toString() );
 	        entityAccount.setObservations( UUID.randomUUID().toString() );

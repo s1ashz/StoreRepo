@@ -48,7 +48,7 @@ public class AccountService {
 		Account accountEntity = convertionManagerInstance.convertAccountToEntity( accountDto );
 		checkAccountExists(accountEntity, CREATE);
 		accountDao.createAccount( accountEntity );
-		List<Parent> parentsEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParentsDtoList(), accountEntity );
+		List<Parent> parentsEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParents(), accountEntity );
 		parentDao.createParent( parentsEntityList );
 	}
 	
@@ -59,7 +59,7 @@ public class AccountService {
 		
 		AccountDto accountDto = convertionManagerInstance.convertAccountToDto( accountEntity );
 		List<ParentsDto> parentDtoList = convertionManagerInstance.convertParentsToDto( parentList );
-		accountDto.setParentsDtoList( parentDtoList );
+		accountDto.setParents( parentDtoList );
 		
 		return accountDto;
 	}
@@ -79,7 +79,7 @@ public class AccountService {
 		accountEntity.setId( oldAccountEntity.getId() );
 		parentDao.deleteParents( accountEntity );
 		
-		List<Parent> parentEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParentsDtoList(), accountEntity );
+		List<Parent> parentEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParents(), accountEntity );
 		
 		parentDao.createParent(parentEntityList);
 		accountDao.updateAccount( accountEntity );
@@ -91,7 +91,7 @@ public class AccountService {
 			List<Parent> parentEntityList = parentDao.getParentsByAccount(acc);
 			List<ParentsDto> parentDtoList = convertionManagerInstance.convertParentsToDto( parentEntityList );
 			AccountDto accountDto = convertionManagerInstance.convertAccountToDto(acc);
-			accountDto.setParentsDtoList( parentDtoList );
+			accountDto.setParents( parentDtoList );
 			accountDtoList.add(accountDto);
 		}
 		return accountDtoList;
