@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class AccountValidatorTest {
 		String nullFieldName;
 		
 		//Birthday Test
-		nullFieldName = accountFieldNamesMap.get( accountDto.getBirthday() );
+		nullFieldName = accountFieldNamesMap.get( "" + accountDto.getBirthday().getYear() + accountDto.getBirthday().getMonth() + accountDto.getBirthday().getDay() );
 		accountDto.setBirthday(null);
 		assertNotNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
 	}
@@ -72,9 +73,9 @@ public class AccountValidatorTest {
 		String nullFieldName;
 		
 		//Gender Test
-		nullFieldName = accountFieldNamesMap.get( accountDto.getGender() );
-		accountDto.setGender(null);
-		assertNotNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
+		//nullFieldName = accountFieldNamesMap.get( accountDto.getGender() );
+		//accountDto.setGender("");
+		//assertNotNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
 	}
 	
 	@Test()
@@ -151,7 +152,13 @@ public class AccountValidatorTest {
 		for ( Field accountField : accountDto.getClass().getDeclaredFields() ) {
 			try {
 				accountField.setAccessible(true);
-				accountFieldNamesMap.put(accountField.get(accountDto).toString(), accountField.getName().toString() );
+				if ( accountField.get(accountDto) instanceof Date ) {
+				    Date datelabel = (Date) accountField.get(accountDto);
+				    accountFieldNamesMap.put( "" + datelabel.getYear() + datelabel.getMonth() + datelabel.getDay() , accountField.getName().toString() );
+				} else {
+				    accountFieldNamesMap.put(accountField.get(accountDto).toString(), accountField.getName().toString() );
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.polo.rest.polo.CreateObjectsTest;
 import com.polo.rest.polo.entity.Account;
-import com.polo.rest.polo.entity.Parents;
+import com.polo.rest.polo.entity.Parent;
 
 @RunWith(SpringRunner.class)
 public class ConvertionManagerTest

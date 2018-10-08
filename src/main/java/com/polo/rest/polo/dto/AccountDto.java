@@ -1,5 +1,6 @@
 package com.polo.rest.polo.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class AccountDto
@@ -8,8 +9,8 @@ public class AccountDto
     private int cardId;
     private String name;
     private String postalCode;
-    private String birthday;
-    private String gender;
+    private Date birthday;
+    private char gender;
     private int mobileNumber;
     private List<ParentsDto> parentsDtoList;
     private String level;
@@ -18,6 +19,7 @@ public class AccountDto
     private boolean cc;
     private boolean exam;
     private boolean enrolled;
+    private String email;
    
     public AccountDto() {
     }
@@ -40,16 +42,16 @@ public class AccountDto
     public void setPostalCode( String postalCode ) {
         this.postalCode = postalCode;
     }
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
-    public void setBirthday( String birthday ) {
+    public void setBirthday( Date birthday ) {
         this.birthday = birthday;
     }
-    public String getGender() {
+    public char getGender() {
         return gender;
     }
-    public void setGender( String gender ) {
+    public void setGender( char gender ) {
         this.gender = gender;
     }
     public int getMobileNumber() {
@@ -100,13 +102,19 @@ public class AccountDto
 	public void setParentsDtoList(List<ParentsDto> parentsDtoList) {
 		this.parentsDtoList = parentsDtoList;
 	}
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail( String email ) {
+        this.email = email;
+    }
 
-	@Override
-	public String toString() {
-		return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday="
-				+ birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsDtoList="
-				+ parentsDtoList + ", level=" + level + ", size=" + size + ", observations=" + observations + ", cc="
-				+ cc + ", exam=" + exam + ", enrolled=" + enrolled + "]";
-	}
+    @Override
+    public String toString() {
+        return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday=" + birthday
+                + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsDtoList=" + parentsDtoList + ", level="
+                + level + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled="
+                + enrolled + ", email=" + email + "]";
+    }
 
 }

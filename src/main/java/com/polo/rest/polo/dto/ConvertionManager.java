@@ -1,10 +1,16 @@
 package com.polo.rest.polo.dto;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import com.polo.rest.polo.constants.Months;
 import com.polo.rest.polo.entity.Account;
-import com.polo.rest.polo.entity.Parents;
+import com.polo.rest.polo.entity.Parent;
+import com.polo.rest.polo.entity.Payment;
 
 public class ConvertionManager
 {
@@ -34,15 +40,16 @@ public class ConvertionManager
         dtoAccount.setCc( entityAccount.isCc() );
         dtoAccount.setExam( entityAccount.isExam() );
         dtoAccount.setEnrolled( entityAccount.isEnrolled() );
+        dtoAccount.setEmail( entityAccount.getEmail() );
 
         //dtoAccount.setParentsDtoList( convertParentsToDto( entityAccount.getParentsList() ) );
         
         return dtoAccount;
     }
     
-    private List<ParentsDto> convertParentsToDto( List<Parents> entityParentsList ) {
+    public List<ParentsDto> convertParentsToDto( List<Parent> entityParentsList ) {
     	List<ParentsDto> parentsDtoList = new ArrayList<>();
-    	for ( Parents parent : entityParentsList  ) {
+    	for ( Parent parent : entityParentsList  ) {
     		ParentsDto dtoParent = new ParentsDto();
     		dtoParent.setName( parent.getName() );
     		dtoParent.setEmail( parent.getEmail() );
@@ -68,23 +75,42 @@ public class ConvertionManager
         entityAccount.setCc( dtoAccount.isCc() );
         entityAccount.setExam( dtoAccount.isExam() );
         entityAccount.setEnrolled( dtoAccount.isEnrolled() );
+        entityAccount.setEmail( dtoAccount.getEmail() );
 
         //entityAccount.setParentsList( convertParentsDtoToEntity( dtoAccount.getParentsDtoList() ) );
         
         return entityAccount;
     }
     
-    private List<Parents> convertParentsDtoToEntity( List<ParentsDto> dtoParentsList ) {
-    	List<Parents> parentsEntityList = new ArrayList<>();
-    	for ( ParentsDto parentDto : dtoParentsList  ) {
-    		Parents entityParents = new Parents();
-            entityParents.setName( parentDto.getName() );
-            entityParents.setEmail( parentDto.getEmail() );
-            entityParents.setMobileNumber( parentDto.getMobileNumber() );
-    		
-            parentsEntityList.add( entityParents );
+    public List<Parent> convertParentsDtoToEntity( List<ParentsDto> dtoParentsList, Account accountEntity ) {
+    	List<Parent> parentsEntityList = new ArrayList<>();
+    	if ( null != dtoParentsList ) {
+	    	for ( ParentsDto parentDto : dtoParentsList  ) {
+	    		Parent entityParents = new Parent();
+	            entityParents.setName( parentDto.getName() );
+	            entityParents.setEmail( parentDto.getEmail() );
+	            entityParents.setMobileNumber( parentDto.getMobileNumber() );
+	    		entityParents.setAccount( accountEntity );
+	            
+	    		parentsEntityList.add( entityParents );
+	    	}
     	}
         return parentsEntityList;
     }
+
+    //PAYMENTS--------------
+
+    public PaymentDto convertPaymentToDto( List<Payment> paymentEntityList, int year ) {
+        Map<String, Double> monthlyPays = new HashMap<>();
+        for (Payment payment : paymentEntityList ) {
+            monthlyPays.put( payment.getMonth(), payment.getAmmount() );
+        }
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setYear( year );
+        paymentDto.setMonthPayments( monthlyPays );
+        
+        return paymentDto;
+    }
+    
     
 }

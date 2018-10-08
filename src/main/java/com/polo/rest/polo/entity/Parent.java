@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Parents
+public class Parent
 {
 
 	@Id
@@ -24,7 +24,7 @@ public class Parents
     private String email;
     private int mobileNumber;
     
-    public Parents() {
+    public Parent() {
     }
     
     public int getId() {
