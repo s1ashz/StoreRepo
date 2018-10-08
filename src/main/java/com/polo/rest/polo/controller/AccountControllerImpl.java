@@ -25,6 +25,7 @@ import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.repository.PaymentRepository;
+import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.service.AccountService;
 
 @RestController
