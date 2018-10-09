@@ -31,6 +31,7 @@ public class CreateObjectsTest {
 	        dtoAccount.setEnrolled( true );
 	        dtoAccount.setEmail( UUID.randomUUID().toString() );
 	        dtoAccount.setParents( createParentDtoList() );
+	        dtoAccount.setAddress( UUID.randomUUID().toString() );
 	        
 	        return dtoAccount;
 	    }
@@ -70,6 +71,7 @@ public class CreateObjectsTest {
 	        entityAccount.setExam( true );
 	        entityAccount.setEnrolled( true );
 	        entityAccount.setEmail( UUID.randomUUID().toString() );
+	        entityAccount.setAddress( UUID.randomUUID().toString() );
 	        //entityAccount.setParentsList( createParentEntityList() );
 	        
 	        return entityAccount;

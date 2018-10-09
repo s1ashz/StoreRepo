@@ -10,6 +10,7 @@ import static org.junit.Assert.assertNull;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
@@ -155,6 +156,8 @@ public class AccountValidatorTest {
 				if ( accountField.get(accountDto) instanceof Date ) {
 				    Date datelabel = (Date) accountField.get(accountDto);
 				    accountFieldNamesMap.put( "" + datelabel.getYear() + datelabel.getMonth() + datelabel.getDay() , accountField.getName().toString() );
+				} else if( accountField.get( accountDto ) instanceof List<?> ) {
+				    System.out.println( "YEARS LIST" );
 				} else {
 				    accountFieldNamesMap.put(accountField.get(accountDto).toString(), accountField.getName().toString() );
 				}

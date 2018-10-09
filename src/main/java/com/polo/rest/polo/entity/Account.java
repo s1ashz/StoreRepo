@@ -15,11 +15,10 @@ public class Account
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 	
-	METER ADDRESS
-	
     private int cardId;
     private String name;
     private String postalCode;
+    private String address;
     private Date birthday;
     private String gender;
     private int mobileNumber;
@@ -118,13 +117,19 @@ public class Account
     public void setEmail( String email ) {
         this.email = email;
     }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress( String address ) {
+        this.address = address;
+    }
 
     @Override
     public String toString() {
-        return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday="
-                + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", level=" + level + ", size=" + size
-                + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled + ", email=" + email
-                + "]";
+        return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", address=" + address
+                + ", birthday=" + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", level=" + level
+                + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled
+                + ", email=" + email + "]";
     }
     
 }

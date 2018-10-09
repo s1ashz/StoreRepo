@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.polo.rest.polo.dao.AccountDao;
 import com.polo.rest.polo.dao.ParentDao;
+import com.polo.rest.polo.dao.PaymentDao;
 import com.polo.rest.polo.dto.AccountDto;
 import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.ParentsDto;
@@ -31,6 +32,9 @@ public class AccountService {
 	
 	@Autowired
 	private ParentDao parentDao;
+	
+	@Autowired
+    private PaymentDao paymentDao;
 	
 	private ConvertionManager convertionManagerInstance;
 	
@@ -60,6 +64,11 @@ public class AccountService {
 		AccountDto accountDto = convertionManagerInstance.convertAccountToDto( accountEntity );
 		List<ParentsDto> parentDtoList = convertionManagerInstance.convertParentsToDto( parentList );
 		accountDto.setParents( parentDtoList );
+		
+		//TODO years list
+		
+		List<Integer> yearList = paymentDao.getPaymentYearsList(cardId);
+		accountDto.setYearsPaid( yearList );
 		
 		return accountDto;
 	}

@@ -23,4 +23,10 @@ public class PaymentDao
 		return paymentRepository.existsByCardIdAndYear(cardId, year);
 	}
 
+    public List<Integer> getPaymentYearsList( int cardId ) {
+        return paymentRepository.findDistinctYearByCardId(cardId);
+                
+                //findFirstByImportTypeOrderByTimestampDesc
+    }
+
 }

@@ -41,6 +41,7 @@ public class ConvertionManager
         dtoAccount.setExam( entityAccount.isExam() );
         dtoAccount.setEnrolled( entityAccount.isEnrolled() );
         dtoAccount.setEmail( entityAccount.getEmail() );
+        dtoAccount.setAddress( entityAccount.getAddress() );
 
         //dtoAccount.setParentsDtoList( convertParentsToDto( entityAccount.getParentsList() ) );
         
@@ -76,6 +77,7 @@ public class ConvertionManager
         entityAccount.setExam( dtoAccount.isExam() );
         entityAccount.setEnrolled( dtoAccount.isEnrolled() );
         entityAccount.setEmail( dtoAccount.getEmail() );
+        entityAccount.setAddress( dtoAccount.getAddress() );
 
         //entityAccount.setParentsList( convertParentsDtoToEntity( dtoAccount.getParentsDtoList() ) );
         

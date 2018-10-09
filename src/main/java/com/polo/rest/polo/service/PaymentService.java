@@ -17,14 +17,14 @@ import static com.polo.rest.polo.constants.ExceptionMessages.*;
 public class PaymentService
 {
     
+    @Autowired
+    private PaymentDao paymentDao;
+    
     ConvertionManager convertionManagerInstance;
     
     public PaymentService() {
         convertionManagerInstance = ConvertionManager.getConvertionManager();
     }
-    
-    @Autowired
-    private PaymentDao paymentDao;
 
     public PaymentDto getAccountByCardIdAndYear( int cardId, int year ) throws PaymentException {
     	checkPaymentExists(cardId, year);

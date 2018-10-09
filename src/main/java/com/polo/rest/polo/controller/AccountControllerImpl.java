@@ -135,14 +135,14 @@ public class AccountControllerImpl
         
         //-------------------------
         
-        Payment payment1 = createPaymentForTEsts(1, 2017, "jan");
-        Payment payment11 = createPaymentForTEsts(1, 2017, "Fev");
-        Payment payment12 = createPaymentForTEsts(1, 2017, "Apr");
+        Payment payment1 = createPaymentForTEsts(1, 2014, "jan");
+        Payment payment11 = createPaymentForTEsts(1, 2015, "Fev");
+        Payment payment12 = createPaymentForTEsts(1, 2016, "Apr");
         Payment payment13 = createPaymentForTEsts(1, 2017, "Jul");
         Payment payment14 = createPaymentForTEsts(1, 2017, "Nov");
         Payment payment2 = createPaymentForTEsts(2, 2017, "jan");
-        Payment payment3 = createPaymentForTEsts(3, 2017, "jan");
-        Payment payment4 = createPaymentForTEsts(4, 2017, "jan");
+        Payment payment3 = createPaymentForTEsts(3, 2018, "jan");
+        Payment payment4 = createPaymentForTEsts(4, 2018, "jan");
         
         List<Payment> payList = new ArrayList<>();
         payList.add( payment1 );
@@ -191,6 +191,7 @@ public class AccountControllerImpl
     	accountDto.setLevel("level");
     	accountDto.setCardId(cardId);
     	accountDto.setEmail( "Email" );
+    	accountDto.setAddress( "address" );
     	
     	List<ParentsDto> parentsList = new ArrayList<>();
     	ParentsDto parents1 = new ParentsDto();

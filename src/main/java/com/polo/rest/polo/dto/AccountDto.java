@@ -13,9 +13,11 @@ public class AccountDto
     private String gender;
     private int mobileNumber;
     private List<ParentsDto> parents;
+    private List<Integer> yearsPaid;
     private String level;
     private String size;
     private String observations;
+    private String address;
     private boolean cc;
     private boolean exam;
     private boolean enrolled;
@@ -108,13 +110,25 @@ public class AccountDto
     public void setEmail( String email ) {
         this.email = email;
     }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress( String address ) {
+        this.address = address;
+    }
+    public List<Integer> getYearsPaid() {
+        return yearsPaid;
+    }
+    public void setYearsPaid( List<Integer> yearsPaid ) {
+        this.yearsPaid = yearsPaid;
+    }
 
     @Override
     public String toString() {
         return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday=" + birthday
-                + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parentsDtoList=" + parents + ", level="
-                + level + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled="
-                + enrolled + ", email=" + email + "]";
+                + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parents=" + parents + ", yearsPaid=" + yearsPaid
+                + ", level=" + level + ", size=" + size + ", observations=" + observations + ", address=" + address + ", cc=" + cc
+                + ", exam=" + exam + ", enrolled=" + enrolled + ", email=" + email + "]";
     }
 
 }
