@@ -10,9 +10,10 @@ import com.polo.rest.polo.entity.Payment;
 
 public interface PaymentRepository extends CrudRepository<Payment, Long>
 {
-
 	boolean existsByCardIdAndYear(int cardId, int year);
+	boolean existsByCardIdAndYearAndMonth(int cardId, int year, String month);
     List<Payment> getByCardIdAndYear( int cardId, int year );
+    Payment getByCardIdAndYearAndMonth(int cardId, int year, String month);
 
     @Query("SELECT DISTINCT p.year FROM Payment p WHERE p.cardId =:myparam ORDER BY p.year")
     List<Integer> findDistinctYearByCardId(@Param("myparam") int cardId);

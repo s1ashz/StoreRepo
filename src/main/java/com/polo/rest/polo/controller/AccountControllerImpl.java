@@ -27,6 +27,7 @@ import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.repository.PaymentRepository;
+import com.polo.rest.polo.responses.ResponseJson;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.service.AccountService;
 
@@ -58,9 +59,8 @@ public class AccountControllerImpl
     }
 
     @RequestMapping( value=ACCOUNT_CREATE, method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE )
-    public String createAccount( @RequestBody(required=true) AccountDto newAccount ) throws AccountException {
-    	accountService.createAccount( newAccount );
-    	return "saved: " + newAccount.toString(); 
+    public ResponseJson createAccount( @RequestBody(required=true) AccountDto newAccount ) throws AccountException {
+    	return accountService.createAccount( newAccount );
     }
 
     @RequestMapping( value=ACCOUNT_GET_ACCOUNT_BY_CARD_ID, method=RequestMethod.GET )
@@ -164,12 +164,12 @@ public class AccountControllerImpl
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setYear( year );
         paymentDto.setCardId( cardId );
-        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
-        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
-        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
-        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
-        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
-        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        paymentDto.getMonthPayments().get( 0 ).setValue( 20.00 );
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );
         
         return ConvertionManager.getConvertionManager().convertPaymentDtoToEntity( paymentDto );
     }

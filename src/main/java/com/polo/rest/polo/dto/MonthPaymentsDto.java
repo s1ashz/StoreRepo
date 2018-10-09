@@ -6,6 +6,9 @@ public class MonthPaymentsDto
     private String month;
     private double value;
     
+    public MonthPaymentsDto() {
+	}
+    
     public MonthPaymentsDto( String monthName ) {
         month = monthName;
     }

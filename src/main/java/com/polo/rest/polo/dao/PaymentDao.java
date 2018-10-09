@@ -19,8 +19,12 @@ public class PaymentDao
         return paymentRepository.getByCardIdAndYear( cardId, year );
     }
 
-	public boolean checkPaymentExists(int cardId, int year) {
+	public boolean checkPaymentExistsByCardIdAndYear(int cardId, int year) {
 		return paymentRepository.existsByCardIdAndYear(cardId, year);
+	}
+	
+	public boolean checkPaymentExistsByCardIdAndYearAndMonth(int cardId, int year, String month) {
+		return paymentRepository.existsByCardIdAndYearAndMonth(cardId, year, month);
 	}
 
     public List<Integer> getPaymentYearsList( int cardId ) {
@@ -28,5 +32,14 @@ public class PaymentDao
                 
                 //findFirstByImportTypeOrderByTimestampDesc
     }
+
+	public void createPayment(Payment payment) {
+		paymentRepository.save(payment);
+	}
+
+	public Payment getPaymentByCardIdAndYearAndMonth(int cardId, int year, String month) {
+		return paymentRepository.getByCardIdAndYearAndMonth(cardId, year, month);
+		
+	}
 
 }

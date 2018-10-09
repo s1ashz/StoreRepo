@@ -103,11 +103,11 @@ public class ConvertionManager
 
     //PAYMENTS--------------
 
-    public PaymentDto convertPaymentToDto( List<Payment> paymentEntityList, int year ) {
+    public PaymentDto convertPaymentToDto( List<Payment> paymentEntityList, int cardId, int year ) {
         PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setCardId( cardId );
         paymentDto.setYear( year );
         for (Payment payment : paymentEntityList ) {
-            System.out.println( payment.getAmmount() );
             for (MonthPaymentsDto monthPayment : paymentDto.getMonthPayments() ) {
                 if ( monthPayment.getMonth().equals( payment.getMonth().toUpperCase() )) {
                     monthPayment.setValue( payment.getAmmount() );
