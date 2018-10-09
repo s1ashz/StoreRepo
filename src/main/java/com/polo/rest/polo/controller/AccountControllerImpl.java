@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.polo.rest.polo.dto.AccountDto;
+import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.ParentsDto;
 import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
@@ -135,46 +137,42 @@ public class AccountControllerImpl
         
         //-------------------------
         
-        Payment payment1 = createPaymentForTEsts(1, 2014, "jan");
-        Payment payment11 = createPaymentForTEsts(1, 2015, "Fev");
-        Payment payment12 = createPaymentForTEsts(1, 2016, "Apr");
-        Payment payment13 = createPaymentForTEsts(1, 2017, "Jul");
-        Payment payment14 = createPaymentForTEsts(1, 2017, "Nov");
-        Payment payment2 = createPaymentForTEsts(2, 2017, "jan");
-        Payment payment3 = createPaymentForTEsts(3, 2018, "jan");
-        Payment payment4 = createPaymentForTEsts(4, 2018, "jan");
-        
-        List<Payment> payList = new ArrayList<>();
-        payList.add( payment1 );
-        payList.add( payment11 );
-        payList.add( payment12 );
-        payList.add( payment13 );
-        payList.add( payment14 );
-        payList.add( payment2 );
-        payList.add( payment3 );
-        payList.add( payment4 );
-        
         String accountPrint = accountDto1.toString() + "\n" + 
         		accountDto2.toString() + "\n" + 
         		accountDto3.toString() + "\n" + 
         		accountDto4.toString() + "\n";
         
-        for (Payment p : payList ) {
-        	accountPrint += p.toString() + "\n"; 
-        }
+        //for (Payment p : payList ) {
+        	//accountPrint += p.toString() + "\n"; 
+        //}
         
-        paymentRepository.saveAll( payList );
-
-        
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2015 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2016 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2017 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2018 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2016 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2017 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2018 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2017 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2018 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 4, 2018 ) );
         
         return accountPrint;
     }
     
-    
-    
-    
-    
-    
+    private List<Payment> createPaymentDtoForTEsts( int cardId, int year ) {
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setYear( year );
+        paymentDto.setCardId( cardId );
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( 20.00 );;
+        
+        return ConvertionManager.getConvertionManager().convertPaymentDtoToEntity( paymentDto );
+    }
     
 	private AccountDto createDtoForTests(String name, int cardId, String parentName1, String parentName2) {
 		AccountDto accountDto = new AccountDto();

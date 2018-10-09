@@ -27,7 +27,6 @@ public class PaymentControllerImpl
     }
     
     public void createAccountPayment() {
-        
     }
     
     public List<PaymentDto> getAccountPayments() {

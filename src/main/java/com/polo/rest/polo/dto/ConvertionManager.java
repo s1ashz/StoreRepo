@@ -1,6 +1,7 @@
 package com.polo.rest.polo.dto;
 
 import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -103,15 +104,37 @@ public class ConvertionManager
     //PAYMENTS--------------
 
     public PaymentDto convertPaymentToDto( List<Payment> paymentEntityList, int year ) {
-        Map<String, Double> monthlyPays = new HashMap<>();
-        for (Payment payment : paymentEntityList ) {
-            monthlyPays.put( payment.getMonth(), payment.getAmmount() );
-        }
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setYear( year );
-        paymentDto.setMonthPayments( monthlyPays );
-        
+        for (Payment payment : paymentEntityList ) {
+            System.out.println( payment.getAmmount() );
+            for (MonthPaymentsDto monthPayment : paymentDto.getMonthPayments() ) {
+                if ( monthPayment.getMonth().equals( payment.getMonth().toUpperCase() )) {
+                    monthPayment.setValue( payment.getAmmount() );
+                }
+            }
+        }
         return paymentDto;
+    }
+    
+    public List<Payment> convertPaymentDtoToEntity( PaymentDto paymentDto ) {
+        
+        List<Payment> paymentList = new ArrayList<>();
+        
+        
+        for ( MonthPaymentsDto monthPayment : paymentDto.getMonthPayments() ) {
+            Payment paymentEntity = new Payment();
+            paymentEntity.setCardId( paymentDto.getCardId() );
+            paymentEntity.setYear( paymentDto.getYear() );
+            paymentEntity.setMonth( monthPayment.getMonth() );
+            if ( 0.00 != monthPayment.getValue() ) {
+                paymentEntity.setAmmount( monthPayment.getValue() );
+                paymentEntity.setPaid( true );
+            }
+            paymentList.add( paymentEntity );
+        }
+        
+        return paymentList;
     }
     
     
