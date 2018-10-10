@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.polo.rest.polo.constants.Months;
 import com.polo.rest.polo.dto.AccountDto;
+import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.ParentsDto;
+import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Parent;
+import com.polo.rest.polo.entity.Payment;
 
 public class CreateObjectsTest {
 
@@ -96,5 +100,57 @@ public class CreateObjectsTest {
 	        
 			return parentDto;
 		}
-	
+		
+		//PAYMENTS --------------
+		
+		public static PaymentDto createPaymentDto() {
+	        PaymentDto paymentDto = new PaymentDto();
+	        paymentDto.setYear( new Random().nextInt( randomIntSize ) );
+	        paymentDto.setCardId( new Random().nextInt( randomIntSize ) );
+	        paymentDto.getMonthPayments().get( 0 ).setValue( new Random().nextInt( randomIntSize ) );
+	        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( new Random().nextInt( randomIntSize ) );
+	        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( new Random().nextInt( randomIntSize ) );
+	        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( new Random().nextInt( randomIntSize ) );
+	        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( new Random().nextInt( randomIntSize ) );
+	        paymentDto.getMonthPayments().get( new Random().nextInt( 11 ) ).setValue( new Random().nextInt( randomIntSize ) );
+	        
+	        return paymentDto;
+	    }
+
+        public static List<Payment> createPaymentEntityList() {
+            List<Payment> paymentList = new ArrayList<>();
+            Payment payment1 = createPayment( Months.JANUARY.name() );
+            Payment payment2 = createPayment( Months.APRIL.name() );
+            Payment payment3 = createPayment( Months.JULY.name() );
+            Payment payment4 = createPayment( Months.SEPTEMBER.name() );
+            Payment payment5 = createPayment( Months.DECEMBER.name() );
+            
+            paymentList.add( payment1 );
+            paymentList.add( payment2 );
+            paymentList.add( payment3 );
+            paymentList.add( payment4 );
+            paymentList.add( payment5 );
+            
+            return paymentList;
+        }
+
+        private static Payment createPayment( String month ) {
+            Payment payment = new Payment();
+            payment.setAmmount( new Random().nextInt( randomIntSize ) );
+            payment.setYear( new Random().nextInt( randomIntSize ) );
+            payment.setCardId( new Random().nextInt( randomIntSize ) );
+            payment.setPaid( true );
+            payment.setMonth( month );
+            return payment;
+        }
+		
+		
+        
+        
+        
+        
+        
+        
+        
+        
 }

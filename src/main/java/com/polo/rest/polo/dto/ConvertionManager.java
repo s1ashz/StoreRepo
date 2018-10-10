@@ -1,14 +1,8 @@
 package com.polo.rest.polo.dto;
 
-import java.time.Month;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import com.polo.rest.polo.constants.Months;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Parent;
 import com.polo.rest.polo.entity.Payment;
@@ -80,8 +74,6 @@ public class ConvertionManager
         entityAccount.setEmail( dtoAccount.getEmail() );
         entityAccount.setAddress( dtoAccount.getAddress() );
 
-        //entityAccount.setParentsList( convertParentsDtoToEntity( dtoAccount.getParentsDtoList() ) );
-        
         return entityAccount;
     }
     
@@ -120,8 +112,6 @@ public class ConvertionManager
     public List<Payment> convertPaymentDtoToEntity( PaymentDto paymentDto ) {
         
         List<Payment> paymentList = new ArrayList<>();
-        
-        
         for ( MonthPaymentsDto monthPayment : paymentDto.getMonthPayments() ) {
             Payment paymentEntity = new Payment();
             paymentEntity.setCardId( paymentDto.getCardId() );

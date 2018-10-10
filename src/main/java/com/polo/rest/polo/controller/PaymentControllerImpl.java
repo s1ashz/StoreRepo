@@ -35,20 +35,7 @@ public class PaymentControllerImpl
     
     @RequestMapping( value=PAYMENTS_CREATE )
     public ResponseJson createAccountPayment( @RequestBody(required=true) PaymentDto paymentDto ) throws PaymentException {
-   	//public ResponseJson createAccountPayment( ) throws PaymentException {
-    	//PaymentDto paymentDto = new PaymentDto();
     	return paymentService.createAccountPayment( paymentDto );
     }
-    
-    public List<PaymentDto> getAccountPayments() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public ResponseEntity updatePayment() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
     
 }
