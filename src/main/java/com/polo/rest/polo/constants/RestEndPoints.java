@@ -13,8 +13,9 @@ public interface RestEndPoints {
 	
 	String PAYMENTS_CREATE = "/account/payments/pay/";
 	String PAYMENTS_GET_BY_CARD_ID = "/account/payments/{cardId}/{year}";
-	String ACCOUNT_GET_ACCOUNT = "/account/get/{cardId}";
 	
+	String EVENT_CREATE = "/event/create";
+    String EVENT_GET = "/event/{eventId}";
 	
 	
 	
