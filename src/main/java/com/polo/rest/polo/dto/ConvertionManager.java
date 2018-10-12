@@ -101,7 +101,7 @@ public class ConvertionManager
         paymentDto.setYear( year );
         for (Payment payment : paymentEntityList ) {
             for (MonthPaymentsDto monthPayment : paymentDto.getMonthPayments() ) {
-                if ( monthPayment.getMonth().equals( payment.getMonth().toUpperCase() )) {
+                if ( monthPayment.getMonth() == payment.getMonth() ) {
                     monthPayment.setValue( payment.getAmmount() );
                 }
             }

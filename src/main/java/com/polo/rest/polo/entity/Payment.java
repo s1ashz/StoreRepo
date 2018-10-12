@@ -13,7 +13,7 @@ public class Payment
     private long id;
     private int cardId;
     private int year;
-    private String month;
+    private int month;
     private boolean paid;
     private double ammount;
     
@@ -35,12 +35,6 @@ public class Payment
     public void setYear( int year ) {
         this.year = year;
     }
-    public String getMonth() {
-        return month;
-    }
-    public void setMonth( String month ) {
-        this.month = month;
-    }
     public boolean isPaid() {
         return paid;
     }
@@ -52,6 +46,12 @@ public class Payment
     }
     public void setAmmount( double ammount ) {
         this.ammount = ammount;
+    }
+    public int getMonth() {
+        return month;
+    }
+    public void setMonth( int month ) {
+        this.month = month;
     }
     
     @Override

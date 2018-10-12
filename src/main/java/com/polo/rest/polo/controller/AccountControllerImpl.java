@@ -47,12 +47,12 @@ public class AccountControllerImpl
         return ResponseEntity.ok().build().toString();
     }
     
-    private Payment createPaymentForTEsts(int cardId, int year, String month) {
+    private Payment createPaymentForTEsts(int cardId, int year, int monthIndex ) {
         Payment payment = new Payment();
         payment.setCardId( cardId );
         payment.setYear( year );
         payment.setAmmount( 20.00 );
-        payment.setMonth( month );
+        payment.setMonth( monthIndex );
         payment.setPaid( true );
         
         return payment;

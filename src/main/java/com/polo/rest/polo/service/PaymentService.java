@@ -40,10 +40,8 @@ public class PaymentService
 		for (Payment payment : paymentEntityList ) {
 			System.out.println("INSIDE " + payment.isPaid());
 			
-			//if ( !payment.isPaid() ) continue;
-			
-			if ( checkPaymentExistsWithCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth().toUpperCase()) ) {
-				Payment existingPayment = paymentDao.getPaymentByCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth().toUpperCase());
+			if ( checkPaymentExistsWithCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() ) ) {
+				Payment existingPayment = paymentDao.getPaymentByCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() );
 				payment.setId( existingPayment.getId() );;
 				existingPayment.setAmmount( payment.getAmmount() );
 				existingPayment.setPaid( payment.isPaid() );
@@ -63,8 +61,8 @@ public class PaymentService
 		}
 	}
 	
-	private boolean checkPaymentExistsWithCardIdAndYearAndMonth( int cardId, int year, String month ) throws PaymentException {
-		return paymentDao.checkPaymentExistsByCardIdAndYearAndMonth(cardId, year, month );
+	private boolean checkPaymentExistsWithCardIdAndYearAndMonth( int cardId, int year, int monthIndex ) throws PaymentException {
+		return paymentDao.checkPaymentExistsByCardIdAndYearAndMonth(cardId, year, monthIndex );
 	}
 	
 	

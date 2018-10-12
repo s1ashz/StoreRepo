@@ -119,11 +119,11 @@ public class CreateObjectsTest {
 
         public static List<Payment> createPaymentEntityList() {
             List<Payment> paymentList = new ArrayList<>();
-            Payment payment1 = createPayment( Months.JANUARY.name() );
-            Payment payment2 = createPayment( Months.APRIL.name() );
-            Payment payment3 = createPayment( Months.JULY.name() );
-            Payment payment4 = createPayment( Months.SEPTEMBER.name() );
-            Payment payment5 = createPayment( Months.DECEMBER.name() );
+            Payment payment1 = createPayment( Months.JANUARY.getMonthIndex() );
+            Payment payment2 = createPayment( Months.APRIL.getMonthIndex() );
+            Payment payment3 = createPayment( Months.JULY.getMonthIndex() );
+            Payment payment4 = createPayment( Months.SEPTEMBER.getMonthIndex() );
+            Payment payment5 = createPayment( Months.DECEMBER.getMonthIndex() );
             
             paymentList.add( payment1 );
             paymentList.add( payment2 );
@@ -134,7 +134,7 @@ public class CreateObjectsTest {
             return paymentList;
         }
 
-        private static Payment createPayment( String month ) {
+        private static Payment createPayment( int month ) {
             Payment payment = new Payment();
             payment.setAmmount( new Random().nextInt( randomIntSize ) );
             payment.setYear( new Random().nextInt( randomIntSize ) );

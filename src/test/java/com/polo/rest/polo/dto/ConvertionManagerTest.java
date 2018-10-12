@@ -125,7 +125,7 @@ public class ConvertionManagerTest
         int count = 0;
         for ( MonthPaymentsDto month : convertedPaymentDto.getMonthPayments() ) {
             for ( Payment payment : paymentList) {
-                if ( month.getMonth().equals( payment.getMonth() ) ) {
+                if ( month.getMonth() == payment.getMonth() ) {
                     count++;
                     assertEquals( month.getMonth(), payment.getMonth() );
                     assertEquals( month.getValue(), payment.getAmmount(), 001 );
@@ -144,7 +144,7 @@ public class ConvertionManagerTest
             assertEquals( convertedPaymentEntity.getYear(), paymentDto.getYear() );
             boolean exists = false;
             for ( MonthPaymentsDto monthPaid : paymentDto.getMonthPayments() ) {
-                if ( convertedPaymentEntity.getMonth().equals( monthPaid.getMonth() ) ) {
+                if ( convertedPaymentEntity.getMonth() == monthPaid.getMonth() ) {
                     exists = true;
                     assertEquals( convertedPaymentEntity.getMonth(), monthPaid.getMonth() );
                     System.out.println( convertedPaymentEntity.getAmmount() );
