@@ -12,6 +12,8 @@ import com.polo.rest.polo.service.EventService;
 
 import static com.polo.rest.polo.constants.RestEndPoints.*;
 
+import java.util.List;
+
 @RestController
 public class EventController
 {
@@ -20,21 +22,18 @@ public class EventController
     private EventService eventService;
     
     @RequestMapping( EVENT_CREATE )
-    private ResponseJson createEvent( @RequestBody( required=true ) Event event ) {
-        //private Event createEvent( ) {
-        //Event event = new Event();
-        //event.setName( "super event" );
-        //event.setPriority( "HIGHHHH MODDAUFKCKER" );
-        //eventService.createEvent( event );
-        //return  event;
+    public ResponseJson createEvent( @RequestBody( required=true ) Event event ) {
         return eventService.createEvent( event );
     }
     
     @RequestMapping( EVENT_GET ) 
-    private Event getEvent( @PathVariable(value="eventId", required=true ) Long eventId ) {
+    public Event getEvent( @PathVariable(value="eventId", required=true ) Long eventId ) {
         return eventService.getEvent( eventId );
     }
     
-    
+    @RequestMapping( EVENT_GET_ALL )
+    public List<Event> getAllEvents() {
+        return eventService.getAllEvents();
+    }
     
 }

@@ -16,6 +16,7 @@ public interface RestEndPoints {
 	
 	String EVENT_CREATE = "/event/create";
     String EVENT_GET = "/event/{eventId}";
+    String EVENT_GET_ALL = "/event/all";
 	
 	
 	

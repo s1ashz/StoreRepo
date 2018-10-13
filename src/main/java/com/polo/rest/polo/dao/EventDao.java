@@ -1,5 +1,7 @@
 package com.polo.rest.polo.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +22,10 @@ public class EventDao
     
     public Event getEvent( Long eventId ) {
         return eventRepository.findById( eventId );
+    }
+
+    public List<Event> getAllEvents() {
+        return (List<Event>) eventRepository.findAll();
     }
 
 }

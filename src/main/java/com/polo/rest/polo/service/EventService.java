@@ -10,6 +10,8 @@ import com.polo.rest.polo.responses.ResponseJson;
 
 import static com.polo.rest.polo.constants.Actions.*;
 
+import java.util.List;
+
 @Service
 public class EventService
 {
@@ -25,6 +27,10 @@ public class EventService
 
     public Event getEvent( Long eventId ) {
         return eventDao.getEvent( eventId );
+    }
+
+    public List<Event> getAllEvents() {
+        return eventDao.getAllEvents();
     }
 
 }
