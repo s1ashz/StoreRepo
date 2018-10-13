@@ -11,7 +11,7 @@ public interface RestEndPoints {
 	String ACCOUNT_DELETE_ALL_DATABASE = "/account/delete/all";
 	
 	
-	String PAYMENTS_CREATE = "/account/payments/pay/";
+	String PAYMENTS_CREATE = "/account/pay";
 	String PAYMENTS_GET_BY_CARD_ID = "/account/payments/{cardId}/{year}";
 	
 	String EVENT_CREATE = "/event/create";

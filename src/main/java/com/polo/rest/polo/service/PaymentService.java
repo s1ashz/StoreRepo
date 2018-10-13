@@ -13,6 +13,7 @@ import com.polo.rest.polo.exceptions.PaymentException;
 import com.polo.rest.polo.responses.ResponseJson;
 
 import static com.polo.rest.polo.constants.ExceptionMessages.*;
+import static com.polo.rest.polo.constants.Actions.*;
 
 @Service
 public class PaymentService
@@ -52,7 +53,7 @@ public class PaymentService
 				paymentDao.createPayment( payment );
 			}
 		}
-		return null;
+		return new ResponseJson( CREATE, true );
 	}
 	
 	private void checkPaymentExistsWithCardIdAndYear(int cardId, int year) throws PaymentException {

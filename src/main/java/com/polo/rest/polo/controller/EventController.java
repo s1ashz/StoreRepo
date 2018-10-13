@@ -21,9 +21,12 @@ public class EventController
     
     @RequestMapping( EVENT_CREATE )
     private ResponseJson createEvent( @RequestBody( required=true ) Event event ) {
+        //private Event createEvent( ) {
         //Event event = new Event();
         //event.setName( "super event" );
         //event.setPriority( "HIGHHHH MODDAUFKCKER" );
+        //eventService.createEvent( event );
+        //return  event;
         return eventService.createEvent( event );
     }
     
