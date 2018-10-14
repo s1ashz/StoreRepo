@@ -37,4 +37,8 @@ public class AccountDao {
     public void deleteAll() {
         accountRepository.deleteAll();
     }
+
+    public String getAccountLevelByCardId( int cardId ) {
+        return accountRepository.findLevelByCardId( cardId );
+    }
 }

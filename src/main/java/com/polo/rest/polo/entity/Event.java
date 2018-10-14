@@ -18,6 +18,7 @@ public class Event
     private String name;
     private String picture;
     private String priority;
+    private String location;
     private String target;
     private Date date;
     private String content;
@@ -64,11 +65,17 @@ public class Event
     public void setContent( String content ) {
         this.content = content;
     }
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation( String location ) {
+        this.location = location;
+    }
     
     @Override
     public String toString() {
-        return "Event [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", target=" + target
-                + ", date=" + date + ", content=" + content + "]";
+        return "Event [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location=" + location
+                + ", target=" + target + ", date=" + date + ", content=" + content + "]";
     }
     
 

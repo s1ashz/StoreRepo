@@ -10,4 +10,7 @@ public interface ExceptionMessages {
 	
 	String EXCEPTION_PAYMENT_NOT_EXISTS = "Payment does not exist with the cardId and Year: ";
 	
+	String EXCEPTION_EVENT_NOT_EXISTS = "Event does not exist with the id: ";
+	
+	
 }
