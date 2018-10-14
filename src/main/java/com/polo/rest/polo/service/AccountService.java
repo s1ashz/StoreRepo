@@ -49,7 +49,7 @@ public class AccountService {
 	public ResponseJson createAccount( AccountDto accountDto ) throws AccountException {
 		accountValidator.validateAccount(accountDto);
 		Account accountEntity = convertionManagerInstance.convertAccountToEntity( accountDto );
-		checkAccountExists(accountEntity, CREATE);
+		checkAccountExists(accountEntity.getCardId(), CREATE);
 		accountDao.createAccount( accountEntity );
 		List<Parent> parentsEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParents(), accountEntity );
 		parentDao.createParent( parentsEntityList );
@@ -83,7 +83,7 @@ public class AccountService {
 	public void updateAccount(AccountDto accountDto) throws AccountException {
 		accountValidator.validateAccount( accountDto );
 		Account accountEntity = convertionManagerInstance.convertAccountToEntity( accountDto );
-		checkAccountExists( accountEntity, UPDATE );
+		checkAccountExists( accountEntity.getCardId(), UPDATE );
 		
 		Account oldAccountEntity = accountDao.getAccountByCardId( accountEntity.getCardId() );
 		accountEntity.setId( oldAccountEntity.getId() );
@@ -107,36 +107,46 @@ public class AccountService {
 		return accountDtoList;
 	}
 
-	private void checkAccountExists( Account accountEntity, String action ) throws AccountException {
-		boolean exists = accountDao.checkAccountExists(accountEntity);
-		switch ( action ) {
-		case CREATE:
-			if ( exists ) throw new AccountException( EXCEPTION_ACCOUNT_ALREAD_EXISTS + accountEntity.getCardId() );
-			break;
-		case UPDATE:
-			if ( !exists ) throw new AccountException( EXCEPTION_ACCOUNT_NOT_EXISTS + accountEntity.getCardId() );
-			break;
-		case DELETE:
-			if ( !exists ) throw new AccountException( EXCEPTION_ACCOUNT_NOT_EXISTS + accountEntity.getCardId() );
-			break;
-		default:
-			break;
-		}
-	}
-
     public void deleteAll() {
         parentDao.deleteAll();
         accountDao.deleteAll();
     }
 
-    public ResponseJson authenticateAccount( AuthenticationJson auth ) throws AccountException {
-        
-        AccountDto accountDto = getAccountByCardId( auth.getCardId() );
-        
-        
-        
-        return null;
-    }
+	public ResponseJson deleteAccount(int cardId) throws AccountException {
+		checkAccountExists( cardId, DELETE );
+		//TODO REMOVE THE EXTRA DATABASE CALL : getAccountByCardId
+		Account existingAccount = accountDao.getAccountByCardId( cardId );
+		parentDao.deleteParents(existingAccount);
+		accountDao.deleteAccount( existingAccount );
+		return new ResponseJson(DELETE, true);
+	}
+
+	
+	//TODO CONTINUE AUTH
+	public ResponseJson authenticateAccount( AuthenticationJson auth ) throws AccountException {
+		
+		AccountDto accountDto = getAccountByCardId( auth.getCardId() );
+		
+		
+		return null;
+	}
+	
+	private void checkAccountExists( int cardId, String action ) throws AccountException {
+		boolean exists = accountDao.checkAccountExists( cardId );
+		switch ( action ) {
+		case CREATE:
+			if ( exists ) throw new AccountException( EXCEPTION_ACCOUNT_ALREAD_EXISTS + cardId );
+			break;
+		case UPDATE:
+			if ( !exists ) throw new AccountException( EXCEPTION_ACCOUNT_NOT_EXISTS + cardId );
+			break;
+		case DELETE:
+			if ( !exists ) throw new AccountException( EXCEPTION_ACCOUNT_NOT_EXISTS + cardId );
+			break;
+		default:
+			break;
+		}
+	}
 
 	
 }

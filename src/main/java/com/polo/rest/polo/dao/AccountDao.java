@@ -22,8 +22,8 @@ public class AccountDao {
 		accountRepository.save( account );
 	}
 
-	public boolean checkAccountExists(Account accountEntity) {
-		return accountRepository.existsByCardId( accountEntity.getCardId() );
+	public boolean checkAccountExists(int cardId) {
+		return accountRepository.existsByCardId( cardId );
 	}
 	
 	public List<Account> getAllAccounts() {
@@ -41,4 +41,8 @@ public class AccountDao {
     public String getAccountLevelByCardId( int cardId ) {
         return accountRepository.findLevelByCardId( cardId );
     }
+
+	public void deleteAccount(Account account) {
+		accountRepository.delete(account);
+	}
 }

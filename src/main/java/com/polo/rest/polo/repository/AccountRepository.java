@@ -13,5 +13,6 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
 	
 	@Query("SELECT a.level FROM Account a WHERE a.cardId =:cardIdVar")
 	String findLevelByCardId(@Param("cardIdVar") int cardId );
+	void deleteByCardId( int cardId );
 	
 }

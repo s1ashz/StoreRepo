@@ -70,6 +70,11 @@ public class AccountControllerImpl
         return "Updated: " + newAccount;
     }
     
+    @RequestMapping( value=ACCOUNT_DELETE )
+    public ResponseJson deleteAccount( @PathVariable( value="cardId", required=true ) int cardId ) throws AccountException {
+    	return accountService.deleteAccount( cardId );
+    }
+    
     @RequestMapping( value=ACCOUNT_DELETE_ALL_DATABASE )
     public String deleteAllDatabase() throws AccountException {
         accountService.deleteAll();
