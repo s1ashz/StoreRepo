@@ -21,4 +21,9 @@ public class ApplicationExceptionHandler {
 		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
 	}
 	
+	@ExceptionHandler( EventException.class )
+	public void handleEventException( EventException exception, HttpServletResponse response ) throws IOException {
+		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
+	}
+	
 }

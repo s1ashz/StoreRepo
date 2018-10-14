@@ -45,6 +45,7 @@ public class EventService
 
     public ResponseJson deleteEventById( int id ) throws EventException {
         if ( !checkEventExists( id ) ) throw new EventException( EXCEPTION_EVENT_NOT_EXISTS + id );
+        eventDao.deleteEventById( id );
         return new ResponseJson( DELETE, true, Long.valueOf( id ) );
     }
 
