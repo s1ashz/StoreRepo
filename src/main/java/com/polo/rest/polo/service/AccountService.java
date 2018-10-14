@@ -16,6 +16,7 @@ import com.polo.rest.polo.dto.ParentsDto;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Parent;
 import com.polo.rest.polo.exceptions.AccountException;
+import com.polo.rest.polo.responses.AuthenticationJson;
 import com.polo.rest.polo.responses.ResponseJson;
 import com.polo.rest.polo.validators.AccountValidator;
 
@@ -126,6 +127,15 @@ public class AccountService {
     public void deleteAll() {
         parentDao.deleteAll();
         accountDao.deleteAll();
+    }
+
+    public ResponseJson authenticateAccount( AuthenticationJson auth ) throws AccountException {
+        
+        AccountDto accountDto = getAccountByCardId( auth.getCardId() );
+        
+        
+        
+        return null;
     }
 
 	

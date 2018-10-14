@@ -27,9 +27,11 @@ import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.repository.PaymentRepository;
+import com.polo.rest.polo.responses.AuthenticationJson;
 import com.polo.rest.polo.responses.ResponseJson;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.service.AccountService;
+import com.polo.rest.polo.validators.AccountValidator;
 
 @RestController
 public class AccountControllerImpl
@@ -45,17 +47,6 @@ public class AccountControllerImpl
     @RequestMapping("/")
     public String index() {
         return ResponseEntity.ok().build().toString();
-    }
-    
-    private Payment createPaymentForTEsts(int cardId, int year, int monthIndex ) {
-        Payment payment = new Payment();
-        payment.setCardId( cardId );
-        payment.setYear( year );
-        payment.setAmmount( 20.00 );
-        payment.setMonth( monthIndex );
-        payment.setPaid( true );
-        
-        return payment;
     }
 
     @RequestMapping( value=ACCOUNT_CREATE, method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE )
@@ -85,21 +76,9 @@ public class AccountControllerImpl
         return "All Records Deleted";
     }
     
-    @RequestMapping(ACCOUNT_VALIDATOR)
-    public ResponseEntity validateAccount(HttpServletResponse response) throws IOException {
-    	
-    	//AccountDto accountDto = createDtoForTests(4578);
-    	//accountDto.setName(null);
-    	
-//    	try {
-//			//accountValidator.validateAccount(accountDto);
-//		} catch (AccountException e) {
-//			System.err.println( e.getMessage() );
-//			response.sendError(HttpStatus.CONFLICT.value(), e.getMessage());
-//		}
-    	
-        //return new ResponseEntity<String>(accountDto.toString(), HttpStatus.CREATED);
-        return null;
+    @RequestMapping(ACCOUNT_AUTHENTICATE)
+    public ResponseJson authenticateAccount( @RequestBody(required=true) AuthenticationJson auth ) throws AccountException {
+        return accountService.authenticateAccount( auth );
     }
 
 
@@ -121,6 +100,18 @@ public class AccountControllerImpl
     
     
     
+    
+    
+    private Payment createPaymentForTEsts(int cardId, int year, int monthIndex ) {
+        Payment payment = new Payment();
+        payment.setCardId( cardId );
+        payment.setYear( year );
+        payment.setAmmount( 20.00 );
+        payment.setMonth( monthIndex );
+        payment.setPaid( true );
+        
+        return payment;
+    }
     
     
     @RequestMapping(FILL_DATABASE)

@@ -3,7 +3,7 @@ package com.polo.rest.polo.constants;
 public interface RestEndPoints {
 
     String FILL_DATABASE = "/account/fill";
-	String ACCOUNT_VALIDATOR = "/account/validate";
+	String ACCOUNT_AUTHENTICATE = "/account/authenticate";
 	String ACCOUNT_CREATE = "/account/create";
 	String ACCOUNT_GET_ACCOUNT_BY_CARD_ID = "/account/{cardId}";
 	String ACCOUNT_GET_ALL_ACCOUNTS = "/account/all";
@@ -17,7 +17,7 @@ public interface RestEndPoints {
 	String EVENT_CREATE = "/event/create";
     String EVENT_GET = "/event/{eventId}";
     String EVENT_GET_ALL = "/event/all";
-    String EVENT_DELETE_BY_ID = "/event/delete/{cardId}";
+    String EVENT_DELETE_BY_ID = "/event/delete/{id}";
     String EVENT_UPDATE = "/event/update";
 	
 	

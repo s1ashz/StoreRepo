@@ -43,7 +43,7 @@ public class EventControllerImpl
     }
     
     @RequestMapping( EVENT_DELETE_BY_ID ) 
-    public ResponseJson deleteEvent( @PathVariable(value="id", required=true ) int id ) {
+    public ResponseJson deleteEvent( @PathVariable(value="id", required=true ) int id ) throws EventException {
         return eventService.deleteEventById( id );
     }
     

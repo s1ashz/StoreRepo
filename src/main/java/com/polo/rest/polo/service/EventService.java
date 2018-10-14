@@ -43,8 +43,8 @@ public class EventService
         return eventDao.getEventsByCardId( target );
     }
 
-    public ResponseJson deleteEventById( int id ) {
-        eventDao.deleteEventById( id );
+    public ResponseJson deleteEventById( int id ) throws EventException {
+        if ( !checkEventExists( id ) ) throw new EventException( EXCEPTION_EVENT_NOT_EXISTS + id );
         return new ResponseJson( DELETE, true, Long.valueOf( id ) );
     }
 
