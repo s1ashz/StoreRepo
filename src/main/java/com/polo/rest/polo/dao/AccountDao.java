@@ -52,6 +52,5 @@ public class AccountDao {
 
     public void updateFirebaseToken( int cardId, String firebaseToken ) {
         accountRepository.updateFirebaseTokenByCardId(cardId, firebaseToken);
-        
     }
 }
