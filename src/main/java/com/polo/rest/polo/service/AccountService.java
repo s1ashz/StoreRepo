@@ -169,12 +169,9 @@ public class AccountService {
     private boolean validateLoginParentData( List<Parent> parentEntiTyList, AuthenticationJson auth ) {
         for ( Parent parent : parentEntiTyList ) {
             if ( validateEmail( parent.getEmail(), auth.getEmail() ) && validateCardId ( parent.getAccount().getCardId(), auth.getCardId() ) ) {
-                System.out.println( "INSIDE LOOP return TRUE" );
-                System.out.println( auth.getEmail() + " " + parent.getEmail() + " " + auth.getCardId() + " " + parent.getAccount().getCardId() );
                 return true;
             }
         }
-        System.out.println( "AFTER LOOP return false" );
         return false;
     }
 
