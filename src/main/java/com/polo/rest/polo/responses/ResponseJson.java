@@ -38,6 +38,7 @@ public class ResponseJson {
 
     @Override
     public String toString() {
+        if ( null == id ) return "ResponseJson [action=" + action + ", success=" + success + "]";
         return "ResponseJson [action=" + action + ", success=" + success + ", id=" + id + "]";
     }
 	

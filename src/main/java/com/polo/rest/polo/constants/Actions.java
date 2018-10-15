@@ -6,4 +6,5 @@ public interface Actions {
 	String GET = "get";
 	String UPDATE = "update";
 	String DELETE = "delete";
+	String AUTHENTICATE = "authenticate";
 }

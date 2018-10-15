@@ -45,4 +45,13 @@ public class AccountDao {
 	public void deleteAccount(Account account) {
 		accountRepository.delete(account);
 	}
+
+    public boolean checkAccountExistsByEmail( String email ) {
+        return accountRepository.existsByEmail( email );
+    }
+
+    public void updateFirebaseTocken( int cardId, String firebaseToken ) {
+        accountRepository.updateFirebaseTokenByCardId(cardId, firebaseToken);
+        
+    }
 }

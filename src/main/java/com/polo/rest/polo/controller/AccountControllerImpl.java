@@ -65,9 +65,8 @@ public class AccountControllerImpl
     }
     
     @RequestMapping( value=ACCOUNT_UPDATE )
-    public String updateAccount( @RequestBody(required=true) AccountDto newAccount ) throws AccountException {
-    	accountService.updateAccount( newAccount );
-        return "Updated: " + newAccount;
+    public ResponseJson updateAccount( @RequestBody(required=true) AccountDto newAccount ) throws AccountException {
+        return accountService.updateAccount( newAccount );
     }
     
     @RequestMapping( value=ACCOUNT_DELETE )
@@ -85,7 +84,6 @@ public class AccountControllerImpl
     public ResponseJson authenticateAccount( @RequestBody(required=true) AuthenticationJson auth ) throws AccountException {
         return accountService.authenticateAccount( auth );
     }
-
 
     public List<PaymentDto> getAccountPayments() {
         // TODO Auto-generated method stub
@@ -122,10 +120,10 @@ public class AccountControllerImpl
     @RequestMapping(FILL_DATABASE)
     public String fillDatabase() throws AccountException {
         
-        AccountDto accountDto1 = createDtoForTests("Joao", 1 , "Pai do Joao", "Mae do Joao");
-        AccountDto accountDto2 = createDtoForTests("Francisco", 2, "Pai do xico", "Mae do xico");
-        AccountDto accountDto3 = createDtoForTests("Marco de Boss", 3, "Satanas", "No record");
-        AccountDto accountDto4 = createDtoForTests("Mordekaiser", 4, "Urgot", "Ashe");
+        AccountDto accountDto1 = createDtoForTests("Joao", 1 , "Pai do Joao", "Mae do Joao", "emailJoao");
+        AccountDto accountDto2 = createDtoForTests("Francisco", 2, "Pai do xico", "Mae do xico", "emailFrancisco");
+        AccountDto accountDto3 = createDtoForTests("Marco de Boss", 3, "Satanas", "No record", "emailMarco");
+        AccountDto accountDto4 = createDtoForTests("Mordekaiser", 4, "Urgot", "Ashe", "emailMordekaiser");
         accountService.createAccount(accountDto1);
         accountService.createAccount(accountDto2);
         accountService.createAccount(accountDto3);
@@ -170,7 +168,7 @@ public class AccountControllerImpl
         return ConvertionManager.getConvertionManager().convertPaymentDtoToEntity( paymentDto );
     }
     
-	private AccountDto createDtoForTests(String name, int cardId, String parentName1, String parentName2) {
+	private AccountDto createDtoForTests(String name, int cardId, String parentName1, String parentName2, String email) {
 		AccountDto accountDto = new AccountDto();
     	accountDto.setName(name);
     	
@@ -184,17 +182,20 @@ public class AccountControllerImpl
     	accountDto.setSize("size");
     	accountDto.setLevel("level");
     	accountDto.setCardId(cardId);
-    	accountDto.setEmail( "Email" );
+    	accountDto.setEmail( email );
     	accountDto.setAddress( "address" );
+    	accountDto.setFirebaseToken( "FirebaseToken" );
     	
     	List<ParentsDto> parentsList = new ArrayList<>();
     	ParentsDto parents1 = new ParentsDto();
     	parents1.setName(parentName1);
-    	parents1.setEmail("emailPAI");
+    	parents1.setEmail(email + "Pai1");
+    	parents1.setFirebaseToken( "firebaseToken" );
     	
     	ParentsDto parents2 = new ParentsDto();
-    	parents2.setEmail(parentName2);
+    	parents2.setEmail(email + "Pai2");
     	parents2.setName("emailMAE");
+    	parents2.setFirebaseToken( "firebaseToken" );
     	
     	parentsList.add(parents1);
     	parentsList.add(parents2);

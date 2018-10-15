@@ -1,7 +1,9 @@
 package com.polo.rest.polo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ import static com.polo.rest.polo.constants.Actions.*;
 @Service
 @Transactional
 public class AccountService {
+
+    private static final String PARENT = "PARENT";
+    private static final String ACCOUNT = "ACCOUNT";
 
     @Autowired
     private AccountValidator accountValidator;
@@ -80,7 +85,7 @@ public class AccountService {
 		return accountDtoList;
 	}
 
-	public void updateAccount(AccountDto accountDto) throws AccountException {
+	public ResponseJson updateAccount(AccountDto accountDto) throws AccountException {
 		accountValidator.validateAccount( accountDto );
 		Account accountEntity = convertionManagerInstance.convertAccountToEntity( accountDto );
 		checkAccountExists( accountEntity.getCardId(), UPDATE );
@@ -93,6 +98,8 @@ public class AccountService {
 		
 		parentDao.createParent(parentEntityList);
 		accountDao.updateAccount( accountEntity );
+		
+		return new ResponseJson( UPDATE, true );
 	}
 	
 	private List<AccountDto> convertAccountEntityToDtoListWithParents(List<Account> accountEntityList) {
@@ -124,14 +131,83 @@ public class AccountService {
 	
 	//TODO CONTINUE AUTH
 	public ResponseJson authenticateAccount( AuthenticationJson auth ) throws AccountException {
-		
-		AccountDto accountDto = getAccountByCardId( auth.getCardId() );
-		
-		
-		return null;
+	    Account accountEntity = null;
+	    List<Parent> parentEntiTyList = null;
+	    
+	    Map<String, Boolean> table = new HashMap<>();;
+	    checkEmailExists( auth.getEmail(), table );
+	    checkCardIdExists( auth.getCardId() );
+	    
+	    if ( table.containsKey( ACCOUNT ) ) accountEntity = accountDao.getAccountByCardId( auth.getCardId() );
+	    if ( table.containsKey( PARENT ) ) parentEntiTyList = parentDao.getParentsByEmail( auth.getEmail() );
+	    
+	    validateLogin( accountEntity, parentEntiTyList, auth );
+	    updateFirebaseToken( accountEntity, parentEntiTyList, auth );
+	    
+		return new ResponseJson( AUTHENTICATE, true );
 	}
-	
-	private void checkAccountExists( int cardId, String action ) throws AccountException {
+
+    private void updateFirebaseToken( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) {
+        if ( null != accountEntity ) accountDao.updateFirebaseTocken( accountEntity.getCardId(), auth.getFirebaseToken() );
+    }
+
+    private void validateLogin( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) throws AccountException {
+        if ( validateLoginAccount( accountEntity, auth ) ) return;
+        if ( validateLoginParent( parentEntiTyList, auth ) ) return;
+        throw new AccountException( EXCEPTION_INVALID_LOGIN );
+    }
+
+    private boolean validateLoginParent( List<Parent> parentEntiTyList, AuthenticationJson auth ) {
+        return ( null != parentEntiTyList ) ? validateLoginParentData( parentEntiTyList, auth ) : false;
+    }
+
+    private boolean validateLoginAccount( Account accountEntity, AuthenticationJson auth ) throws AccountException {
+        return ( null != accountEntity ) ? validateLoginAccountData( accountEntity, auth ) : false;
+    }
+
+    private boolean validateLoginParentData( List<Parent> parentEntiTyList, AuthenticationJson auth ) {
+        for ( Parent parent : parentEntiTyList ) {
+            if ( validateEmail( parent.getEmail(), auth.getEmail() ) && validateCardId ( parent.getAccount().getCardId(), auth.getCardId() ) ) {
+                System.out.println( "INSIDE LOOP return TRUE" );
+                System.out.println( auth.getEmail() + " " + parent.getEmail() + " " + auth.getCardId() + " " + parent.getAccount().getCardId() );
+                return true;
+            }
+        }
+        System.out.println( "AFTER LOOP return false" );
+        return false;
+    }
+
+    private boolean validateLoginAccountData( Account accountEntity, AuthenticationJson auth ) throws AccountException {
+        if ( !validateEmail( accountEntity.getEmail(), auth.getEmail() ) ) throw new AccountException( EXCEPTION_INVALID_EMAIL + auth.getEmail() );
+        if ( !validateCardId( accountEntity.getCardId(), auth.getCardId() ) ) throw new AccountException( EXCEPTION_INVALID_CARD_ID + auth.getCardId() );
+        return true;
+    }
+
+    private boolean validateEmail( String emailDatabase, String authEmail ) {
+        return emailDatabase.equals( authEmail );
+    }
+
+    private boolean validateCardId( int cardIdDatabase, int authCardId ) {
+        return cardIdDatabase == authCardId;
+    }
+
+    private void checkCardIdExists( int cardId ) throws AccountException {
+	    if ( !accountDao.checkAccountExists( cardId ) ) throw new AccountException( EXCEPTION_ACCOUNT_NOT_EXISTS + cardId );
+    }
+
+    private Map<String, Boolean> checkEmailExists( String email, Map<String, Boolean> table ) throws AccountException {
+	    if ( accountDao.checkAccountExistsByEmail( email ) ) table.put( ACCOUNT, true );
+	    if ( parentDao.checkParentExistsByEmail( email ) ) table.put( PARENT, true );
+	    if ( !checkEmailExistsInMap( table ) ) throw new AccountException( EXCEPTION_EMAIL_NOT_EXISTS + email );
+	    
+	    return table;
+    }
+
+    private boolean checkEmailExistsInMap( Map<String, Boolean> table ) {
+        return table.containsKey( ACCOUNT ) || table.containsKey( PARENT );
+    }
+
+    private void checkAccountExists( int cardId, String action ) throws AccountException {
 		boolean exists = accountDao.checkAccountExists( cardId );
 		switch ( action ) {
 		case CREATE:
@@ -147,6 +223,5 @@ public class AccountService {
 			break;
 		}
 	}
-
 	
 }

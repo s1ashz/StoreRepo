@@ -11,5 +11,7 @@ public interface ParentRepository extends CrudRepository<Parent, Integer> {
 
 	List<Parent> findByAccount( Account account );
 	void  deleteByAccount( Account account );
+	boolean existsByEmail( String email );
+    List<Parent> findAllByEmail( String email );
 	
 }

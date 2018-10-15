@@ -30,5 +30,13 @@ public class ParentDao {
     public void deleteAll() {
         parentRepository.deleteAll();
     }
+
+    public boolean checkParentExistsByEmail( String email ) {
+        return parentRepository.existsByEmail( email );
+    }
+
+    public List<Parent> getParentsByEmail( String email ) {
+        return parentRepository.findAllByEmail( email );
+    }
 	
 }
