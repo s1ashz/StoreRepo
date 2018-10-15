@@ -38,5 +38,11 @@ public class ParentDao {
     public List<Parent> getParentsByEmail( String email ) {
         return parentRepository.findAllByEmail( email );
     }
+
+    public void updateFirebaseToken( List<Parent> parentEntiTyList, String firebaseToken ) {
+        for ( Parent parent : parentEntiTyList ) {
+            parentRepository.updateFirebaseTokenByCardId(parent.getId(), firebaseToken);
+        }
+    }
 	
 }

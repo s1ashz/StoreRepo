@@ -148,7 +148,8 @@ public class AccountService {
 	}
 
     private void updateFirebaseToken( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) {
-        if ( null != accountEntity ) accountDao.updateFirebaseTocken( accountEntity.getCardId(), auth.getFirebaseToken() );
+        if ( null != accountEntity ) accountDao.updateFirebaseToken( accountEntity.getCardId(), auth.getFirebaseToken() );
+        if ( null != parentEntiTyList ) parentDao.updateFirebaseToken( parentEntiTyList, auth.getFirebaseToken() );
     }
 
     private void validateLogin( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) throws AccountException {

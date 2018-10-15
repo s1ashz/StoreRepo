@@ -50,7 +50,7 @@ public class AccountDao {
         return accountRepository.existsByEmail( email );
     }
 
-    public void updateFirebaseTocken( int cardId, String firebaseToken ) {
+    public void updateFirebaseToken( int cardId, String firebaseToken ) {
         accountRepository.updateFirebaseTokenByCardId(cardId, firebaseToken);
         
     }
