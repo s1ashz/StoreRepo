@@ -37,7 +37,7 @@ public class ConvertionManager
         dtoAccount.setEnrolled( entityAccount.isEnrolled() );
         dtoAccount.setEmail( entityAccount.getEmail() );
         dtoAccount.setAddress( entityAccount.getAddress() );
-        dtoAccount.setFirebaseToken( entityAccount.getFirebaseToken() );
+        dtoAccount.setToken( entityAccount.getToken() );
 
         //dtoAccount.setParentsDtoList( convertParentsToDto( entityAccount.getParentsList() ) );
         
@@ -51,7 +51,7 @@ public class ConvertionManager
     		dtoParent.setName( parent.getName() );
     		dtoParent.setEmail( parent.getEmail() );
     		dtoParent.setMobileNumber( parent.getMobileNumber() );
-    		dtoParent.setFirebaseToken( parent.getFirebaseToken() );
+    		dtoParent.setToken( parent.getToken() );
     		
     		parentsDtoList.add( dtoParent );
     	}
@@ -75,7 +75,7 @@ public class ConvertionManager
         entityAccount.setEnrolled( dtoAccount.isEnrolled() );
         entityAccount.setEmail( dtoAccount.getEmail() );
         entityAccount.setAddress( dtoAccount.getAddress() );
-        entityAccount.setFirebaseToken( dtoAccount.getFirebaseToken() );
+        entityAccount.setToken( dtoAccount.getToken() );
 
         return entityAccount;
     }
@@ -89,7 +89,7 @@ public class ConvertionManager
 	            entityParents.setEmail( parentDto.getEmail() );
 	            entityParents.setMobileNumber( parentDto.getMobileNumber() );
 	    		entityParents.setAccount( accountEntity );
-	    		entityParents.setFirebaseToken( accountEntity.getFirebaseToken() );
+	    		entityParents.setToken( accountEntity.getToken() );
 	            
 	    		parentsEntityList.add( entityParents );
 	    	}

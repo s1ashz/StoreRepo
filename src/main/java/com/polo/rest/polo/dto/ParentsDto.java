@@ -6,7 +6,7 @@ public class ParentsDto
     private String name;
     private String email;
     private int mobileNumber;
-    private String firebaseToken;
+    private String token;
     
     public ParentsDto() {
     }
@@ -29,17 +29,16 @@ public class ParentsDto
     public void setMobileNumber( int mobileNumber ) {
         this.mobileNumber = mobileNumber;
     }
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-    public void setFirebaseToken( String firebaseToken ) {
-        this.firebaseToken = firebaseToken;
-    }
-
-    @Override
-    public String toString() {
-        return "ParentsDto [name=" + name + ", email=" + email + ", mobileNumber=" + mobileNumber + ", firebaseToken="
-                + firebaseToken + "]";
-    }
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "ParentsDto [name=" + name + ", email=" + email + ", mobileNumber=" + mobileNumber + ", token=" + token
+				+ "]";
+	}
     
 }

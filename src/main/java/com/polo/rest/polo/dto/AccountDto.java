@@ -22,7 +22,7 @@ public class AccountDto
     private boolean exam;
     private boolean enrolled;
     private String email;
-    private String firebaseToken;
+    private String token;
    
     public AccountDto() {
     }
@@ -123,19 +123,19 @@ public class AccountDto
     public void setYearsPaid( List<Integer> yearsPaid ) {
         this.yearsPaid = yearsPaid;
     }
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-    public void setFirebaseToken( String firebaseToken ) {
-        this.firebaseToken = firebaseToken;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday=" + birthday
-                + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parents=" + parents + ", yearsPaid=" + yearsPaid
-                + ", level=" + level + ", size=" + size + ", observations=" + observations + ", address=" + address + ", cc=" + cc
-                + ", exam=" + exam + ", enrolled=" + enrolled + ", email=" + email + ", firebaseToken=" + firebaseToken + "]";
-    }
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "AccountDto [cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", birthday="
+				+ birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", parents=" + parents
+				+ ", yearsPaid=" + yearsPaid + ", level=" + level + ", size=" + size + ", observations=" + observations
+				+ ", address=" + address + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled + ", email="
+				+ email + ", token=" + token + "]";
+	}
 
 }

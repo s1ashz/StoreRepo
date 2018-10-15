@@ -18,7 +18,7 @@ public interface ParentRepository extends CrudRepository<Parent, Integer> {
     List<Parent> findAllByEmail( String email );
     
     @Modifying
-    @Query("UPDATE Parent p set p.firebaseToken =:firebaseTokenVar where p.id =:idVar")
+    @Query("UPDATE Parent p set p.token =:firebaseTokenVar where p.id =:idVar")
     void updateFirebaseTokenByCardId( @Param("idVar") int id, @Param("firebaseTokenVar") String firebaseToken );
 	
 }

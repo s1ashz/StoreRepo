@@ -23,7 +23,7 @@ public class Parent
     private String name;
     private String email;
     private int mobileNumber;
-    private String firebaseToken;
+    private String token;
     
     public Parent() {
     }
@@ -58,17 +58,16 @@ public class Parent
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-    public void setFirebaseToken( String firebaseToken ) {
-        this.firebaseToken = firebaseToken;
-    }
-
-    @Override
-    public String toString() {
-        return "Parent [id=" + id + ", account=" + account + ", name=" + name + ", email=" + email + ", mobileNumber="
-                + mobileNumber + ", firebaseToken=" + firebaseToken + "]";
-    }
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "Parent [id=" + id + ", account=" + account + ", name=" + name + ", email=" + email + ", mobileNumber="
+				+ mobileNumber + ", token=" + token + "]";
+	}
     
 }

@@ -29,7 +29,7 @@ public class Account
     private boolean exam;
     private boolean enrolled;
     private String email;
-    private String firebaseToken;
+    private String token;
    
     public Account() {
     }
@@ -124,19 +124,18 @@ public class Account
     public void setAddress( String address ) {
         this.address = address;
     }
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-    public void setFirebaseToken( String firebaseToken ) {
-        this.firebaseToken = firebaseToken;
-    }
-
-    @Override
-    public String toString() {
-        return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", address=" + address
-                + ", birthday=" + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", level=" + level
-                + ", size=" + size + ", observations=" + observations + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled
-                + ", email=" + email + ", firebaseToken=" + firebaseToken + "]";
-    }
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode
+				+ ", address=" + address + ", birthday=" + birthday + ", gender=" + gender + ", mobileNumber="
+				+ mobileNumber + ", level=" + level + ", size=" + size + ", observations=" + observations + ", cc=" + cc
+				+ ", exam=" + exam + ", enrolled=" + enrolled + ", email=" + email + ", token=" + token + "]";
+	}
     
 }

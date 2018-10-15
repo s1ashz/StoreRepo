@@ -18,7 +18,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
 	String findLevelByCardId(@Param("cardIdVar") int cardId );
 
 	@Modifying
-	@Query("UPDATE Account acc set acc.firebaseToken =:firebaseTokenVar where acc.cardId =:cardIdVar")
+	@Query("UPDATE Account acc set acc.token =:firebaseTokenVar where acc.cardId =:cardIdVar")
 	void updateFirebaseTokenByCardId(@Param("cardIdVar") int cardId, @Param("firebaseTokenVar") String firebaseToken );
 	
 }
