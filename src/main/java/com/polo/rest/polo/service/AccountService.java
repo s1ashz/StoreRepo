@@ -131,6 +131,11 @@ public class AccountService {
 	
 	//TODO CONTINUE AUTH
 	public ResponseJson authenticateAccount( AuthenticationJson auth ) throws AccountException {
+		
+		System.out.println("auth.getCardId(): " + auth.getCardId());
+		System.out.println("auth.getEmail(): " + auth.getEmail());
+		System.out.println("auth.getFirebaseToken(): " + auth.getToken());
+		
 	    Account accountEntity = null;
 	    List<Parent> parentEntiTyList = null;
 	    
@@ -148,8 +153,8 @@ public class AccountService {
 	}
 
     private void updateFirebaseToken( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) {
-        if ( null != accountEntity ) accountDao.updateFirebaseToken( accountEntity.getCardId(), auth.getFirebaseToken() );
-        if ( null != parentEntiTyList ) parentDao.updateFirebaseToken( parentEntiTyList, auth.getFirebaseToken() );
+        if ( null != accountEntity ) accountDao.updateFirebaseToken( accountEntity.getCardId(), auth.getToken() );
+        if ( null != parentEntiTyList ) parentDao.updateFirebaseToken( parentEntiTyList, auth.getToken() );
     }
 
     private void validateLogin( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) throws AccountException {

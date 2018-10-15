@@ -82,6 +82,7 @@ public class AccountControllerImpl
     
     @RequestMapping(ACCOUNT_AUTHENTICATE)
     public ResponseJson authenticateAccount( @RequestBody(required=true) AuthenticationJson auth ) throws AccountException {
+    	System.out.println(auth.toString());
         return accountService.authenticateAccount( auth );
     }
 

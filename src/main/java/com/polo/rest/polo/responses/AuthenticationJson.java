@@ -5,7 +5,7 @@ public class AuthenticationJson
 
     private int cardId;
     private String email;
-    private String firebaseToken;
+    private String token;
     
     public int getCardId() {
         return cardId;
@@ -19,11 +19,15 @@ public class AuthenticationJson
     public void setEmail( String email ) {
         this.email = email;
     }
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-    public void setFirebaseToken( String firebaseToken ) {
-        this.firebaseToken = firebaseToken;
-    }
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "AuthenticationJson [cardId=" + cardId + ", email=" + email + ", token=" + token + "]";
+	}
     
 }
