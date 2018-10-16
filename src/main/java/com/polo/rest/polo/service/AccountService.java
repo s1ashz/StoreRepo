@@ -95,10 +95,16 @@ public class AccountService {
 		accountEntity.setId( oldAccountEntity.getId() );
 		accountEntity.setToken( oldAccountEntity.getToken() );
 		
-		parentDao.deleteParents( accountEntity );
-		
 		List<Parent> parentEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParents(), accountEntity );
-		
+
+		for ( Parent newParent : parentEntityList ) {
+		    List<Parent> oldParentList = parentDao.getParentsByEmail( newParent.getEmail() );
+		    if ( !oldParentList.isEmpty() ) newParent.setToken( oldParentList.get( 0 ).getToken() );
+		    
+		}
+		//delete old Parent list
+		parentDao.deleteParents( accountEntity );
+		//create new parents in database
 		parentDao.createParent(parentEntityList);
 		accountDao.updateAccount( accountEntity );
 		
