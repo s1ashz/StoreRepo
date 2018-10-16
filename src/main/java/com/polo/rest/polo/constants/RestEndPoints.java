@@ -4,6 +4,7 @@ public interface RestEndPoints {
 
     String FILL_DATABASE = "/account/fill";
 	String ACCOUNT_AUTHENTICATE = "/account/authenticate";
+	String ACCOUNT_LOGOUT = "/account/logout";
 	String ACCOUNT_CREATE = "/account/create";
 	String ACCOUNT_GET_ACCOUNT_BY_CARD_ID = "/account/{cardId}";
 	String ACCOUNT_GET_ALL_ACCOUNTS = "/account/all";

@@ -37,7 +37,6 @@ public class ConvertionManager
         dtoAccount.setEnrolled( entityAccount.isEnrolled() );
         dtoAccount.setEmail( entityAccount.getEmail() );
         dtoAccount.setAddress( entityAccount.getAddress() );
-        dtoAccount.setToken( entityAccount.getToken() );
 
         //dtoAccount.setParentsDtoList( convertParentsToDto( entityAccount.getParentsList() ) );
         
@@ -51,7 +50,6 @@ public class ConvertionManager
     		dtoParent.setName( parent.getName() );
     		dtoParent.setEmail( parent.getEmail() );
     		dtoParent.setMobileNumber( parent.getMobileNumber() );
-    		dtoParent.setToken( parent.getToken() );
     		
     		parentsDtoList.add( dtoParent );
     	}
@@ -75,7 +73,7 @@ public class ConvertionManager
         entityAccount.setEnrolled( dtoAccount.isEnrolled() );
         entityAccount.setEmail( dtoAccount.getEmail() );
         entityAccount.setAddress( dtoAccount.getAddress() );
-        entityAccount.setToken( dtoAccount.getToken() );
+        entityAccount.setToken( "default" );
 
         return entityAccount;
     }
@@ -89,7 +87,7 @@ public class ConvertionManager
 	            entityParents.setEmail( parentDto.getEmail() );
 	            entityParents.setMobileNumber( parentDto.getMobileNumber() );
 	    		entityParents.setAccount( accountEntity );
-	    		entityParents.setToken( accountEntity.getToken() );
+	    		entityParents.setToken( "default" );
 	            
 	    		parentsEntityList.add( entityParents );
 	    	}

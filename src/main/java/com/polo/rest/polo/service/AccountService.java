@@ -30,6 +30,7 @@ import static com.polo.rest.polo.constants.Actions.*;
 @Transactional
 public class AccountService {
 
+    private static final String EMPTY_STRING = "default";
     private static final String PARENT = "PARENT";
     private static final String ACCOUNT = "ACCOUNT";
 
@@ -92,6 +93,8 @@ public class AccountService {
 		
 		Account oldAccountEntity = accountDao.getAccountByCardId( accountEntity.getCardId() );
 		accountEntity.setId( oldAccountEntity.getId() );
+		accountEntity.setToken( oldAccountEntity.getToken() );
+		
 		parentDao.deleteParents( accountEntity );
 		
 		List<Parent> parentEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParents(), accountEntity );
@@ -128,14 +131,24 @@ public class AccountService {
 		return new ResponseJson(DELETE, true);
 	}
 
+
+    public ResponseJson logoutAccount( AuthenticationJson auth ) throws AccountException {
+        Account accountEntity = null;
+        List<Parent> parentEntiTyList = null;
+        
+        Map<String, Boolean> table = new HashMap<>();;
+        checkEmailExists( auth.getEmail(), table );
+        checkCardIdExists( auth.getCardId() );
+        
+        if ( table.containsKey( ACCOUNT ) ) accountEntity = accountDao.getAccountByCardId( auth.getCardId() );
+        if ( table.containsKey( PARENT ) ) parentEntiTyList = parentDao.getParentsByEmail( auth.getEmail() );
+        
+        removeFirebaseToken( accountEntity, parentEntiTyList );
+        
+        return new ResponseJson( LOGOUT, true );
+    }
 	
-	//TODO CONTINUE AUTH
 	public ResponseJson authenticateAccount( AuthenticationJson auth ) throws AccountException {
-		
-		System.out.println("auth.getCardId(): " + auth.getCardId());
-		System.out.println("auth.getEmail(): " + auth.getEmail());
-		System.out.println("auth.getFirebaseToken(): " + auth.getToken());
-		
 	    Account accountEntity = null;
 	    List<Parent> parentEntiTyList = null;
 	    
@@ -155,6 +168,11 @@ public class AccountService {
     private void updateFirebaseToken( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) {
         if ( null != accountEntity ) accountDao.updateFirebaseToken( accountEntity.getCardId(), auth.getToken() );
         if ( null != parentEntiTyList ) parentDao.updateFirebaseToken( parentEntiTyList, auth.getToken() );
+    }
+    
+    private void removeFirebaseToken( Account accountEntity, List<Parent> parentEntiTyList ) {
+        if ( null != accountEntity ) accountDao.updateFirebaseToken( accountEntity.getCardId(), EMPTY_STRING );
+        if ( null != parentEntiTyList ) parentDao.updateFirebaseToken( parentEntiTyList, EMPTY_STRING );
     }
 
     private void validateLogin( Account accountEntity, List<Parent> parentEntiTyList, AuthenticationJson auth ) throws AccountException {

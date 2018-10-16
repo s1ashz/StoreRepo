@@ -7,4 +7,5 @@ public interface Actions {
 	String UPDATE = "update";
 	String DELETE = "delete";
 	String AUTHENTICATE = "authenticate";
+	String LOGOUT = "logout";
 }

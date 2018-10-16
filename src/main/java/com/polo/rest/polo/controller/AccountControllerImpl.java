@@ -82,8 +82,12 @@ public class AccountControllerImpl
     
     @RequestMapping(ACCOUNT_AUTHENTICATE)
     public ResponseJson authenticateAccount( @RequestBody(required=true) AuthenticationJson auth ) throws AccountException {
-    	System.out.println(auth.toString());
         return accountService.authenticateAccount( auth );
+    }
+    
+    @RequestMapping(ACCOUNT_LOGOUT)
+    public ResponseJson logoutAccount( @RequestBody(required=true) AuthenticationJson auth ) throws AccountException {
+        return accountService.logoutAccount( auth );
     }
 
     public List<PaymentDto> getAccountPayments() {
@@ -185,18 +189,18 @@ public class AccountControllerImpl
     	accountDto.setCardId(cardId);
     	accountDto.setEmail( email );
     	accountDto.setAddress( "address" );
-    	accountDto.setToken( "FirebaseToken" );
+    	//accountDto.setToken( "FirebaseToken" );
     	
     	List<ParentsDto> parentsList = new ArrayList<>();
     	ParentsDto parents1 = new ParentsDto();
     	parents1.setName(parentName1);
     	parents1.setEmail(email + "Pai1");
-    	parents1.setToken( "firebaseToken" );
+    	//parents1.setToken( "firebaseToken" );
     	
     	ParentsDto parents2 = new ParentsDto();
     	parents2.setEmail(email + "Pai2");
     	parents2.setName("emailMAE");
-    	parents2.setToken( "firebaseToken" );
+    	//parents2.setToken( "firebaseToken" );
     	
     	parentsList.add(parents1);
     	parentsList.add(parents2);
