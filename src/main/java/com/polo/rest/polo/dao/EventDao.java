@@ -20,6 +20,7 @@ public class EventDao
     private EventRepository eventRepository;
     
     public Long createEvent( Event event ) {
+    	
         Event eventPersisted = eventRepository.save( event );
         return eventPersisted.getId();
     }
@@ -34,7 +35,7 @@ public class EventDao
         return (List<Event>) eventRepository.findAll();
     }
 
-    public List<Event> getEventsByCardId( String target ) {
+    public List<Event> getEventsByTarget( String target ) {
         return eventRepository.getByTarget( target );
     }
 
