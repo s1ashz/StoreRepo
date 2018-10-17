@@ -19,8 +19,9 @@ public class EventDao
     @Autowired
     private EventRepository eventRepository;
     
-    public Long createEvent( Event event ) {
+    public Long createEvent( Event event ) throws EventException {
         Event eventPersisted = eventRepository.save( event );
+        if ( 0 == eventPersisted.getId() ) throw new EventException( EXCEPTION_EVENT_NOT_CREATED + event.getName() ); 
         return eventPersisted.getId();
     }
     
@@ -34,9 +35,9 @@ public class EventDao
         return (List<Event>) eventRepository.findAll();
     }
 
-    public List<Event> getEventsByCardId( String target ) {
-        return eventRepository.getByTarget( target );
-    }
+//    public List<Event> getEventsByTarget( String target ) {
+//        return eventRepository.getByTarget( target );
+//    }
 
     public void deleteEventById( long id ) {
         eventRepository.deleteById( id );

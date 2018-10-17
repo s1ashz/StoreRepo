@@ -7,7 +7,9 @@ public interface ExceptionMessages {
 	String EXCEPTION_INVALID_ACCOUNT_MESSAGE = "Invalid Account Field: ";
 	String EXCEPTION_INVALID_PARENT_MESSAGE = "Invalid Parent Field: ";
 	String EXCEPTION_PARENT_NULL = "Parent Null: ";
+	String EXCEPTION_EVENT_NOT_CREATED = "The event was not created. Name: ";
 	
+	String EXCEPTION_EVENT_TARGET_NULL = "Target cannot be null: ";
 	
 	String EXCEPTION_INVALID_LOGIN = "Invalid Login: ";
 	String EXCEPTION_INVALID_EMAIL = "Invalid Email entered: ";

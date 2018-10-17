@@ -1,24 +1,17 @@
-package com.polo.rest.polo.entity;
+package com.polo.rest.polo.dto;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Event
+public class EventDto
 {
-    
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     private long id;
-    
     private String name;
     private String picture;
     private String priority;
     private String location;
+    private List<String> target;
     private Date date;
     private String content;
     
@@ -46,6 +39,18 @@ public class Event
     public void setPriority( String priority ) {
         this.priority = priority;
     }
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation( String location ) {
+        this.location = location;
+    }
+    public List<String> getTarget() {
+        return target;
+    }
+    public void setTarget( List<String> target ) {
+        this.target = target;
+    }
     public Date getDate() {
         return date;
     }
@@ -58,33 +63,11 @@ public class Event
     public void setContent( String content ) {
         this.content = content;
     }
-    public String getLocation() {
-        return location;
-    }
-    public void setLocation( String location ) {
-        this.location = location;
-    }
     
     @Override
     public String toString() {
-        return "Event [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location=" + location
-                + ", date=" + date + ", content=" + content + "]";
+        return "EventDto [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location="
+                + location + ", target=" + target + ", date=" + date + ", content=" + content + "]";
     }
     
-
 }
-
-
-
-/*
-{
-id
-name,
-pictureUrl,
-priority,
-target,
-date,
-content
-}
-
-*/

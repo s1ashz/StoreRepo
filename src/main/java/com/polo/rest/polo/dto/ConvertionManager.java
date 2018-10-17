@@ -1,11 +1,14 @@
 package com.polo.rest.polo.dto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.polo.rest.polo.entity.Account;
+import com.polo.rest.polo.entity.Event;
 import com.polo.rest.polo.entity.Parent;
 import com.polo.rest.polo.entity.Payment;
+import com.polo.rest.polo.entity.Target;
 
 public class ConvertionManager
 {
@@ -129,5 +132,49 @@ public class ConvertionManager
         return paymentList;
     }
     
+    public Event convertEventDtoToEvent( EventDto eventDto ) {
+        Event eventEntity = new Event();
+        eventEntity.setName( eventDto.getName() );
+        eventEntity.setPicture( eventDto.getPicture() );
+        eventEntity.setPriority( eventDto.getPriority() );
+        eventEntity.setLocation( eventDto.getLocation() );
+        eventEntity.setDate( eventDto.getDate() );
+        eventEntity.setContent( eventDto.getContent() );
+        
+        return eventEntity;
+    }
+    
+    public List<Target> convertEventDtoTargetToTargetEntity( List<String> targetList, Event eventEntity ) {
+        List<Target> targetEntityList = new ArrayList<>();
+        for ( String targetString : targetList ) {
+            Target targetEntity = new Target();
+            targetEntity.setTarget( targetString );
+            targetEntity.setEvent( eventEntity );
+            targetEntityList.add( targetEntity );
+        }
+        return targetEntityList;
+    }
+
+    public EventDto convertEventToEventDto( Event event ) {
+        EventDto eventDto = new EventDto();
+        eventDto.setId( event.getId() );
+        eventDto.setName( event.getName() );
+        eventDto.setPicture( event.getPicture() );
+        eventDto.setPriority( event.getPriority() );
+        eventDto.setLocation( event.getLocation() );
+        eventDto.setDate( event.getDate() );
+        eventDto.setContent( event.getContent() );
+        
+        return eventDto;
+    }
+    
+    public List<String> convertEventTargetToTargetDto( List<Target> targetList ) {
+        List<String> targetDtoList = new ArrayList<>();
+        for ( Target targetEntity : targetList ) {
+            String targetString = targetEntity.getTarget();
+            targetDtoList.add( targetString );
+        }
+        return targetDtoList;
+    }
     
 }

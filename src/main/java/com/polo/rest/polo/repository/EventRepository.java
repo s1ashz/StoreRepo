@@ -1,6 +1,5 @@
 package com.polo.rest.polo.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -11,6 +10,6 @@ public interface EventRepository extends CrudRepository<Event, Long>
 {
 
     Optional<Event> findById( Long eventId );
-    List<Event> getByTarget( String target );
+    //List<Event> getByTarget( String target );
     
 }
