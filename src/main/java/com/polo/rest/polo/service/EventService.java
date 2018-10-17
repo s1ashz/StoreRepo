@@ -13,6 +13,7 @@ import com.polo.rest.polo.entity.Event;
 import com.polo.rest.polo.entity.Target;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.exceptions.EventException;
+import com.polo.rest.polo.firebase.FirebaseNotification;
 import com.polo.rest.polo.responses.ResponseJson;
 import com.polo.rest.polo.validators.EventValidator;
 
@@ -38,6 +39,9 @@ public class EventService
     @Autowired
     private TargetDao targetDao;
     
+    @Autowired
+    private FirebaseNotification firebaseNotification;
+    
     private ConvertionManager convertionManager = ConvertionManager.getConvertionManager();
     
     public ResponseJson createEvent( EventDto eventDto ) throws EventException {
@@ -48,9 +52,20 @@ public class EventService
         List<Target> targetEntityList = convertionManager.convertEventDtoTargetToTargetEntity( eventDto.getTarget(), eventEntity );
         targetDao.createTarget( targetEntityList );
         
+        String deviceToken = "cnebGj_bVGk:APA91bE_GjTEiUzuTxaQnazwR7Uj6Ewyz23XwTtkMYsq7PhmboitNtpNE_Xw1k0AFeF7LQRjvk8ZsyGkUz12uuTqT_OzmERbL0DUGRkM5Opjt1KrNRrqWxPmxgdMsRff6aITeRgmqq0t";
+        String tokenJonny = "fQifALzSnaE:APA91bGreU3WKUeTzLhmNvwVvIcwcKVeaAl9JdQ6z-nKuSoXaUtMpGIArdYoXROXZYs4WMcQHR8WuktglRtLHH_dBxvt9WyQ7kI3NAkdop3BjWO29bkJik-38iFznjt9sz4OKa-2T4W7";
+        String tokenJonnyExpirado = "enG6OnFVLzo:APA91bHSiu3sZ5tO0QzmlVTLIMS8gf5yUjqh20hM4T3yhoyzDU2aiP715u22c_UhU_X6uqGCUe7V9yXN702vbDhOVsb4_tnitMy_gQrwbty6NBcjjOBZYtSLNZiunswjmfkM8GOQx0If";
+        
+        String title = "Pro title of notif";
+        String body = "Body??";
+        int eventId1 = 2;
+        
+        
+        FirebaseNotification.sendPushNotification(deviceToken, title, body, eventId);
+    
         return new ResponseJson( CREATE, true, eventId );
     }
-
+    
     public EventDto getEvent( Long eventId ) throws EventException {
         if ( !checkEventExists( eventId ) ) throw new EventException( EXCEPTION_EVENT_NOT_EXISTS + eventId );
         Event event = eventDao.getEvent( eventId );
