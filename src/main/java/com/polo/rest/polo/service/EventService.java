@@ -60,7 +60,7 @@ public class EventService
         String body = "Body??";
         int eventId1 = 2;
         
-        firebaseNotification.sendPushNotification(deviceToken, title, body, eventId);
+        firebaseNotification.sendPushNotification(deviceToken, "New Event", eventDto.getName(), eventId);
     
         return new ResponseJson( CREATE, true, eventId );
     }
@@ -92,6 +92,9 @@ public class EventService
 
     public ResponseJson deleteEventById( int id ) throws EventException {
         if ( !checkEventExists( id ) ) throw new EventException( EXCEPTION_EVENT_NOT_EXISTS + id );
+        Event eventEntity = eventDao.getEvent( Long.valueOf( id ) );
+        List<Target> targetList = targetDao.findTargetByEvent( eventEntity );
+        targetDao.deleteTargetList( targetList );
         eventDao.deleteEventById( id );
         return new ResponseJson( DELETE, true, Long.valueOf( id ) );
     }
