@@ -19,7 +19,7 @@ public class FirebaseNotification
     public final static String AUTH_KEY_GOOGLE_SERVER_FCM = "AAAA7YqSCLw:APA91bFNhyUemywPVE4nBFaGksFawByoC3GJlVYagBDN9uRWztZ6fz0dDZFLQ8Dz8_5Y2vNA95RltEMpmi-NW-vVZbvKxsd9YyBawtfqznqEc4md9ZbEs99EcNGoCGEWvxfjrg0u35H3";
     public final static String GOOGLE_API_SERVER_FCM = "https://fcm.googleapis.com/fcm/send";
     
-    public static boolean sendPushNotification(String deviceToken, String title, String body, Long eventId ) {
+    public boolean sendPushNotification(String deviceToken, String title, String body, Long eventId ) {
         boolean result = false;
         URL url;
 
@@ -40,7 +40,7 @@ public class FirebaseNotification
         return result;
     }
 
-	private static boolean readFromOutputStream(boolean result, BufferedReader br) throws IOException {
+	private boolean readFromOutputStream(boolean result, BufferedReader br) throws IOException {
 		String output;
 		while ((output = br.readLine()) != null) {
 		    FirebaseNotificationResponse response = new Gson().fromJson(output, FirebaseNotificationResponse.class);
@@ -51,18 +51,18 @@ public class FirebaseNotification
 		return result;
 	}
 
-	private static String createNotificationJSON(String deviceToken, String title, String body, Long eventId) {
+	private String createNotificationJSON(String deviceToken, String title, String body, Long eventId) {
 		Notification notif = new Notification(deviceToken, title, body, eventId);
 		return new Gson().toJson( notif );
 	}
 
-	private static void writeOutputStream(HttpURLConnection conn, String jsonFromGson) throws IOException {
+	private void writeOutputStream(HttpURLConnection conn, String jsonFromGson) throws IOException {
 		OutputStreamWriter wr = new OutputStreamWriter( conn.getOutputStream() );
 		wr.write( jsonFromGson );
 		wr.flush();
 	}
 
-    private static HttpURLConnection createConnection( URL url ) throws IOException, ProtocolException {
+    private HttpURLConnection createConnection( URL url ) throws IOException, ProtocolException {
         HttpURLConnection conn;
         conn = (HttpURLConnection) url.openConnection();
         conn.setUseCaches(false);

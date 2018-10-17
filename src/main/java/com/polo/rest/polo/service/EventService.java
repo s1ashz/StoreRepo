@@ -60,8 +60,7 @@ public class EventService
         String body = "Body??";
         int eventId1 = 2;
         
-        
-        FirebaseNotification.sendPushNotification(deviceToken, title, body, eventId);
+        firebaseNotification.sendPushNotification(deviceToken, title, body, eventId);
     
         return new ResponseJson( CREATE, true, eventId );
     }
@@ -78,9 +77,10 @@ public class EventService
         return eventDto;
     }
 
-    public List<Event> getAllEvents() {
-        //TODO CHANGE THIS TO DTO EVENTS :/
-        return eventDao.getAllEvents();
+    public List<EventDto> getAllEvents() {
+        List<Event> eventEntityList = eventDao.getAllEvents();
+        List<EventDto> eventDtoList = getEventDtoListFromDatabase( eventEntityList );
+        return eventDtoList;
     }
 
     public List<EventDto> getEventsByCardId( int cardId ) {
@@ -88,17 +88,6 @@ public class EventService
         List<Target> targetEntityList = targetDao.findByTarget( target );
         List<EventDto> eventEntityList = createEventDtoList( targetEntityList );
         return eventEntityList;
-    }
-
-    private List<EventDto> createEventDtoList( List<Target> targetEntityList ) {
-        List<EventDto> eventList = new ArrayList<>();
-        for ( Target targetEntity : targetEntityList ) {
-            EventDto eventDto = convertionManager.convertEventToEventDto( targetEntity.getEvent() );
-            List<Target> eventTargetList = targetDao.findTargetByEvent( targetEntity.getEvent() );
-            eventDto.setTarget( convertionManager.convertEventTargetToTargetDto( eventTargetList ) );
-            eventList.add( eventDto );
-        }
-        return eventList;
     }
 
     public ResponseJson deleteEventById( int id ) throws EventException {
@@ -113,7 +102,7 @@ public class EventService
         Event eventEntity = convertionManager.convertEventDtoToEvent( eventDto );
         eventEntity.setId( eventDto.getId() );
         
-        //Epdate existing event in database
+        //Update existing event in database
         List<Target> targetEntityList = convertionManager.convertEventDtoTargetToTargetEntity( eventDto.getTarget(), eventEntity );
         eventDao.updateEvent( eventEntity );
         
@@ -125,6 +114,31 @@ public class EventService
         targetDao.createTarget( targetEntityList );
         
         return new ResponseJson( UPDATE, true, eventDto.getId() );
+    }
+    
+    private List<EventDto> createEventDtoList( List<Target> targetEntityList ) {
+        List<EventDto> eventDtoList = new ArrayList<>();
+        for ( Target targetEntity : targetEntityList ) {
+            EventDto eventDto = getEventDtoFromDatabase( targetEntity.getEvent() );
+            eventDtoList.add( eventDto );
+        }
+        return eventDtoList;
+    }
+    
+    private List<EventDto> getEventDtoListFromDatabase( List<Event> eventEntityList ) {
+        List<EventDto> eventDtoList = new ArrayList<>();
+        for ( Event entityEvent : eventEntityList ) {
+            EventDto eventDto = getEventDtoFromDatabase( entityEvent );
+            eventDtoList.add( eventDto );
+        }
+        return eventDtoList;
+    }
+    
+    private EventDto getEventDtoFromDatabase( Event entityEvent ) {
+        EventDto eventDto = convertionManager.convertEventToEventDto( entityEvent ); 
+        List<Target> eventTargetList = targetDao.findTargetByEvent( entityEvent );
+        eventDto.setTarget( convertionManager.convertEventTargetToTargetDto( eventTargetList ) );
+        return eventDto;
     }
 
     private boolean checkEventExists( long id ) {

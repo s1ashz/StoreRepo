@@ -35,7 +35,7 @@ public class EventControllerImpl
     }
     
     @RequestMapping( EVENT_GET_ALL )
-    public List<Event> getAllEvents() {
+    public List<EventDto> getAllEvents() {
         return eventService.getAllEvents();
     }
     
