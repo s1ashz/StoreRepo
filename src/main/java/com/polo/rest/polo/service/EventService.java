@@ -49,10 +49,13 @@ public class EventService
     @Autowired
     private FirebaseNotification firebaseNotification;
     
-    private ConvertionManager convertionManager = ConvertionManager.getConvertionManager();
+    private ConvertionManager convertionManager;
+    
+    public EventService() {
+    	convertionManager = ConvertionManager.getConvertionManager();
+	}
     
     public ResponseJson createEvent( EventDto eventDto ) throws EventException {
-        
         eventValidator.validateEvent( eventDto );
         Event eventEntity = convertionManager.convertEventDtoToEvent( eventDto );
         Long eventId = eventDao.createEvent( eventEntity );
@@ -61,26 +64,11 @@ public class EventService
         
         List<String> tokenList = getTokenListFromDatabase(targetEntityList);
         
-        System.out.println( tokenList );
         sendFirebaseNotification( tokenList, eventDto.getName(), eventId);
     
         return new ResponseJson( CREATE, true, eventId );
     }
     
-    private void sendFirebaseNotification( List<String> tokenList, String eventName, Long eventId ) {
-        for ( String token : tokenList ) {
-            firebaseNotification.sendPushNotification(token, "New Event", eventName, eventId);
-        }
-    }
-
-    private List<String> getTokenListFromDatabase( List<Target> targetEntityList ) {
-        List<String> tokenList = new ArrayList<>();
-        for ( Target targetEntity : targetEntityList ) {
-            tokenList.addAll( accountDao.getAccountTokenByLevel( targetEntity.getTarget() ) );
-        }
-        return tokenList;
-    }
-
     public EventDto getEvent( Long eventId ) throws EventException {
         if ( !checkEventExists( eventId ) ) throw new EventException( EXCEPTION_EVENT_NOT_EXISTS + eventId );
         Event event = eventDao.getEvent( eventId );
@@ -133,6 +121,20 @@ public class EventService
         targetDao.createTarget( targetEntityList );
         
         return new ResponseJson( UPDATE, true, eventDto.getId() );
+    }
+    
+    private void sendFirebaseNotification( List<String> tokenList, String eventName, Long eventId ) {
+        for ( String token : tokenList ) {
+            firebaseNotification.sendPushNotification(token, "New Event", eventName, eventId);
+        }
+    }
+
+    private List<String> getTokenListFromDatabase( List<Target> targetEntityList ) {
+        List<String> tokenList = new ArrayList<>();
+        for ( Target targetEntity : targetEntityList ) {
+            tokenList.addAll( accountDao.getAccountTokenByLevel( targetEntity.getTarget() ) );
+        }
+        return tokenList;
     }
     
     private List<EventDto> createEventDtoList( List<Target> targetEntityList ) {

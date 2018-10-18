@@ -35,25 +35,35 @@ public class PaymentService
     }
 
 	public ResponseJson createAccountPayment( PaymentDto paymentDto ) throws PaymentException {
-		
 		List<Payment> paymentEntityList = convertionManagerInstance.convertPaymentDtoToEntity( paymentDto );
-		
 		for (Payment payment : paymentEntityList ) {
-			System.out.println("INSIDE " + payment.isPaid());
-			
-			if ( checkPaymentExistsWithCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() ) ) {
-				Payment existingPayment = paymentDao.getPaymentByCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() );
-				payment.setId( existingPayment.getId() );;
-				existingPayment.setAmmount( payment.getAmmount() );
-				existingPayment.setPaid( payment.isPaid() );
-				System.out.println(existingPayment.toString());
-				paymentDao.createPayment( existingPayment );
-				
-			} else {
-				paymentDao.createPayment( payment );
-			}
+			createAndUpdatePayment(payment);
 		}
 		return new ResponseJson( CREATE, true );
+	}
+
+	private void createAndUpdatePayment(Payment payment) throws PaymentException {
+		if ( checkPaymentExistsWithCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() ) ) {
+			
+			//TODO REFACTOR THIS FCKING TRASH PLEASE
+			
+			
+			
+			
+			Payment existingPayment = paymentDao.getPaymentByCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() );
+			payment.setId( existingPayment.getId() );;
+			existingPayment.setAmmount( payment.getAmmount() );
+			existingPayment.setPaid( payment.isPaid() );
+			System.out.println(existingPayment.toString());
+			paymentDao.createPayment( existingPayment );
+			
+			
+			
+			
+			
+		} else {
+			paymentDao.createPayment( payment );
+		}
 	}
 	
 	private void checkPaymentExistsWithCardIdAndYear(int cardId, int year) throws PaymentException {
