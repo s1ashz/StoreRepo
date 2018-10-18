@@ -2,6 +2,7 @@ package com.polo.rest.polo.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,12 +25,16 @@ public class Account
     private int mobileNumber;
     private String level;
     private String size;
-    private String observations;
     private boolean cc;
     private boolean exam;
     private boolean enrolled;
     private String email;
+    
+    @Column(columnDefinition="TEXT")
     private String token;
+
+    @Column(columnDefinition="TEXT")
+    private String observations;
    
     public Account() {
     }

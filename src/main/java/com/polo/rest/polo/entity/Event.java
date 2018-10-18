@@ -2,6 +2,7 @@ package com.polo.rest.polo.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,11 +16,13 @@ public class Event
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     
+    @Column(columnDefinition="TEXT")
     private String name;
     private String picture;
     private String priority;
     private String location;
     private Date date;
+    @Column(columnDefinition="TEXT")
     private String content;
     
     public long getId() {

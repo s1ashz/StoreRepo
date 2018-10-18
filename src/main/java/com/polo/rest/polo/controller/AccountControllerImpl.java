@@ -185,7 +185,8 @@ public class AccountControllerImpl
     	accountDto.setObservations("Observations");
     	accountDto.setPostalCode("postal");
     	accountDto.setSize("size");
-    	accountDto.setLevel("level");
+    	String level = ( cardId > 2 ) ? "level1" : "level2";
+    	accountDto.setLevel(level);
     	accountDto.setCardId(cardId);
     	accountDto.setEmail( email );
     	accountDto.setAddress( "address" );

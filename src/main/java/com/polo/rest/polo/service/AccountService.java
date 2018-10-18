@@ -56,6 +56,9 @@ public class AccountService {
 		accountValidator.validateAccount(accountDto);
 		Account accountEntity = convertionManagerInstance.convertAccountToEntity( accountDto );
 		checkAccountExists(accountEntity.getCardId(), CREATE);
+		//TODO**************************
+		accountEntity.setToken( accountEntity.getToken() + accountDto.getName() );
+		//TODO**************************
 		accountDao.createAccount( accountEntity );
 		List<Parent> parentsEntityList = convertionManagerInstance.convertParentsDtoToEntity( accountDto.getParents(), accountEntity );
 		parentDao.createParent( parentsEntityList );

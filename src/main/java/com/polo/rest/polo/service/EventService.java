@@ -1,7 +1,14 @@
 package com.polo.rest.polo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import static com.polo.rest.polo.constants.Actions.CREATE;
+import static com.polo.rest.polo.constants.Actions.DELETE;
+import static com.polo.rest.polo.constants.Actions.UPDATE;
+import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_EVENT_NOT_EXISTS;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.polo.rest.polo.dao.AccountDao;
@@ -11,21 +18,21 @@ import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.EventDto;
 import com.polo.rest.polo.entity.Event;
 import com.polo.rest.polo.entity.Target;
-import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.exceptions.EventException;
 import com.polo.rest.polo.firebase.FirebaseNotification;
 import com.polo.rest.polo.responses.ResponseJson;
 import com.polo.rest.polo.validators.EventValidator;
 
-import static com.polo.rest.polo.constants.Actions.*;
-import static com.polo.rest.polo.constants.ExceptionMessages.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class EventService
 {
+//        String deviceToken = "fIKiGSdq0J0:APA91bHtmdzIoawg6bHeGXdfcIprI4B9CG6YM-LuzDrn64EHYStS6ByobvgeiOdCBqbC1NWNUt6rr3xzW902AiD0RSzmtmwezof94ygS2_aFuk7M-p5JrTpjNwPmY3C0l7jtVWCOps9j";
+//        String tokenJonny = "fQifALzSnaE:APA91bGreU3WKUeTzLhmNvwVvIcwcKVeaAl9JdQ6z-nKuSoXaUtMpGIArdYoXROXZYs4WMcQHR8WuktglRtLHH_dBxvt9WyQ7kI3NAkdop3BjWO29bkJik-38iFznjt9sz4OKa-2T4W7";
+//        String tokenJonnyExpirado = "enG6OnFVLzo:APA91bHSiu3sZ5tO0QzmlVTLIMS8gf5yUjqh20hM4T3yhoyzDU2aiP715u22c_UhU_X6uqGCUe7V9yXN702vbDhOVsb4_tnitMy_gQrwbty6NBcjjOBZYtSLNZiunswjmfkM8GOQx0If";
+//        
+//        String title = "Pro title of notif";
+//        String body = "Body??";
+//        int eventId1 = 2;
     
     @Autowired
     private EventValidator eventValidator;
@@ -52,19 +59,28 @@ public class EventService
         List<Target> targetEntityList = convertionManager.convertEventDtoTargetToTargetEntity( eventDto.getTarget(), eventEntity );
         targetDao.createTarget( targetEntityList );
         
-        String deviceToken = "cnebGj_bVGk:APA91bE_GjTEiUzuTxaQnazwR7Uj6Ewyz23XwTtkMYsq7PhmboitNtpNE_Xw1k0AFeF7LQRjvk8ZsyGkUz12uuTqT_OzmERbL0DUGRkM5Opjt1KrNRrqWxPmxgdMsRff6aITeRgmqq0t";
-        String tokenJonny = "fQifALzSnaE:APA91bGreU3WKUeTzLhmNvwVvIcwcKVeaAl9JdQ6z-nKuSoXaUtMpGIArdYoXROXZYs4WMcQHR8WuktglRtLHH_dBxvt9WyQ7kI3NAkdop3BjWO29bkJik-38iFznjt9sz4OKa-2T4W7";
-        String tokenJonnyExpirado = "enG6OnFVLzo:APA91bHSiu3sZ5tO0QzmlVTLIMS8gf5yUjqh20hM4T3yhoyzDU2aiP715u22c_UhU_X6uqGCUe7V9yXN702vbDhOVsb4_tnitMy_gQrwbty6NBcjjOBZYtSLNZiunswjmfkM8GOQx0If";
+        List<String> tokenList = getTokenListFromDatabase(targetEntityList);
         
-        String title = "Pro title of notif";
-        String body = "Body??";
-        int eventId1 = 2;
-        
-        firebaseNotification.sendPushNotification(deviceToken, "New Event", eventDto.getName(), eventId);
+        System.out.println( tokenList );
+        sendFirebaseNotification( tokenList, eventDto.getName(), eventId);
     
         return new ResponseJson( CREATE, true, eventId );
     }
     
+    private void sendFirebaseNotification( List<String> tokenList, String eventName, Long eventId ) {
+        for ( String token : tokenList ) {
+            firebaseNotification.sendPushNotification(token, "New Event", eventName, eventId);
+        }
+    }
+
+    private List<String> getTokenListFromDatabase( List<Target> targetEntityList ) {
+        List<String> tokenList = new ArrayList<>();
+        for ( Target targetEntity : targetEntityList ) {
+            tokenList.addAll( accountDao.getAccountTokenByLevel( targetEntity.getTarget() ) );
+        }
+        return tokenList;
+    }
+
     public EventDto getEvent( Long eventId ) throws EventException {
         if ( !checkEventExists( eventId ) ) throw new EventException( EXCEPTION_EVENT_NOT_EXISTS + eventId );
         Event event = eventDao.getEvent( eventId );
