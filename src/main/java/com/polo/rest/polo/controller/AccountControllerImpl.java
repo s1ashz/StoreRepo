@@ -10,7 +10,10 @@ import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_LOGOUT;
 import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_UPDATE;
 import static com.polo.rest.polo.constants.RestEndPoints.FILL_DATABASE;
 
+import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -135,10 +138,10 @@ public class AccountControllerImpl
         
         
         
-        AccountDto accountDto1 = createDtoForTests( "Joao", 1, "JoãoPai", "JoãoMae", "j.c.moreirapinto@gmail.com", "4876-468", new Date(1992-5-25), "M", 934620715, "Senior", "size", "Very good developer");
-        AccountDto accountDto2 = createDtoForTests( "Francisco", 2, "FranciscoPai", "FranciscoMae", "franciscomfilipe@hotmail.com", "4876-468", new Date(1990-7-19), "M", 910773555, "Senior", "size", "back end master");
-        AccountDto accountDto3 = createDtoForTests( "Pascal", 3, "PascalPai", "PascalMae", "pascal@gmail.com", "4876-468", new Date(1984-1-25), "M", 912548741, "Junior", "size", "Party Leader");
-        AccountDto accountDto4 = createDtoForTests( "Marco", 4, "MarcoPai", "MarcoMae", "marcorabta@gmail.com", "4876-468", new Date(1974-8-12), "M", 915468234, "Juvenil", "size", "Team Leader / Dev Manager");
+        AccountDto accountDto1 = createDtoForTests( "Joao", 1, "JoãoPai", "JoãoMae", "j.c.moreirapinto@gmail.com", "4876-468", createNewDateForTests(1992,5,25), "M", 934620715, "Senior", "size", "Very good developer");
+        AccountDto accountDto2 = createDtoForTests( "Francisco", 2, "FranciscoPai", "FranciscoMae", "franciscomfilipe@hotmail.com", "4876-468", createNewDateForTests(1990, 7, 19), "M", 910773555, "Senior", "size", "back end master");
+        AccountDto accountDto3 = createDtoForTests( "Pascal", 3, "PascalPai", "PascalMae", "pascal@gmail.com", "4876-468", createNewDateForTests(1984, 1, 25), "M", 912548741, "Junior", "size", "Party Leader");
+        AccountDto accountDto4 = createDtoForTests( "Marco", 4, "MarcoPai", "MarcoMae", "marcorabta@gmail.com", "4876-468", createNewDateForTests(1974, 8, 12), "M", 915468234, "Juvenil", "size", "Team Leader / Dev Manager");
 
         accountService.createAccount(accountDto1);
         accountService.createAccount(accountDto2);
@@ -170,12 +173,22 @@ public class AccountControllerImpl
         
         //https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg
         //https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg
-        eventService.createEvent( createEventDtoForTests( "Junior League", "https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg", "1", "Porto", "Jogo contra o Porto", "Juvenil", new Date(2018, 10, 21) ) );
-        eventService.createEvent( createEventDtoForTests( "Senior League", "https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg", "1", "Lisboa", "Jogo contra Lisboa", "Juvenil", new Date(2018, 10, 21) ) );
+        eventService.createEvent( createEventDtoForTests( "Junior League", "https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg", "1", "Porto", "Jogo contra o Porto", "Juvenil", createNewDateForTests(2018, 10, 21) ) );
+        eventService.createEvent( createEventDtoForTests( "Senior League", "https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg", "1", "Lisboa", "Jogo contra Lisboa", "Juvenil", createNewDateForTests(2018, 10, 21) ) );
         
         return accountPrint + "\n\n";
     }
     
+    private Date createNewDateForTests( int year, int month, int day ) {
+        Calendar cal = Calendar.getInstance();
+        cal.set( Calendar.YEAR, year );
+        cal.set( Calendar.MONTH, month );
+        cal.set( Calendar.DATE, day );
+        cal.set( Calendar.HOUR_OF_DAY, 14 );
+        cal.set( Calendar.MINUTE, 00 );
+        return cal.getTime();
+    }
+
     private List<Payment> createPaymentDtoForTEsts( int cardId, int year ) {
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setYear( year );
