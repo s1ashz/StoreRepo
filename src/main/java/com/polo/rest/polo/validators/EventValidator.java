@@ -1,7 +1,6 @@
 package com.polo.rest.polo.validators;
 
-import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_EVENT_TARGET_NULL;
-import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_INVALID_ACCOUNT_MESSAGE;
+import static com.polo.rest.polo.constants.ExceptionMessages.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -40,7 +39,7 @@ public class EventValidator
 
     private void validateAccountField(EventDto eventDto, Field eventField) throws IllegalAccessException, EventException {
         if ( !checkFieldIsTargetDto(eventField) && !checkFieldIsId(eventField) && checkFieldNull(eventDto, eventField) ) {
-            throw new EventException( EXCEPTION_INVALID_ACCOUNT_MESSAGE + eventField.getName() );
+            throw new EventException( EXCEPTION_INVALID_EVENT_MESSAGE + eventField.getName() );
         }
     }
 

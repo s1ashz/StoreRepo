@@ -1,15 +1,19 @@
 package com.polo.rest.polo.controller;
 
-import static com.polo.rest.polo.constants.RestEndPoints.*;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_AUTHENTICATE;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_CREATE;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_DELETE;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_DELETE_ALL_DATABASE;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_GET_ACCOUNT_BY_CARD_ID;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_GET_ALL_ACCOUNTS;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_LOGOUT;
+import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_UPDATE;
+import static com.polo.rest.polo.constants.RestEndPoints.FILL_DATABASE;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,16 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.polo.rest.polo.dto.AccountDto;
 import com.polo.rest.polo.dto.ConvertionManager;
+import com.polo.rest.polo.dto.EventDto;
 import com.polo.rest.polo.dto.ParentsDto;
 import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;
+import com.polo.rest.polo.exceptions.EventException;
+import com.polo.rest.polo.repository.EventRepository;
 import com.polo.rest.polo.repository.PaymentRepository;
 import com.polo.rest.polo.responses.AuthenticationJson;
 import com.polo.rest.polo.responses.ResponseJson;
-import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.service.AccountService;
-import com.polo.rest.polo.validators.AccountValidator;
+import com.polo.rest.polo.service.EventService;
 
 @RestController
 public class AccountControllerImpl
@@ -39,6 +45,8 @@ public class AccountControllerImpl
     //TODO DELETE THIS AFTER
     @Autowired
     private PaymentRepository paymentRepository;
+    @Autowired
+    private EventService eventService;
     //TODO DELETE THIS AFTER
 
     @Autowired
@@ -65,8 +73,8 @@ public class AccountControllerImpl
     }
     
     @RequestMapping( value=ACCOUNT_UPDATE )
-    public ResponseJson updateAccount( @RequestBody(required=true) AccountDto newAccount ) throws AccountException {
-        return accountService.updateAccount( newAccount );
+    public ResponseJson updateAccount( @RequestBody(required=true) AccountDto updateAccount ) throws AccountException {
+        return accountService.updateAccount( updateAccount );
     }
     
     @RequestMapping( value=ACCOUNT_DELETE )
@@ -123,12 +131,15 @@ public class AccountControllerImpl
     
     
     @RequestMapping(FILL_DATABASE)
-    public String fillDatabase() throws AccountException {
+    public String fillDatabase() throws AccountException, EventException {
         
-        AccountDto accountDto1 = createDtoForTests("Joao", 1 , "Pai do Joao", "Mae do Joao", "emailJoao");
-        AccountDto accountDto2 = createDtoForTests("Francisco", 2, "Pai do xico", "Mae do xico", "emailFrancisco");
-        AccountDto accountDto3 = createDtoForTests("Marco de Boss", 3, "Satanas", "No record", "emailMarco");
-        AccountDto accountDto4 = createDtoForTests("Mordekaiser", 4, "Urgot", "Ashe", "emailMordekaiser");
+        
+        
+        AccountDto accountDto1 = createDtoForTests( "Joao", 1, "JoãoPai", "JoãoMae", "j.c.moreirapinto@gmail.com", "4876-468", new Date(1992-5-25), "M", 934620715, "Senior", "size", "Very good developer");
+        AccountDto accountDto2 = createDtoForTests( "Francisco", 2, "FranciscoPai", "FranciscoMae", "franciscomfilipe@hotmail.com", "4876-468", new Date(1990-7-19), "M", 910773555, "Senior", "size", "back end master");
+        AccountDto accountDto3 = createDtoForTests( "Pascal", 3, "PascalPai", "PascalMae", "pascal@gmail.com", "4876-468", new Date(1984-1-25), "M", 912548741, "Junior", "size", "Party Leader");
+        AccountDto accountDto4 = createDtoForTests( "Marco", 4, "MarcoPai", "MarcoMae", "marcorabta@gmail.com", "4876-468", new Date(1974-8-12), "M", 915468234, "Juvenil", "size", "Team Leader / Dev Manager");
+
         accountService.createAccount(accountDto1);
         accountService.createAccount(accountDto2);
         accountService.createAccount(accountDto3);
@@ -139,7 +150,7 @@ public class AccountControllerImpl
         String accountPrint = accountDto1.toString() + "\n" + 
         		accountDto2.toString() + "\n" + 
         		accountDto3.toString() + "\n" + 
-        		accountDto4.toString() + "\n";
+        		accountDto4.toString();
         
         //for (Payment p : payList ) {
         	//accountPrint += p.toString() + "\n"; 
@@ -156,7 +167,13 @@ public class AccountControllerImpl
         paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2018 ) );
         paymentRepository.saveAll( createPaymentDtoForTEsts( 4, 2018 ) );
         
-        return accountPrint;
+        
+        //https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg
+        //https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg
+        eventService.createEvent( createEventDtoForTests( "Junior League", "https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg", "1", "Porto", "Jogo contra o Porto", "Juvenil", new Date(2018, 10, 21) ) );
+        eventService.createEvent( createEventDtoForTests( "Senior League", "https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg", "1", "Lisboa", "Jogo contra Lisboa", "Juvenil", new Date(2018, 10, 21) ) );
+        
+        return accountPrint + "\n\n";
     }
     
     private List<Payment> createPaymentDtoForTEsts( int cardId, int year ) {
@@ -173,43 +190,65 @@ public class AccountControllerImpl
         return ConvertionManager.getConvertionManager().convertPaymentDtoToEntity( paymentDto );
     }
     
-	private AccountDto createDtoForTests(String name, int cardId, String parentName1, String parentName2, String email) {
+	private AccountDto createDtoForTests(
+	        String name, 
+	        int cardId, 
+	        String parentName1, 
+	        String parentName2, 
+	        String email,
+	        String postalCode,
+	        Date birthday,
+	        String gender,
+	        int mobileNumber,
+	        String level,
+	        String size,
+	        String observations ) {
+	    
 		AccountDto accountDto = new AccountDto();
     	accountDto.setName(name);
     	
-    	Calendar calendar = Calendar.getInstance();
-    	calendar.set( Calendar.YEAR, 2017 );
-    	calendar.set( 1990, 5, 19 );
-    	accountDto.setBirthday( new Date(2017,5,19) );
-    	accountDto.setGender("M");
-    	accountDto.setObservations("Observations");
-    	accountDto.setPostalCode("postal");
-    	accountDto.setSize("size");
-    	String level = ( cardId > 2 ) ? "level1" : "level2";
-    	accountDto.setLevel(level);
-    	accountDto.setCardId(cardId);
+    	accountDto.setBirthday( birthday );
+    	accountDto.setGender( gender );
+    	accountDto.setObservations( observations );
+    	accountDto.setPostalCode( postalCode );
+    	accountDto.setSize( size );
+    	accountDto.setLevel( level );
+    	accountDto.setCardId( cardId );
     	accountDto.setEmail( email );
-    	accountDto.setAddress( "address" );
-    	//accountDto.setToken( "FirebaseToken" );
+    	accountDto.setAddress( name + "'s address" );
     	
     	List<ParentsDto> parentsList = new ArrayList<>();
     	ParentsDto parents1 = new ParentsDto();
     	parents1.setName(parentName1);
-    	parents1.setEmail(email + "Pai1");
-    	//parents1.setToken( "firebaseToken" );
+    	parents1.setEmail(parentName1 + "@gmail.com");
     	
     	ParentsDto parents2 = new ParentsDto();
-    	parents2.setEmail(email + "Pai2");
-    	parents2.setName("emailMAE");
-    	//parents2.setToken( "firebaseToken" );
+    	parents2.setName(parentName1);
+    	parents2.setEmail(parentName2 + "@gmail.com");
     	
     	parentsList.add(parents1);
     	parentsList.add(parents2);
     	
     	accountDto.setParents( parentsList );
-    	//accountDto.setParentsDtoList( null );
 		return accountDto;
 	}
     
-    
+	private EventDto createEventDtoForTests(String name, String picture, String priority, String location, String content, String target, Date date) {
+	    EventDto eventDto = new EventDto();
+	    eventDto.setName( name );
+	    eventDto.setPicture( picture );
+	    eventDto.setPriority( priority );
+	    eventDto.setLocation( location );
+	    eventDto.setDate( date );
+	    eventDto.setContent( content );
+	    List<String> targetList = new ArrayList<>();
+	    targetList.add( target );
+	    eventDto.setTarget( targetList );
+	    
+	    return eventDto;
+	}
+	
+	
+	
+	
 }

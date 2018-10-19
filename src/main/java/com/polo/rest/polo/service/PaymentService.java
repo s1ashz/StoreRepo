@@ -44,27 +44,19 @@ public class PaymentService
 
 	private void createAndUpdatePayment(Payment payment) throws PaymentException {
 		if ( checkPaymentExistsWithCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() ) ) {
-			
-			//TODO REFACTOR THIS FCKING TRASH PLEASE
-			
-			
-			
-			
-			Payment existingPayment = paymentDao.getPaymentByCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() );
-			payment.setId( existingPayment.getId() );;
-			existingPayment.setAmmount( payment.getAmmount() );
-			existingPayment.setPaid( payment.isPaid() );
-			System.out.println(existingPayment.toString());
-			paymentDao.createPayment( existingPayment );
-			
-			
-			
-			
-			
+			updatePayment( payment );
 		} else {
 			paymentDao.createPayment( payment );
 		}
 	}
+
+    private void updatePayment( Payment payment ) {
+        Payment existingPayment = paymentDao.getPaymentByCardIdAndYearAndMonth(payment.getCardId(), payment.getYear(), payment.getMonth() );
+        payment.setId( existingPayment.getId() );;
+        existingPayment.setAmmount( payment.getAmmount() );
+        existingPayment.setPaid( payment.isPaid() );
+        paymentDao.createPayment( existingPayment );
+    }
 	
 	private void checkPaymentExistsWithCardIdAndYear(int cardId, int year) throws PaymentException {
 		if ( !paymentDao.checkPaymentExistsByCardIdAndYear(cardId, year) ) {
@@ -75,7 +67,5 @@ public class PaymentService
 	private boolean checkPaymentExistsWithCardIdAndYearAndMonth( int cardId, int year, int monthIndex ) throws PaymentException {
 		return paymentDao.checkPaymentExistsByCardIdAndYearAndMonth(cardId, year, monthIndex );
 	}
-	
-	
 
 }

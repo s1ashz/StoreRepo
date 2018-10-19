@@ -10,6 +10,7 @@ public interface ExceptionMessages {
 	String EXCEPTION_EVENT_NOT_CREATED = "The event was not created. Name: ";
 	
 	String EXCEPTION_EVENT_TARGET_NULL = "Target cannot be null: ";
+	String EXCEPTION_INVALID_EVENT_MESSAGE = "Invalid Event Field: ";
 	
 	String EXCEPTION_INVALID_LOGIN = "Invalid Login: ";
 	String EXCEPTION_INVALID_EMAIL = "Invalid Email entered: ";

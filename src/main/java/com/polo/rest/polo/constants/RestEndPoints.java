@@ -8,7 +8,7 @@ public interface RestEndPoints {
 	String ACCOUNT_CREATE = "/account/create";
 	String ACCOUNT_GET_ACCOUNT_BY_CARD_ID = "/account/{cardId}";
 	String ACCOUNT_GET_ALL_ACCOUNTS = "/account/all";
-	String ACCOUNT_UPDATE = "/account/update/{cardId}";
+	String ACCOUNT_UPDATE = "/account/update";
 	String ACCOUNT_DELETE = "/account/delete/{cardId}";
 	String ACCOUNT_DELETE_ALL_DATABASE = "/account/delete/all";
 	String EVENT_GET_ALL_BY_CARD_ID= "/account/{cardId}/events";
