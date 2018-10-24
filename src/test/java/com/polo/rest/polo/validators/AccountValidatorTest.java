@@ -74,9 +74,9 @@ public class AccountValidatorTest {
 		String nullFieldName;
 		
 		//Gender Test
-		//nullFieldName = accountFieldNamesMap.get( accountDto.getGender() );
-		//accountDto.setGender("");
-		//assertNotNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
+		nullFieldName = accountFieldNamesMap.get( accountDto.getGender() );
+		accountDto.setGender(null);
+		assertNotNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
 	}
 	
 	@Test()
@@ -114,7 +114,7 @@ public class AccountValidatorTest {
 		//Parents Test
 		nullFieldName = accountFieldNamesMap.get( accountDto.getParents().toString() );
 		accountDto.setParents(null);
-		assertNull( asserAccountException( accountDto, INVALID_ACCOUNT_MESSAGE_TEST, nullFieldName ) );
+		assertNotNull( asserAccountException( accountDto, EXCEPTION_PARENT_NULL_TEST, nullFieldName ) );
 	}
 	
 	@Test()
@@ -139,11 +139,24 @@ public class AccountValidatorTest {
 		}
 	}
 	
+	@Test()
+	public void validateDtoFieldTest10() throws AccountException {
+		String nullFieldName;		
+		//Parents Test
+		nullFieldName = accountFieldNamesMap.get( accountDto.getParents().get(0).toString() );
+		accountDto.getParents().set(0, null);
+		assertNotNull( asserAccountException( accountDto, EXCEPTION_PARENT_NULL_TEST, nullFieldName ) );
+	}
+	
 	private Exception asserAccountException(AccountDto accountDto, String expectedExceptionMessage, String failedFieldName) throws AccountException {
 		try {
 			accountValidator.validateAccount(accountDto);
 		} catch (AccountException ex) {
-			assertEquals( ex.getMessage(), expectedExceptionMessage + failedFieldName);
+			if ( null == failedFieldName ) {
+				assertEquals( expectedExceptionMessage, ex.getMessage() );
+			} else {
+				assertEquals( ex.getMessage(), expectedExceptionMessage + failedFieldName);
+			}
 			return ex;
 		}
 		return null;
@@ -157,7 +170,7 @@ public class AccountValidatorTest {
 				    Date datelabel = (Date) accountField.get(accountDto);
 				    accountFieldNamesMap.put( "" + datelabel.getYear() + datelabel.getMonth() + datelabel.getDay() , accountField.getName().toString() );
 				} else if( accountField.get( accountDto ) instanceof List<?> ) {
-				    System.out.println( "YEARS LIST" );
+					//Years and Parents list
 				} else {
 				    accountFieldNamesMap.put(accountField.get(accountDto).toString(), accountField.getName().toString() );
 				}

@@ -10,8 +10,6 @@ import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_LOGOUT;
 import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_UPDATE;
 import static com.polo.rest.polo.constants.RestEndPoints.FILL_DATABASE;
 
-import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,7 +33,6 @@ import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.exceptions.EventException;
-import com.polo.rest.polo.repository.EventRepository;
 import com.polo.rest.polo.repository.PaymentRepository;
 import com.polo.rest.polo.responses.AuthenticationJson;
 import com.polo.rest.polo.responses.ResponseJson;
@@ -101,24 +98,12 @@ public class AccountControllerImpl
         return accountService.logoutAccount( auth );
     }
 
-    public List<PaymentDto> getAccountPayments() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<PaymentDto> getAccountPaymentsByYear() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public ResponseEntity updatePayment() {
-        // TODO Auto-generated method stub
-        return null;
-    }
     
     
     
     
+    
+    //FILL Database for tests
     
     
     private Payment createPaymentForTEsts(int cardId, int year, int monthIndex ) {
@@ -130,6 +115,24 @@ public class AccountControllerImpl
         payment.setPaid( true );
         
         return payment;
+    }
+    
+    @RequestMapping("/payments/fill")
+    public String fillDatabasePayments() throws AccountException, EventException {
+    	
+    	paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2015 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2016 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2017 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2018 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2016 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2017 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2018 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2017 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2018 ) );
+        paymentRepository.saveAll( createPaymentDtoForTEsts( 4, 2018 ) );
+        
+        return "ok";
+    	
     }
     
     
@@ -159,17 +162,17 @@ public class AccountControllerImpl
         	//accountPrint += p.toString() + "\n"; 
         //}
         
-        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2015 ) );
-        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2016 ) );
-        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2017 ) );
-        paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2018 ) );
-        paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2016 ) );
+        //paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2015 ) );
+        //paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2016 ) );
+        //paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2017 ) );
+        //paymentRepository.saveAll( createPaymentDtoForTEsts( 1, 2018 ) );
+        /*paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2016 ) );
         paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2017 ) );
         paymentRepository.saveAll( createPaymentDtoForTEsts( 2, 2018 ) );
         paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2017 ) );
         paymentRepository.saveAll( createPaymentDtoForTEsts( 3, 2018 ) );
         paymentRepository.saveAll( createPaymentDtoForTEsts( 4, 2018 ) );
-        
+        */
         
         //https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg
         //https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg

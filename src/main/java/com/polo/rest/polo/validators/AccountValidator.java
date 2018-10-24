@@ -33,10 +33,11 @@ public class AccountValidator
     }
 
 	private void validateParents(Field accountField, AccountDto accountDto) throws IllegalAccessException, SecurityException, AccountException {
-		if (checkFieldIsParentsDto(accountField) && !checkFieldNull(accountDto, accountField) ) {
+		if (checkFieldIsParentsDtoAndYearsPaid(accountField) && !checkFieldNull(accountDto, accountField) ) {
+			if ( null == accountDto.getParents() ) throw new AccountException( EXCEPTION_PARENT_NULL);
 			for ( ParentsDto parentDto : accountDto.getParents() ) {
 				if ( null == parentDto ) {
-					throw new AccountException( EXCEPTION_PARENT_NULL);
+					throw new AccountException( EXCEPTION_PARENT_NULL );
 				} else {
 					for ( Field parentsField : parentDto.getClass().getDeclaredFields() ) {
 						parentsField.setAccessible(true);
@@ -55,7 +56,7 @@ public class AccountValidator
 	}
 
 	private void validateAccountField(AccountDto accountDto, Field accountField) throws IllegalAccessException, AccountException {
-		if ( !checkFieldIsParentsDto(accountField) && checkFieldNull(accountDto, accountField) ) {
+		if ( !checkFieldIsParentsDtoAndYearsPaid(accountField) && checkFieldNull(accountDto, accountField) ) {
 			throw new AccountException( EXCEPTION_INVALID_ACCOUNT_MESSAGE + accountField.getName() );
 		}
 	}
@@ -64,7 +65,7 @@ public class AccountValidator
 		return null == accountField.get(accountDto);
 	}
 
-	private boolean checkFieldIsParentsDto(Field accountField) {
+	private boolean checkFieldIsParentsDtoAndYearsPaid(Field accountField) {
 		return accountField.getType().getSimpleName().equals(List.class.getSimpleName() );
 	}
     

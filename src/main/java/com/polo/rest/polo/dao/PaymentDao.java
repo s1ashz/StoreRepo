@@ -15,7 +15,7 @@ public class PaymentDao
     @Autowired
     private PaymentRepository paymentRepository;
 
-    public List<Payment> getAccountByCardId( int cardId, int year ) {
+    public List<Payment> getPaymentByCardId( int cardId, int year ) {
         return paymentRepository.getByCardIdAndYear( cardId, year );
     }
 
@@ -29,8 +29,6 @@ public class PaymentDao
 
     public List<Integer> getPaymentYearsList( int cardId ) {
         return paymentRepository.findDistinctYearByCardId(cardId);
-                
-                //findFirstByImportTypeOrderByTimestampDesc
     }
 
 	public void createPayment(Payment payment) {

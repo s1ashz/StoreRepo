@@ -36,7 +36,9 @@ public class CreateObjectsTest {
 	        dtoAccount.setEmail( UUID.randomUUID().toString() );
 	        dtoAccount.setParents( createParentDtoList() );
 	        dtoAccount.setAddress( UUID.randomUUID().toString() );
-	        
+	        List<Integer> yearsPaid = new ArrayList<>();
+	        dtoAccount.setYearsPaid(yearsPaid);
+
 	        return dtoAccount;
 	    }
 	    
