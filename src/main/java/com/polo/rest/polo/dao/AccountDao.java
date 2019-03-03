@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.polo.rest.polo.entity.Account;
-import com.polo.rest.polo.entity.Target;
 import com.polo.rest.polo.repository.AccountRepository;
 
 @Repository
@@ -58,4 +57,8 @@ public class AccountDao {
     public List<String> getAccountTokenByLevel( String target ) {
         return accountRepository.getAccountTokenByLevel( target );
     }
+    
+    public List<Account> getAccountsByCardIdList( List<Integer> carIdList ) {
+		return (List<Account>) accountRepository.findByCardIdIn( carIdList );
+	}
 }

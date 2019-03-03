@@ -7,6 +7,7 @@ import static com.polo.rest.polo.constants.ExceptionMessages.EXCEPTION_EVENT_NOT
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.polo.rest.polo.dao.EventDao;
 import com.polo.rest.polo.dao.TargetDao;
 import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.EventDto;
+import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Event;
 import com.polo.rest.polo.entity.Target;
 import com.polo.rest.polo.exceptions.EventException;
@@ -58,6 +60,22 @@ public class EventService
     public ResponseJson createEvent( EventDto eventDto ) throws EventException {
         eventValidator.validateEvent( eventDto );
         Event eventEntity = convertionManager.convertEventDtoToEvent( eventDto );
+        
+        System.out.println( "************************" );
+        List<Account> homePlayersFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomePlayers() );
+        List<Account> awayPlayersFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayPlayers() );
+        List<Account> homeCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomeCoaches() );
+        List<Account> awayCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayCoaches() );
+        
+        System.out.println( "id: " +eventEntity.getId() );
+        
+        
+        eventEntity.setHomePlayers( homePlayersFromDatabase );
+        eventEntity.setAwayPlayers( awayPlayersFromDatabase );
+        eventEntity.setHomeCoaches( homeCoachesFromDatabase );
+        eventEntity.setAwayCoaches( awayCoachesFromDatabase );
+        System.out.println( "************************" );
+        
         Long eventId = eventDao.createEvent( eventEntity );
         List<Target> targetEntityList = convertionManager.convertEventDtoTargetToTargetEntity( eventDto.getTarget(), eventEntity );
         targetDao.createTarget( targetEntityList );

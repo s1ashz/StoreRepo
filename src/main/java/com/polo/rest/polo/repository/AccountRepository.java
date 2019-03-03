@@ -1,6 +1,7 @@
 package com.polo.rest.polo.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,8 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
 	boolean existsByCardId(int cardId);
 	boolean existsByEmail( String email );
 	void deleteByCardId( int cardId );
+	
+	List<Account> findByCardIdIn(List<Integer> cardIdList);
 	
 	@Query("SELECT a.level FROM Account a WHERE a.cardId =:cardIdVar")
 	String findLevelByCardId( @Param("cardIdVar") int cardId );

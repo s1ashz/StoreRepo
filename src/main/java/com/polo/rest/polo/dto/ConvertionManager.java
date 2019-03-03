@@ -140,6 +140,9 @@ public class ConvertionManager
         eventEntity.setLocation( eventDto.getLocation() );
         eventEntity.setDate( eventDto.getDate() );
         eventEntity.setContent( eventDto.getContent() );
+        eventEntity.setHome( eventDto.getHome() );
+        eventEntity.setAway( eventDto.getAway() );
+        eventEntity.setReferees( eventDto.getReferees() );
         
         return eventEntity;
     }

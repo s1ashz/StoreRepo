@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 
-	@ExceptionHandler( AccountException.class )
-	public void handleAccountException( AccountException exception, HttpServletResponse response ) throws IOException {
-		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
-	}
-	
-	@ExceptionHandler( PaymentException.class )
-	public void handlePaymentException( PaymentException exception, HttpServletResponse response ) throws IOException {
-		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
-	}
-	
-	@ExceptionHandler( EventException.class )
-	public void handleEventException( EventException exception, HttpServletResponse response ) throws IOException {
-		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
-	}
+//	@ExceptionHandler( AccountException.class )
+//	public void handleAccountException( AccountException exception, HttpServletResponse response ) throws IOException {
+//		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
+//	}
+//	
+//	@ExceptionHandler( PaymentException.class )
+//	public void handlePaymentException( PaymentException exception, HttpServletResponse response ) throws IOException {
+//		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
+//	}
+//	
+//	@ExceptionHandler( EventException.class )
+//	public void handleEventException( EventException exception, HttpServletResponse response ) throws IOException {
+//		response.sendError( HttpStatus.BAD_REQUEST.value(), exception.getMessage() );
+//	}
 	
 }

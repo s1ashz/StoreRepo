@@ -2,6 +2,12 @@ package com.polo.rest.polo.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
+import com.polo.rest.polo.entity.Account;
 
 public class EventDto
 {
@@ -15,59 +21,117 @@ public class EventDto
     private Date date;
     private String content;
     
-    public long getId() {
-        return id;
-    }
-    public void setId( long id ) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName( String name ) {
-        this.name = name;
-    }
-    public String getPicture() {
-        return picture;
-    }
-    public void setPicture( String picture ) {
-        this.picture = picture;
-    }
-    public String getPriority() {
-        return priority;
-    }
-    public void setPriority( String priority ) {
-        this.priority = priority;
-    }
-    public String getLocation() {
-        return location;
-    }
-    public void setLocation( String location ) {
-        this.location = location;
-    }
-    public List<String> getTarget() {
-        return target;
-    }
-    public void setTarget( List<String> target ) {
-        this.target = target;
-    }
-    public Date getDate() {
-        return date;
-    }
-    public void setDate( Date date ) {
-        this.date = date;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent( String content ) {
-        this.content = content;
-    }
+    private boolean isGame;
+    private String home;
+    private String away;
+    private List<Integer> homePlayers;
+    private List<Integer> awayPlayers;
+    private List<Integer> homeCoaches;
+    private List<Integer> awayCoaches;
+    private List<String> referees;
     
-    @Override
-    public String toString() {
-        return "EventDto [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location="
-                + location + ", target=" + target + ", date=" + date + ", content=" + content + "]";
-    }
+	public long getId() {
+		return id;
+	}
+	public void setId( long id ) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName( String name ) {
+		this.name = name;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture( String picture ) {
+		this.picture = picture;
+	}
+	public String getPriority() {
+		return priority;
+	}
+	public void setPriority( String priority ) {
+		this.priority = priority;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation( String location ) {
+		this.location = location;
+	}
+	public List<String> getTarget() {
+		return target;
+	}
+	public void setTarget( List<String> target ) {
+		this.target = target;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate( Date date ) {
+		this.date = date;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent( String content ) {
+		this.content = content;
+	}
+	public boolean isGame() {
+		return isGame;
+	}
+	public void setGame( boolean isGame ) {
+		this.isGame = isGame;
+	}
+	public String getHome() {
+		return home;
+	}
+	public void setHome( String home ) {
+		this.home = home;
+	}
+	public String getAway() {
+		return away;
+	}
+	public void setAway( String away ) {
+		this.away = away;
+	}
+	public List<Integer> getHomePlayers() {
+		return homePlayers;
+	}
+	public void setHomePlayers( List<Integer> homePlayers ) {
+		this.homePlayers = homePlayers;
+	}
+	public List<Integer> getAwayPlayers() {
+		return awayPlayers;
+	}
+	public void setAwayPlayers( List<Integer> awayPlayers ) {
+		this.awayPlayers = awayPlayers;
+	}
+	public List<Integer> getHomeCoaches() {
+		return homeCoaches;
+	}
+	public void setHomeCoaches( List<Integer> homeCoaches ) {
+		this.homeCoaches = homeCoaches;
+	}
+	public List<Integer> getAwayCoaches() {
+		return awayCoaches;
+	}
+	public void setAwayCoaches( List<Integer> awayCoaches ) {
+		this.awayCoaches = awayCoaches;
+	}
+	public List<String> getReferees() {
+		return referees;
+	}
+	public void setReferees( List<String> referees ) {
+		this.referees = referees;
+	}
+	
+	@Override
+	public String toString() {
+		return "EventDto [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location=" + location + ", target=" + target + ", date=" + date + ", content=" + content + ", isGame=" + isGame + ", home=" + home
+				+ ", away=" + away + ", homePlayers=" + homePlayers + ", awayPlayers=" + awayPlayers + ", homeCoaches=" + homeCoaches + ", awayCoaches=" + awayCoaches + ", referees=" + referees + "]";
+	}
+
     
 }
