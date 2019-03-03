@@ -140,6 +140,8 @@ public class ConvertionManager
         eventEntity.setLocation( eventDto.getLocation() );
         eventEntity.setDate( eventDto.getDate() );
         eventEntity.setContent( eventDto.getContent() );
+        
+        eventEntity.setGame( eventDto.isGame() );
         eventEntity.setHome( eventDto.getHome() );
         eventEntity.setAway( eventDto.getAway() );
         eventEntity.setReferees( eventDto.getReferees() );
@@ -168,6 +170,41 @@ public class ConvertionManager
         eventDto.setDate( event.getDate() );
         eventDto.setContent( event.getContent() );
         
+        eventDto.setHome( event.getHome() );
+        eventDto.setAway( event.getAway() );
+        eventDto.setGame( event.isGame() );
+        
+        List<Integer> homePlayersDto = new ArrayList<>();
+        for ( Account homePlayerEntity : event.getHomePlayers() ) {
+        	homePlayersDto.add( homePlayerEntity.getCardId() );
+        }
+        
+        List<Integer> awayPlayersDto = new ArrayList<>();
+        for ( Account awayPlayerEntity : event.getAwayPlayers() ) {
+        	awayPlayersDto.add( awayPlayerEntity.getCardId() );
+        }
+        
+        List<Integer> homeCoachesDto = new ArrayList<>();
+        for ( Account homeCoachesEntity : event.getHomeCoaches() ) {
+        	homeCoachesDto.add( homeCoachesEntity.getCardId() );
+        }
+
+        List<Integer> awayCoachesDto = new ArrayList<>();
+        for ( Account awayCoachesEntity : event.getAwayCoaches() ) {
+        	awayCoachesDto.add( awayCoachesEntity.getCardId() );
+        }
+        
+        List<String> refereesList = new ArrayList<>();
+        for ( String referee : event.getReferees() ) {
+        	refereesList.add( referee );
+        }
+        
+	    eventDto.setHomePlayers( homePlayersDto );
+	    eventDto.setAwayPlayers( awayPlayersDto );
+	    eventDto.setHomeCoaches( homeCoachesDto );
+	    eventDto.setAwayCoaches( awayCoachesDto );	    
+	    eventDto.setReferees( refereesList );
+	    
         return eventDto;
     }
     

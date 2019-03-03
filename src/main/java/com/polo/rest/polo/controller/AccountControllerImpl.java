@@ -178,6 +178,8 @@ public class AccountControllerImpl
         
         //https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg
         //https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg
+        
+        
         eventService.createEvent( createEventDtoForTests( "Junior League", "https://regrasdoesporte.com.br/wp-content/uploads/2012/12/regras-polo-aquatico-natacao.jpg", "1", "Porto", "Jogo contra o Porto", "Juvenil", createNewDateForTests(2018, 10, 21) ) );
         eventService.createEvent( createEventDtoForTests( "Senior League", "https://pbs.twimg.com/media/DFsje9KXkAAtzVV.jpg", "1", "Lisboa", "Jogo contra Lisboa", "Juvenil", createNewDateForTests(2018, 10, 21) ) );
         
@@ -268,6 +270,7 @@ public class AccountControllerImpl
 	    List<Integer> awayPlayers = new ArrayList<>();
 	    awayPlayers.add( 2 );
 	    awayPlayers.add( 4 );
+	    
 	    eventDto.setHomePlayers( homePlayers );
 	    eventDto.setAwayPlayers( awayPlayers );
 	    
@@ -282,6 +285,8 @@ public class AccountControllerImpl
 	    
 	    eventDto.setHomeCoaches( homeCoaches );
 	    eventDto.setAwayCoaches( awayCoaches );
+	    eventDto.setReferees( refereesList );
+	    
 	    
 	    List<String> targetList = new ArrayList<>();
 	    targetList.add( target );

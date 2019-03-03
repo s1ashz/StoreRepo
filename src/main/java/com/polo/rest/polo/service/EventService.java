@@ -67,8 +67,6 @@ public class EventService
         List<Account> homeCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomeCoaches() );
         List<Account> awayCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayCoaches() );
         
-        System.out.println( "id: " +eventEntity.getId() );
-        
         
         eventEntity.setHomePlayers( homePlayersFromDatabase );
         eventEntity.setAwayPlayers( awayPlayersFromDatabase );
