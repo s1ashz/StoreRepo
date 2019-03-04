@@ -21,7 +21,6 @@ import com.polo.rest.polo.exceptions.PersonException;
 @Component
 public class GameMatchConverter implements ConstantManager {
 
-    private static GameMatchConverter gameConvertorInstance = null;
     private GameMatchConverter() {}
     
     @Autowired
@@ -34,52 +33,69 @@ public class GameMatchConverter implements ConstantManager {
     private PersonDao personDao;
     
     public Game convertGameDtoToGame( GameDto gameDto ) {
-        
         Game gameEntity = new Game();
+
+        Team homeTeamEntity = convertTeamDtoToTeam( gameDto.getHomeTeam() );
+        Team awayTeamEntity = convertTeamDtoToTeam( gameDto.getAwayTeam() );
         
-        return null;
+        List<Person> refereeEntityList = new ArrayList<>();
+        for ( String refereeName : gameDto.getRefereeList() ) {
+            //TODO if referee doesnt exist create him
+            Person referee = personDao.getPersonRefereeByName( refereeName );
+            refereeEntityList.add( referee );
+        }
+        
+        gameEntity.setActivity( null );
+        gameEntity.setHomeTeam( homeTeamEntity );
+        gameEntity.setAwayTeam( awayTeamEntity );
+        gameEntity.setReferee( refereeEntityList );
+
+        return gameEntity;
     }
     
     public Person convertPersonDtoToPerson( PersonDto personDto ) {
-        
         Person personEntity = new Person();
-        
         personEntity.setName( personDto.getName() );
         personEntity.setNumber( personDto.getNumber() );
         personEntity.setType( personDto.getType() );
 
         return personEntity;
-        
     }
     
     public Team convertTeamDtoToTeam( TeamDto teamDto ) {
-        
         Team teamEntity = new Team();
         teamEntity.setName( teamDto.getName() );
         teamEntity.setLogo( teamDto.getLogo() );
         
-        List<Person> playerEntityList = new ArrayList<>();
-        for ( PersonDto personDto : teamDto.getPlayers() ) {
-            try {
-                System.out.println( personDto.toString() );
-                System.out.println( personDao );
-                playerEntityList.add( personDao.getPersonByNameAndNumber( personDto.getName(), personDto.getNumber() ) );
-            } catch( PersonException e ) {
-                e.printStackTrace();
-            }
-        }
-        
-        List<Person> coachesEntityList = new ArrayList<>();
-        for ( String coachName : teamDto.getCoaches() ) {
-            coachesEntityList.add( personDao.getPersonByNameAndType( coachName, COACH ) );
-        }
+        List<Person> playerEntityList = convertPlayerDtoToPlayerEntityList( teamDto.getPlayers() );
+        List<Person> coachesEntityList = convertCoachesNamesToCoachesEntityList( teamDto.getCoaches() );
         
         teamEntity.setPlayers( playerEntityList );
         teamEntity.setCoaches( coachesEntityList );
         
         return teamEntity;
     }
-    
+
+    private List<Person> convertCoachesNamesToCoachesEntityList( List<String> coaches ) {
+        List<Person> coachesEntityList = new ArrayList<>();
+        for ( String coachName : coaches ) {
+            //TODO if referee doesnt exist create him
+            coachesEntityList.add( personDao.getPersonCoachesByName( coachName ) );
+        }
+        return coachesEntityList;
+    }
+
+    private List<Person> convertPlayerDtoToPlayerEntityList( List<PersonDto> players ) {
+        List<Person> playerEntityList = new ArrayList<>();
+        for ( PersonDto personDto : players ) {
+            try {
+                playerEntityList.add( personDao.getPersonByNameAndNumber( personDto.getName(), personDto.getNumber() ) );
+            } catch( PersonException e ) {
+                e.printStackTrace();
+            }
+        }
+        return playerEntityList;
+    }
     
     
 }

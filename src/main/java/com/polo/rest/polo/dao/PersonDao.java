@@ -43,8 +43,12 @@ public class PersonDao implements ConstantManager {
         return personRepository.existsById( id );
     }
 
-    public Person getPersonByNameAndType( String coachName, String personType ) {
-        return personRepository.findFirstByNameAndType( coachName, personType );
+    public Person getPersonCoachesByName( String coachName ) {
+        return personRepository.findFirstByNameAndType( coachName, COACH );
+    }
+
+    public Person getPersonRefereeByName( String refereeName ) {
+        return personRepository.findFirstByNameAndType( refereeName, REFEREE );
     }
     
     

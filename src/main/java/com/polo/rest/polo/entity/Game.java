@@ -23,8 +23,8 @@ public class Game {
 	@OneToOne
 	private Team awayTeam;
 	
-	@OneToOne
-	private Person referee;
+	@ManyToMany(cascade=CascadeType.ALL)
+	private List<Person> referee;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<GameEvent> activity;
@@ -47,10 +47,10 @@ public class Game {
     public void setAwayTeam( Team awayTeam ) {
         this.awayTeam = awayTeam;
     }
-    public Person getReferee() {
+    public List<Person> getReferee() {
         return referee;
     }
-    public void setReferee( Person referee ) {
+    public void setReferee( List<Person> referee ) {
         this.referee = referee;
     }
     public List<GameEvent> getActivity() {

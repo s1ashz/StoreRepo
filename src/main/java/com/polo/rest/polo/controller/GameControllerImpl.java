@@ -145,7 +145,7 @@ public class GameControllerImpl implements ConstantManager {
             Person dbPerson = personDao.getPersonByNameAndNumber( person1.getName(), person1.getNumber() );
             System.out.println( dbPerson.toString() );
             
-            Person dbPerson2 = personDao.getPersonByNameAndType( person1.getName(), person1.getType() );
+            Person dbPerson2 = personDao.getPersonCoachesByName( person1.getName(), person1.getType() );
             System.out.println( dbPerson2.toString() );
             
         } catch( PersonException e ) {
