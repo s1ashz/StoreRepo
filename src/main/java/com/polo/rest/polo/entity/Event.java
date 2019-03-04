@@ -35,22 +35,22 @@ public class Event
     private String away;
     
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Account> homePlayers;
+    private List<Person> homePlayers;
     
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Account> awayPlayers;
+    private List<Person> awayPlayers;
     
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Account> homeCoaches;
+    private List<Person> homeCoaches;
     
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Account> awayCoaches;
+    private List<Person> awayCoaches;
     
     @ElementCollection
-    private List<String> referees;
+    private List<Person> referees;
     
     @OneToMany(cascade = CascadeType.ALL)
-    private List<GameEvent> activity;
+    private List<Game> activity;
     
     
 	public long getId() {
@@ -113,40 +113,40 @@ public class Event
 	public void setAway( String away ) {
 		this.away = away;
 	}
-	public List<Account> getHomePlayers() {
+	public List<Person> getHomePlayers() {
 		return homePlayers;
 	}
-	public void setHomePlayers( List<Account> homePlayers ) {
+	public void setHomePlayers( List<Person> homePlayers ) {
 		this.homePlayers = homePlayers;
 	}
-	public List<Account> getAwayPlayers() {
+	public List<Person> getAwayPlayers() {
 		return awayPlayers;
 	}
-	public void setAwayPlayers( List<Account> awayPlayers ) {
+	public void setAwayPlayers( List<Person> awayPlayers ) {
 		this.awayPlayers = awayPlayers;
 	}
-	public List<Account> getHomeCoaches() {
+	public List<Person> getHomeCoaches() {
 		return homeCoaches;
 	}
-	public void setHomeCoaches( List<Account> homeCoaches ) {
+	public void setHomeCoaches( List<Person> homeCoaches ) {
 		this.homeCoaches = homeCoaches;
 	}
-	public List<Account> getAwayCoaches() {
+	public List<Person> getAwayCoaches() {
 		return awayCoaches;
 	}
-	public void setAwayCoaches( List<Account> awayCoaches ) {
+	public void setAwayCoaches( List<Person> awayCoaches ) {
 		this.awayCoaches = awayCoaches;
 	}
-	public List<String> getReferees() {
+	public List<Person> getReferees() {
 		return referees;
 	}
-	public void setReferees( List<String> referees ) {
+	public void setReferees( List<Person> referees ) {
 		this.referees = referees;
 	}
-	public List<GameEvent> getActivity() {
+	public List<Game> getActivity() {
 		return activity;
 	}
-	public void setActivity( List<GameEvent> activity ) {
+	public void setActivity( List<Game> activity ) {
 		this.activity = activity;
 	}
 	

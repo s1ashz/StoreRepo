@@ -8,34 +8,28 @@ import javax.persistence.Id;
 @Entity
 public class GameEvent {
 
-	@Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
-	
-	private String lel;
+    
+    private String lel;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId( long id ) {
-		this.id = id;
-	}
-
-	public String getLel() {
-		return lel;
-	}
-
-	public void setLel( String lel ) {
-		this.lel = lel;
-	}
-
-	@Override
-	public String toString() {
-		return "GameEvent [id=" + id + ", lel=" + lel + "]";
-	}
-	
-	
-	
-	
+    public long getId() {
+        return id;
+    }
+    public void setId( long id ) {
+        this.id = id;
+    }
+    public String getLel() {
+        return lel;
+    }
+    public void setLel( String lel ) {
+        this.lel = lel;
+    }
+    
+    @Override
+    public String toString() {
+        return "GameEvent [id=" + id + ", lel=" + lel + "]";
+    }
+    
 }

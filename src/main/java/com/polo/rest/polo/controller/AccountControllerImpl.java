@@ -1,22 +1,10 @@
 package com.polo.rest.polo.controller;
 
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_AUTHENTICATE;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_CREATE;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_DELETE;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_DELETE_ALL_DATABASE;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_GET_ACCOUNT_BY_CARD_ID;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_GET_ALL_ACCOUNTS;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_LOGOUT;
-import static com.polo.rest.polo.constants.RestEndPoints.ACCOUNT_UPDATE;
-import static com.polo.rest.polo.constants.RestEndPoints.FILL_DATABASE;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.polo.rest.polo.constants.ConstantManager;
 import com.polo.rest.polo.dto.AccountDto;
 import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.EventDto;
@@ -42,8 +31,7 @@ import com.polo.rest.polo.service.AccountService;
 import com.polo.rest.polo.service.EventService;
 
 @RestController
-public class AccountControllerImpl
-{
+public class AccountControllerImpl implements ConstantManager {
     //TODO DELETE THIS AFTER
     @Autowired
     private PaymentRepository paymentRepository;
@@ -294,6 +282,7 @@ public class AccountControllerImpl
 	    
 	    return eventDto;
 	}
+	
 	
 	
 	
