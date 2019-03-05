@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.polo.rest.polo.constants.ConstantManager;
-import com.polo.rest.polo.dao.TeamDao;
-import com.polo.rest.polo.dto.EventDto;
-import com.polo.rest.polo.dto.GameDto;
-import com.polo.rest.polo.exceptions.EventException;
+import com.polo.rest.polo.dto.TeamDto;
+import com.polo.rest.polo.exceptions.TeamException;
 import com.polo.rest.polo.responses.ResponseJson;
+import com.polo.rest.polo.service.TeamService;
 
 @RestController
 public class TeamControllerImpl implements ConstantManager {
@@ -22,29 +21,29 @@ public class TeamControllerImpl implements ConstantManager {
 	private TeamService teamService;
 	
 	@RequestMapping( TEAM_CREATE )
-    public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
-    	System.out.println( gameDto.toString() );
-        return teamDao.createGame( gameDto );
+    public ResponseJson createTeam( @RequestBody( required=true ) TeamDto teamDto ) {
+    	System.out.println( teamDto.toString() );
+        return teamService.createTeam( teamDto );
     }
     
     @RequestMapping( TEAM_GET ) 
-    public EventDto getGame( @PathVariable(value="eventId", required=true ) Long gameId ) throws EventException {
-        return teamDao.getGame( gameId );
+    public TeamDto getTeam( @PathVariable(value="teamName", required=true ) String teamName ) throws TeamException {
+        return teamService.getTeamWithName( teamName );
     }
     
     @RequestMapping( TEAM_GET_ALL )
-    public List<EventDto> getAllEvents() {
-        return teamDao.getAllGames();
+    public List<TeamDto> getAllTeam() {
+        return teamService.getAllTeams();
     }
     
     @RequestMapping( TEAM_DELETE_BY_ID )
-    public ResponseJson deleteGame( @PathVariable(value="id", required=true ) int gameId ) throws EventException {
-        return teamDao.deleteGameById( gameId );
+    public ResponseJson deleteTeam( @PathVariable(value="id", required=true ) int teamId ) {
+        return teamService.deleteTeamById( teamId );
     }
     
     @RequestMapping( TEAM_UPDATE )
-    public ResponseJson updateGame( @RequestBody( required=true ) GameDto eventDto ) throws EventException {
-        return teamDao.updateGame( eventDto );
+    public ResponseJson updateTeam( @RequestBody( required=true ) TeamDto teamDto ) {
+        return teamService.updateTeam( teamDto );
     }
 	
 	

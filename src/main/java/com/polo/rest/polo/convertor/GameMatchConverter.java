@@ -27,9 +27,6 @@ public class GameMatchConverter implements ConstantManager {
     private GameDao gameDao;
     
     @Autowired
-    private TeamDao teamDao;
-    
-    @Autowired
     private PersonDao personDao;
     
     public Game convertGameDtoToGame( GameDto gameDto ) {
@@ -68,6 +65,7 @@ public class GameMatchConverter implements ConstantManager {
         Team teamEntity = new Team();
         teamEntity.setName( teamDto.getName() );
         teamEntity.setLogo( teamDto.getLogo() );
+        teamEntity.setAcronym( teamDto.getAcronym() );
         
         List<Person> playerEntityList = convertPlayerDtoToPlayerEntityList( teamDto.getPlayers() );
         List<Person> coachesEntityList = convertCoachesNamesToCoachesEntityList( teamDto.getCoaches() );
@@ -104,7 +102,6 @@ public class GameMatchConverter implements ConstantManager {
         }
         return playerEntityList;
     }
-    
 
     private Person creatNewCoachWithName( String coachName ) {
     	Person coach = new Person();
@@ -128,6 +125,21 @@ public class GameMatchConverter implements ConstantManager {
 			e.printStackTrace();
 		}
 		return referee;
+	}
+
+	public TeamDto convertTeamEntityToTeamDto( Team teamEntity ) {
+		
+		TeamDto teamDto = new TeamDto();
+		teamDto.setName( teamEntity.getName() );
+		teamDto.setLogo( teamEntity.getLogo() );
+		teamDto.setAcronym( teamEntity.getAcronym() );
+		
+		List<PersonDto> playerEntityList = new ArrayList<>();
+		List<String> coachesEntityList = new ArrayList<>();
+		teamDto.setPlayers( playerEntityList );
+		teamDto.setCoaches( coachesEntityList );
+		
+		return teamDto;
 	}
     
 }

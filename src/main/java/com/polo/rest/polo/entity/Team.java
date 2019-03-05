@@ -18,8 +18,9 @@ public class Team {
     
     private String name;
     private String logo;
+    private String acronym;
     
-    @ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL)
     private List<Person> players;
     
     @ManyToMany(cascade=CascadeType.ALL)
@@ -55,10 +56,16 @@ public class Team {
     public void setCoaches( List<Person> coaches ) {
         this.coaches = coaches;
     }
-    
-    @Override
-    public String toString() {
-        return "Team [id=" + id + ", name=" + name + ", logo=" + logo + ", players=" + players + ", coaches=" + coaches + "]";
-    }
+    public String getAcronym() {
+		return acronym;
+	}
+	public void setAcronym( String acronym ) {
+		this.acronym = acronym;
+	}
+	
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", name=" + name + ", logo=" + logo + ", acronym=" + acronym + ", players=" + players + ", coaches=" + coaches + "]";
+	}
     
 }

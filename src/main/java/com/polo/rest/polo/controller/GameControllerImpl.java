@@ -44,9 +44,6 @@ public class GameControllerImpl implements ConstantManager {
     @Autowired
     private GameMatchConverter gameMatchConverter;
     
-    
-    
-    
     @RequestMapping( GAME_CREATE )
     public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
     	System.out.println( gameDto.toString() );
@@ -59,7 +56,7 @@ public class GameControllerImpl implements ConstantManager {
     }
     
     @RequestMapping( GAME_GET_ALL )
-    public List<EventDto> getAllEvents() {
+    public List<EventDto> getAllTeams() {
         return gameService.getAllGames();
     }
     

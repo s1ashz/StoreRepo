@@ -30,27 +30,27 @@ public class Event
     @Column(columnDefinition="TEXT")
     private String content;
     
-    private boolean isGame;
-    private String home;
-    private String away;
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Person> homePlayers;
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Person> awayPlayers;
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Person> homeCoaches;
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Person> awayCoaches;
-    
-    @ElementCollection
-    private List<Person> referees;
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Game> activity;
+//    private boolean isGame;
+//    private String home;
+//    private String away;
+//    
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<Person> homePlayers;
+//    
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<Person> awayPlayers;
+//    
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<Person> homeCoaches;
+//    
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<Person> awayCoaches;
+//    
+//    @ElementCollection
+//    private List<Person> referees;
+//    
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Game> activity;
     
     
 	public long getId() {
@@ -95,71 +95,12 @@ public class Event
 	public void setContent( String content ) {
 		this.content = content;
 	}
-	public boolean isGame() {
-		return isGame;
-	}
-	public void setGame( boolean isGame ) {
-		this.isGame = isGame;
-	}
-	public String getHome() {
-		return home;
-	}
-	public void setHome( String home ) {
-		this.home = home;
-	}
-	public String getAway() {
-		return away;
-	}
-	public void setAway( String away ) {
-		this.away = away;
-	}
-	public List<Person> getHomePlayers() {
-		return homePlayers;
-	}
-	public void setHomePlayers( List<Person> homePlayers ) {
-		this.homePlayers = homePlayers;
-	}
-	public List<Person> getAwayPlayers() {
-		return awayPlayers;
-	}
-	public void setAwayPlayers( List<Person> awayPlayers ) {
-		this.awayPlayers = awayPlayers;
-	}
-	public List<Person> getHomeCoaches() {
-		return homeCoaches;
-	}
-	public void setHomeCoaches( List<Person> homeCoaches ) {
-		this.homeCoaches = homeCoaches;
-	}
-	public List<Person> getAwayCoaches() {
-		return awayCoaches;
-	}
-	public void setAwayCoaches( List<Person> awayCoaches ) {
-		this.awayCoaches = awayCoaches;
-	}
-	public List<Person> getReferees() {
-		return referees;
-	}
-	public void setReferees( List<Person> referees ) {
-		this.referees = referees;
-	}
-	public List<Game> getActivity() {
-		return activity;
-	}
-	public void setActivity( List<Game> activity ) {
-		this.activity = activity;
-	}
 	
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location=" + location + ", date=" + date + ", content=" + content + ", isGame=" + isGame + ", home=" + home + ", away=" + away
-				+ ", homePlayers=" + homePlayers + ", awayPlayers=" + awayPlayers + ", homeCoaches=" + homeCoaches + ", awayCoaches=" + awayCoaches + ", referees=" + referees + ", activity=" + activity + "]";
+		return "Event [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location=" + location + ", date=" + date + ", content=" + content + "]";
 	}
-    
-    
-    
-    
-
+	
 }
 
 

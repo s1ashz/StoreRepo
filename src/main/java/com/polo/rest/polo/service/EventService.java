@@ -62,16 +62,16 @@ public class EventService
         Event eventEntity = convertionManager.convertEventDtoToEvent( eventDto );
         
         System.out.println( "************************" );
-        List<Account> homePlayersFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomePlayers() );
-        List<Account> awayPlayersFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayPlayers() );
-        List<Account> homeCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomeCoaches() );
-        List<Account> awayCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayCoaches() );
-        
-        
-        eventEntity.setHomePlayers( homePlayersFromDatabase );
-        eventEntity.setAwayPlayers( awayPlayersFromDatabase );
-        eventEntity.setHomeCoaches( homeCoachesFromDatabase );
-        eventEntity.setAwayCoaches( awayCoachesFromDatabase );
+//        List<Account> homePlayersFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomePlayers() );
+//        List<Account> awayPlayersFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayPlayers() );
+//        List<Account> homeCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getHomeCoaches() );
+//        List<Account> awayCoachesFromDatabase = accountDao.getAccountsByCardIdList( eventDto.getAwayCoaches() );
+//        
+//        
+//        eventEntity.setHomePlayers( homePlayersFromDatabase );
+//        eventEntity.setAwayPlayers( awayPlayersFromDatabase );
+//        eventEntity.setHomeCoaches( homeCoachesFromDatabase );
+//        eventEntity.setAwayCoaches( awayCoachesFromDatabase );
         System.out.println( "************************" );
         
         Long eventId = eventDao.createEvent( eventEntity );

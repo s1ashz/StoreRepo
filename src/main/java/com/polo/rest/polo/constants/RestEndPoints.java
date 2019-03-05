@@ -29,10 +29,10 @@ public interface RestEndPoints {
     String GAME_DELETE_BY_ID = "/game/delete/{id}";
     String GAME_UPDATE = "/game/update";
     
-    String TEAM_CREATE = "/game/create";
-    String TEAM_GET = "/game/{eventId}";
-    String TEAM_GET_ALL = "/game/all";
-    String TEAM_DELETE_BY_ID = "/game/delete/{id}";
-    String TEAM_UPDATE = "/game/update";
+    String TEAM_CREATE = "/team/create";
+    String TEAM_GET = "/team/{teamName}";
+    String TEAM_GET_ALL = "/team/all";
+    String TEAM_DELETE_BY_ID = "/team/delete/{id}";
+    String TEAM_UPDATE = "/team/update";
     
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.polo.rest.polo.entity.Game;
 import com.polo.rest.polo.exceptions.GameException;
 import com.polo.rest.polo.repository.GameRepository;
+import com.polo.rest.polo.repository.TeamRepository;
 
 @Repository
 public class GameDao {

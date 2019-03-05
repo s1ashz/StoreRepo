@@ -24,6 +24,10 @@ public interface ExceptionMessages {
 	String EXCEPTION_GAME_NOT_CREATED = "The game was not created.";
     String EXCEPTION_GAME_NOT_EXISTS = "Game does not exist with the id: ";
     
+    String EXCEPTION_TEAM_NOT_CREATED = "The Team was not created.";
+    String EXCEPTION_TEAM_NOT_EXISTS = "Team does not exist with the name: ";
+    String EXCEPTION_TEAM_ALREADY_EXISTS = "Team already exists with the name: ";
+    
     String EXCEPTION_PERSON_NOT_CREATED = "The person was not created: Name: ";
     String EXCEPTION_PERSON_NOT_EXISTS = "Person does not exist with the id: ";
 	

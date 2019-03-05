@@ -249,31 +249,32 @@ public class AccountControllerImpl implements ConstantManager {
 	    eventDto.setLocation( location );
 	    eventDto.setDate( date );
 	    eventDto.setContent( content );
-	    eventDto.setHome( "Porto" );
-	    eventDto.setAway( "Benfica" );
-	    List<Integer> homePlayers = new ArrayList<>();
-	    homePlayers.add( 1 );
-	    homePlayers.add( 3 );
-	    
-	    List<Integer> awayPlayers = new ArrayList<>();
-	    awayPlayers.add( 2 );
-	    awayPlayers.add( 4 );
-	    
-	    eventDto.setHomePlayers( homePlayers );
-	    eventDto.setAwayPlayers( awayPlayers );
-	    
-	    List<Integer> homeCoaches = new ArrayList<>();
-	    homeCoaches.add( 1 );
-	    
-	    List<Integer> awayCoaches = new ArrayList<>();
-	    awayCoaches.add( 3 );
-	    
-	    List<String> refereesList = new ArrayList<>();
-	    refereesList.add( "referee" );
-	    
-	    eventDto.setHomeCoaches( homeCoaches );
-	    eventDto.setAwayCoaches( awayCoaches );
-	    eventDto.setReferees( refereesList );
+	   
+//	    eventDto.setHome( "Porto" );
+//	    eventDto.setAway( "Benfica" );
+//	    List<Integer> homePlayers = new ArrayList<>();
+//	    homePlayers.add( 1 );
+//	    homePlayers.add( 3 );
+//	    
+//	    List<Integer> awayPlayers = new ArrayList<>();
+//	    awayPlayers.add( 2 );
+//	    awayPlayers.add( 4 );
+//	    
+//	    eventDto.setHomePlayers( homePlayers );
+//	    eventDto.setAwayPlayers( awayPlayers );
+//	    
+//	    List<Integer> homeCoaches = new ArrayList<>();
+//	    homeCoaches.add( 1 );
+//	    
+//	    List<Integer> awayCoaches = new ArrayList<>();
+//	    awayCoaches.add( 3 );
+//	    
+//	    List<String> refereesList = new ArrayList<>();
+//	    refereesList.add( "referee" );
+//	    
+//	    eventDto.setHomeCoaches( homeCoaches );
+//	    eventDto.setAwayCoaches( awayCoaches );
+//	    eventDto.setReferees( refereesList );
 	    
 	    
 	    List<String> targetList = new ArrayList<>();

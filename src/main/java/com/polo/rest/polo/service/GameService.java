@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.polo.rest.polo.convertor.ConvertionManager;
 import com.polo.rest.polo.convertor.GameMatchConverter;
 import com.polo.rest.polo.dao.GameDao;
 import com.polo.rest.polo.dto.EventDto;
