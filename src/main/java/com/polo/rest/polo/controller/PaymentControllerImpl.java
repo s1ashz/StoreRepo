@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.polo.rest.polo.dto.ConvertionManager;
+import com.polo.rest.polo.convertor.ConvertionManager;
 import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;

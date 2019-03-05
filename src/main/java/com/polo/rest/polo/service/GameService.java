@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.polo.rest.polo.convertor.ConvertionManager;
 import com.polo.rest.polo.convertor.GameMatchConverter;
 import com.polo.rest.polo.dao.GameDao;
-import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.EventDto;
 import com.polo.rest.polo.dto.GameDto;
 import com.polo.rest.polo.entity.Game;
@@ -30,7 +30,7 @@ public class GameService {
     public ResponseJson createGame( GameDto gameDto ) {
         gameValidator.validateGame( gameDto );
         
-        Game game = null;
+        Game game = gameMatchConverter.convertGameDtoToGame( gameDto );
         
         try {
             gameDao.createGame( game );

@@ -40,8 +40,10 @@ public class GameMatchConverter implements ConstantManager {
         
         List<Person> refereeEntityList = new ArrayList<>();
         for ( String refereeName : gameDto.getRefereeList() ) {
-            //TODO if referee doesnt exist create him
             Person referee = personDao.getPersonRefereeByName( refereeName );
+            if ( null == referee ) {
+            	referee = creatNewRefereeWithName( refereeName );
+            }
             refereeEntityList.add( referee );
         }
         
@@ -52,8 +54,8 @@ public class GameMatchConverter implements ConstantManager {
 
         return gameEntity;
     }
-    
-    public Person convertPersonDtoToPerson( PersonDto personDto ) {
+
+	public Person convertPersonDtoToPerson( PersonDto personDto ) {
         Person personEntity = new Person();
         personEntity.setName( personDto.getName() );
         personEntity.setNumber( personDto.getNumber() );
@@ -79,17 +81,23 @@ public class GameMatchConverter implements ConstantManager {
     private List<Person> convertCoachesNamesToCoachesEntityList( List<String> coaches ) {
         List<Person> coachesEntityList = new ArrayList<>();
         for ( String coachName : coaches ) {
-            //TODO if referee doesnt exist create him
-            coachesEntityList.add( personDao.getPersonCoachesByName( coachName ) );
+        	Person coach = personDao.getPersonCoachesByName( coachName );
+        	if ( null == coach ) {
+        		coach = creatNewCoachWithName( coachName );
+        	}
+        	
+            coachesEntityList.add( coach );
         }
         return coachesEntityList;
     }
-
-    private List<Person> convertPlayerDtoToPlayerEntityList( List<PersonDto> players ) {
+    
+	private List<Person> convertPlayerDtoToPlayerEntityList( List<PersonDto> players ) {
         List<Person> playerEntityList = new ArrayList<>();
         for ( PersonDto personDto : players ) {
             try {
-                playerEntityList.add( personDao.getPersonByNameAndNumber( personDto.getName(), personDto.getNumber() ) );
+            	if ( null != personDto ) {
+            		playerEntityList.add( personDao.getPersonByNameAndNumber( personDto.getName(), personDto.getNumber() ) );
+            	}
             } catch( PersonException e ) {
                 e.printStackTrace();
             }
@@ -97,5 +105,29 @@ public class GameMatchConverter implements ConstantManager {
         return playerEntityList;
     }
     
+
+    private Person creatNewCoachWithName( String coachName ) {
+    	Person coach = new Person();
+		coach.setName( coachName );
+		coach.setType( COACH );
+		try {
+			personDao.createPerson( coach );
+		} catch ( PersonException e ) {
+			e.printStackTrace();
+		}
+		return coach;
+	}
+    
+    private Person creatNewRefereeWithName( String refereeName ) {
+    	Person referee = new Person();
+		referee.setName( refereeName );
+		referee.setType( REFEREE );
+		try {
+			personDao.createPerson( referee );
+		} catch ( PersonException e ) {
+			e.printStackTrace();
+		}
+		return referee;
+	}
     
 }

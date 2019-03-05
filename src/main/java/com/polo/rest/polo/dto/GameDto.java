@@ -44,9 +44,9 @@ public class GameDto
         this.activity = activity;
     }
     
-    @Override
-    public String toString() {
-        return "GameDto [id=" + id + ", refereeList=" + refereeList + ", activity=" + activity + "]";
-    }
+	@Override
+	public String toString() {
+		return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", refereeList=" + refereeList + ", activity=" + activity + "]";
+	}
     
 }

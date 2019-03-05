@@ -2,6 +2,7 @@ package com.polo.rest.polo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,15 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.polo.rest.polo.constants.ConstantManager;
 import com.polo.rest.polo.convertor.GameMatchConverter;
+import com.polo.rest.polo.dao.GameDao;
 import com.polo.rest.polo.dao.PersonDao;
 import com.polo.rest.polo.dto.EventDto;
 import com.polo.rest.polo.dto.GameDto;
 import com.polo.rest.polo.dto.PersonDto;
 import com.polo.rest.polo.dto.TeamDto;
+import com.polo.rest.polo.entity.Game;
+import com.polo.rest.polo.entity.GameEvent;
 import com.polo.rest.polo.entity.Person;
 import com.polo.rest.polo.entity.Team;
 import com.polo.rest.polo.exceptions.AccountException;
 import com.polo.rest.polo.exceptions.EventException;
+import com.polo.rest.polo.exceptions.GameException;
 import com.polo.rest.polo.exceptions.PersonException;
 import com.polo.rest.polo.responses.ResponseJson;
 import com.polo.rest.polo.service.GameService;
@@ -34,6 +39,9 @@ public class GameControllerImpl implements ConstantManager {
     private PersonDao personDao;
     
     @Autowired
+    private GameDao gameDao;
+    
+    @Autowired
     private GameMatchConverter gameMatchConverter;
     
     
@@ -41,6 +49,7 @@ public class GameControllerImpl implements ConstantManager {
     
     @RequestMapping( GAME_CREATE )
     public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
+    	System.out.println( gameDto.toString() );
         return gameService.createGame( gameDto );
     }
     
@@ -70,27 +79,64 @@ public class GameControllerImpl implements ConstantManager {
     
     
     
+    @RequestMapping("/persons/gameTest")
+    public String testGameConvertor() throws AccountException, EventException {
+        TeamDto homeTeamDto = createFastTeamDto();
+        TeamDto awayTeamDto = createFastTeamDto();
+        
+        List<String> refereeList = new ArrayList<>();
+        refereeList.add( "refOne" );
+        refereeList.add( "refTwo" );
+        
+    	GameDto gameDto = createGameDto( homeTeamDto, awayTeamDto, refereeList );
+    	
+    	Game game = gameMatchConverter.convertGameDtoToGame( gameDto );
+    	
+    	try {
+			gameDao.createGame( game );
+		} catch ( GameException e ) {
+			e.printStackTrace();
+		}
+    	
+    	return game.toString();
+    }
     
     
-    @RequestMapping("/persons/test")
+    
+    private TeamDto createFastTeamDto() {
+    	PersonDto person1 = createPersonDto( "player", "1", PLAYER );
+        PersonDto person2 = createPersonDto( "player", "2", PLAYER );
+        PersonDto person3 = createPersonDto( "player", "3", PLAYER );
+
+        List<PersonDto> playerList = new ArrayList<>();
+        playerList.add( person1 );
+        playerList.add( person2 );
+        playerList.add( person3 );
+        List<String> coachList = new ArrayList<>();
+        coachList.add( "coach dude" );
+        
+        TeamDto teamDto = createTeamDto( UUID.randomUUID().toString(), "Logo", playerList, coachList );
+        
+		return teamDto;
+	}
+
+	private GameDto createGameDto( TeamDto homeTeam, TeamDto awayTeam, List<String> refereeList ) {
+    	GameDto gameDto = new GameDto();
+    	gameDto.setHomeTeam( homeTeam );
+    	gameDto.setAwayTeam( awayTeam );
+    	gameDto.setRefereeList( refereeList );
+    	List<GameEvent> gameEventList = new ArrayList<>();
+    	gameDto.setActivity( gameEventList );
+    	
+		return gameDto;
+	}
+
+	@RequestMapping("/persons/teamTest")
     public String testTeamConvertor() throws AccountException, EventException {
         
-        TeamDto teamDto = new TeamDto();
         
-        PersonDto person1 = new PersonDto();
-        person1.setName( "player 1" );
-        person1.setNumber( "1" );
-        person1.setType( PLAYER );
-        
-        PersonDto person2 = new PersonDto();
-        person2.setName( "Player 2" );
-        person2.setNumber( "2" );
-        person2.setType( PLAYER );
-        
-        PersonDto coach = new PersonDto();
-        coach.setName( "coach dude" );
-        coach.setNumber( null );
-        coach.setType( COACH );
+        PersonDto person1 = createPersonDto( "player", "1", PLAYER );
+        PersonDto person2 = createPersonDto( "player", "2", PLAYER );
         
         List<PersonDto> playerList = new ArrayList<>();
         playerList.add( person1 );
@@ -99,19 +145,36 @@ public class GameControllerImpl implements ConstantManager {
         List<String> coachList = new ArrayList<>();
         coachList.add( "coach dude" );
         
-        teamDto.setName( "Team1" );
-        teamDto.setLogo( "Logo" );
-        teamDto.setCoaches( coachList );
-        teamDto.setPlayers( playerList );
+        TeamDto teamDto = createTeamDto( "Team1", "Logo", playerList, coachList );
         
         Team team = gameMatchConverter.convertTeamDtoToTeam( teamDto );
         
         System.out.println( "***********************" );
         System.out.println( team.toString() );
     
-        return team.toString();
+        return teamDto.toString();
     }
     
+    private TeamDto createTeamDto( String name, String logo, List<PersonDto> playerList, List<String> coachList ) {
+    	TeamDto teamDto = new TeamDto();
+    	teamDto.setName( name );
+    	teamDto.setLogo( logo );
+    	teamDto.setPlayers( playerList );
+    	teamDto.setCoaches( coachList );
+    	
+    	return teamDto;
+    }
+    
+    private PersonDto createPersonDto(String name, String number, String type ) {
+    	PersonDto person = new PersonDto();
+    	person.setName( name + " " + number );
+    	if ( PLAYER == type ) {
+    		person.setNumber( number );
+    	}
+    	person.setType( type ); 
+    	
+    	return person;
+    }
     
     
     @RequestMapping(FILL_DATABASE_PERSONS)
@@ -123,7 +186,7 @@ public class GameControllerImpl implements ConstantManager {
         person1.setType( PLAYER );
         
         Person person2 = new Person();
-        person2.setName( "Player 2" );
+        person2.setName( "player 2" );
         person2.setNumber( "2" );
         person2.setType( PLAYER );
         
@@ -145,7 +208,7 @@ public class GameControllerImpl implements ConstantManager {
             Person dbPerson = personDao.getPersonByNameAndNumber( person1.getName(), person1.getNumber() );
             System.out.println( dbPerson.toString() );
             
-            Person dbPerson2 = personDao.getPersonCoachesByName( person1.getName(), person1.getType() );
+            Person dbPerson2 = personDao.getPersonCoachesByName( coach.getName() );
             System.out.println( dbPerson2.toString() );
             
         } catch( PersonException e ) {

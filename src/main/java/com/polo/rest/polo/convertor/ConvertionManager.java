@@ -1,9 +1,14 @@
-package com.polo.rest.polo.dto;
+package com.polo.rest.polo.convertor;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.polo.rest.polo.dto.AccountDto;
+import com.polo.rest.polo.dto.EventDto;
+import com.polo.rest.polo.dto.MonthPaymentsDto;
+import com.polo.rest.polo.dto.ParentsDto;
+import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Event;
 import com.polo.rest.polo.entity.Parent;

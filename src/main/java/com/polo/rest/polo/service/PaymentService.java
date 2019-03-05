@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.polo.rest.polo.convertor.ConvertionManager;
 import com.polo.rest.polo.dao.AccountDao;
 import com.polo.rest.polo.dao.PaymentDao;
-import com.polo.rest.polo.dto.ConvertionManager;
 import com.polo.rest.polo.dto.PaymentDto;
 import com.polo.rest.polo.entity.Payment;
 import com.polo.rest.polo.exceptions.AccountException;

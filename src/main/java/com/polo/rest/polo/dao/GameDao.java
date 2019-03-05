@@ -20,6 +20,7 @@ public class GameDao {
     private GameRepository gameRepository;
     
     public Long createGame( Game game) throws GameException {
+    	System.out.println( game );
         Game gamePersisted = gameRepository.save( game );
         if ( 0 == gamePersisted.getId() ) throw new GameException( EXCEPTION_GAME_NOT_CREATED ); 
         return gamePersisted.getId();

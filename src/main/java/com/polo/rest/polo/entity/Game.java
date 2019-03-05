@@ -17,10 +17,10 @@ public class Game {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Team homeTeam;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Team awayTeam;
 	
 	@ManyToMany(cascade=CascadeType.ALL)

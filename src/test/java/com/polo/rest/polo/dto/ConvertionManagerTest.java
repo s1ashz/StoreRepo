@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.polo.rest.polo.CreateObjectsTest;
+import com.polo.rest.polo.convertor.ConvertionManager;
 import com.polo.rest.polo.entity.Account;
 import com.polo.rest.polo.entity.Parent;
 import com.polo.rest.polo.entity.Payment;
