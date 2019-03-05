@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -21,9 +22,11 @@ public class Team {
     private String acronym;
     
 	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name = "person_id")
     private List<Person> players;
     
     @ManyToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name = "person_id")
     private List<Person> coaches;
 
     public long getId() {

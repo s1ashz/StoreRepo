@@ -1,5 +1,6 @@
 package com.polo.rest.polo.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "person_id")
     private long id;
     
     private String name;
