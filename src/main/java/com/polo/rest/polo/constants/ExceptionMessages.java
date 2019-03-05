@@ -21,6 +21,10 @@ public interface ExceptionMessages {
 
 	String EXCEPTION_PAYMENT_NOT_EXISTS = "Payment does not exist with the Card Id and Year: ";
 	
-	
+	String EXCEPTION_GAME_NOT_CREATED = "The game was not created.";
+    String EXCEPTION_GAME_NOT_EXISTS = "Game does not exist with the id: ";
+    
+    String EXCEPTION_PERSON_NOT_CREATED = "The person was not created: Name: ";
+    String EXCEPTION_PERSON_NOT_EXISTS = "Person does not exist with the id: ";
 	
 }
