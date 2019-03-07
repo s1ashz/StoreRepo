@@ -37,7 +37,7 @@ public class TeamService implements ConstantManager {
 			e.printStackTrace();
 		}
 
-    	return null;
+    	return new ResponseJson( CREATE, true );
     }
 
     public TeamDto getTeamWithName( String teamName ) throws TeamException {
