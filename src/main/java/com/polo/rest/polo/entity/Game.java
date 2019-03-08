@@ -29,6 +29,12 @@ public class Game {
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<GameEvent> activity;
 	
+	@ManyToMany(cascade=CascadeType.ALL)
+    private List<Person> players;
+    
+    @ManyToMany(cascade=CascadeType.ALL)
+    private List<Person> coaches;
+	
     public long getId() {
         return id;
     }
@@ -59,11 +65,23 @@ public class Game {
     public void setActivity( List<GameEvent> activity ) {
         this.activity = activity;
     }
+    public List<Person> getPlayers() {
+        return players;
+    }
+    public void setPlayers( List<Person> players ) {
+        this.players = players;
+    }
+    public List<Person> getCoaches() {
+        return coaches;
+    }
+    public void setCoaches( List<Person> coaches ) {
+        this.coaches = coaches;
+    }
     
     @Override
     public String toString() {
         return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", referee=" + referee + ", activity="
-                + activity + "]";
+                + activity + ", players=" + players + ", coaches=" + coaches + "]";
     }
 	
 }

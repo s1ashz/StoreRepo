@@ -10,7 +10,9 @@ public class GameDto
     private long id;
     private TeamDto homeTeam;
     private TeamDto awayTeam;
-    private List<String> refereeList;
+
+    private String gameInformationJson;
+    
     private List<GameEvent> activity;
     
     public long getId() {

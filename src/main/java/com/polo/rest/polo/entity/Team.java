@@ -1,14 +1,9 @@
 package com.polo.rest.polo.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,12 +18,6 @@ public class Team {
     private String logo;
     private String acronym;
     
-	@ManyToMany(cascade=CascadeType.ALL)
-    private List<Person> players;
-    
-    @ManyToMany(cascade=CascadeType.ALL)
-    private List<Person> coaches;
-
     public long getId() {
         return id;
     }
@@ -47,18 +36,6 @@ public class Team {
     public void setLogo( String logo ) {
         this.logo = logo;
     }
-    public List<Person> getPlayers() {
-        return players;
-    }
-    public void setPlayers( List<Person> players ) {
-        this.players = players;
-    }
-    public List<Person> getCoaches() {
-        return coaches;
-    }
-    public void setCoaches( List<Person> coaches ) {
-        this.coaches = coaches;
-    }
     public String getAcronym() {
 		return acronym;
 	}
@@ -66,9 +43,9 @@ public class Team {
 		this.acronym = acronym;
 	}
 	
-	@Override
-	public String toString() {
-		return "Team [id=" + id + ", name=" + name + ", logo=" + logo + ", acronym=" + acronym + ", players=" + players + ", coaches=" + coaches + "]";
-	}
-    
+    @Override
+    public String toString() {
+        return "Team [id=" + id + ", name=" + name + ", logo=" + logo + ", acronym=" + acronym + "]";
+    }
+
 }

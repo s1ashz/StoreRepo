@@ -105,14 +105,15 @@ public class GameControllerImpl implements ConstantManager {
         PersonDto person2 = createPersonDto( "player", "2", PLAYER );
         PersonDto person3 = createPersonDto( "player", "3", PLAYER );
 
-        List<PersonDto> playerList = new ArrayList<>();
+        /*List<PersonDto> playerList = new ArrayList<>();
         playerList.add( person1 );
         playerList.add( person2 );
         playerList.add( person3 );
         List<String> coachList = new ArrayList<>();
         coachList.add( "coach dude" );
+        */
         
-        TeamDto teamDto = createTeamDto( UUID.randomUUID().toString(), "Logo", playerList, coachList );
+        TeamDto teamDto = createTeamDto( UUID.randomUUID().toString(), "Logo"/*, playerList, coachList*/ );
         
 		return teamDto;
 	}
@@ -122,6 +123,12 @@ public class GameControllerImpl implements ConstantManager {
     	gameDto.setHomeTeam( homeTeam );
     	gameDto.setAwayTeam( awayTeam );
     	gameDto.setRefereeList( refereeList );
+    	
+    	//home player list
+    	//away player list
+    	
+    	
+    	
     	List<GameEvent> gameEventList = new ArrayList<>();
     	gameDto.setActivity( gameEventList );
     	
@@ -142,7 +149,7 @@ public class GameControllerImpl implements ConstantManager {
         List<String> coachList = new ArrayList<>();
         coachList.add( "coach dude" );
         
-        TeamDto teamDto = createTeamDto( "Team1", "Logo", playerList, coachList );
+        TeamDto teamDto = createTeamDto( "Team1", "Logo"/*playerList, coachList*/ );
         
         Team team = gameMatchConverter.convertTeamDtoToTeam( teamDto );
         
@@ -152,12 +159,12 @@ public class GameControllerImpl implements ConstantManager {
         return teamDto.toString();
     }
     
-    private TeamDto createTeamDto( String name, String logo, List<PersonDto> playerList, List<String> coachList ) {
+    private TeamDto createTeamDto( String name, String logo/* List<PersonDto> playerList, List<String> coachList */ ) {
     	TeamDto teamDto = new TeamDto();
     	teamDto.setName( name );
     	teamDto.setLogo( logo );
-    	teamDto.setPlayers( playerList );
-    	teamDto.setCoaches( coachList );
+    	//teamDto.setPlayers( playerList );
+    	//teamDto.setCoaches( coachList );
     	
     	return teamDto;
     }
