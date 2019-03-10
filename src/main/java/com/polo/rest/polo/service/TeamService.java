@@ -27,7 +27,7 @@ public class TeamService implements ConstantManager {
 	private GameMatchConverter gameMatchConverter;
 	
     public ResponseJson createTeam( TeamDto teamDto ) {
-        teamValidator.validateGame( teamDto );
+        teamValidator.validateTeam( teamDto );
         
         Team team = gameMatchConverter.convertTeamDtoToTeam( teamDto );
         

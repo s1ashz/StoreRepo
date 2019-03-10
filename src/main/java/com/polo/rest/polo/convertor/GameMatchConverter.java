@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
 import com.polo.rest.polo.constants.ConstantManager;
 import com.polo.rest.polo.dao.GameDao;
 import com.polo.rest.polo.dao.PersonDao;
@@ -14,9 +15,11 @@ import com.polo.rest.polo.dto.GameDto;
 import com.polo.rest.polo.dto.PersonDto;
 import com.polo.rest.polo.dto.TeamDto;
 import com.polo.rest.polo.entity.Game;
+import com.polo.rest.polo.entity.GameInformationJson;
 import com.polo.rest.polo.entity.Person;
 import com.polo.rest.polo.entity.Team;
 import com.polo.rest.polo.exceptions.PersonException;
+import com.polo.rest.polo.util.GsonInstance;
 
 @Component
 public class GameMatchConverter implements ConstantManager {
@@ -30,24 +33,26 @@ public class GameMatchConverter implements ConstantManager {
     private PersonDao personDao;
     
     public Game convertGameDtoToGame( GameDto gameDto ) {
-        Game gameEntity = new Game();
+//        List<Person> refereeEntityList = new ArrayList<>();
+//        for ( String refereeName : gameDto.getRefereeList() ) {
+//            Person referee = personDao.getPersonRefereeByName( refereeName );
+//            if ( null == referee ) {
+//            	referee = creatNewRefereeWithName( refereeName );
+//            }
+//            refereeEntityList.add( referee );
+//        }
 
+    	Game gameEntity = new Game();
         Team homeTeamEntity = convertTeamDtoToTeam( gameDto.getHomeTeam() );
         Team awayTeamEntity = convertTeamDtoToTeam( gameDto.getAwayTeam() );
-        
-        List<Person> refereeEntityList = new ArrayList<>();
-        for ( String refereeName : gameDto.getRefereeList() ) {
-            Person referee = personDao.getPersonRefereeByName( refereeName );
-            if ( null == referee ) {
-            	referee = creatNewRefereeWithName( refereeName );
-            }
-            refereeEntityList.add( referee );
-        }
+
+        Gson gson = GsonInstance.getGson();
+        String gameInformationJson = gson.toJson( gameDto.getGameInformationJson() );
         
         gameEntity.setActivity( null );
         gameEntity.setHomeTeam( homeTeamEntity );
         gameEntity.setAwayTeam( awayTeamEntity );
-        gameEntity.setReferee( refereeEntityList );
+        gameEntity.setGameInformationJson( gameInformationJson );
 
         return gameEntity;
     }
@@ -67,11 +72,13 @@ public class GameMatchConverter implements ConstantManager {
         teamEntity.setLogo( teamDto.getLogo() );
         teamEntity.setAcronym( teamDto.getAcronym() );
         
-        List<Person> playerEntityList = convertPlayerDtoToPlayerEntityList( teamDto.getPlayers() );
-        List<Person> coachesEntityList = convertCoachesNamesToCoachesEntityList( teamDto.getCoaches() );
         
-        teamEntity.setPlayers( playerEntityList );
-        teamEntity.setCoaches( coachesEntityList );
+        
+        //List<Person> playerEntityList = convertPlayerDtoToPlayerEntityList( teamDto.getPlayers() );
+        //List<Person> coachesEntityList = convertCoachesNamesToCoachesEntityList( teamDto.getCoaches() );
+        
+        //teamEntity.setPlayers( playerEntityList );
+        //teamEntity.setCoaches( coachesEntityList );
         
         return teamEntity;
     }
@@ -136,8 +143,8 @@ public class GameMatchConverter implements ConstantManager {
 		
 		List<PersonDto> playerEntityList = new ArrayList<>();
 		List<String> coachesEntityList = new ArrayList<>();
-		teamDto.setPlayers( playerEntityList );
-		teamDto.setCoaches( coachesEntityList );
+		//teamDto.setPlayers( playerEntityList );
+		//teamDto.setCoaches( coachesEntityList );
 		
 		return teamDto;
 	}

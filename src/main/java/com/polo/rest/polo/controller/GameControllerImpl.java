@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,8 @@ import com.polo.rest.polo.service.GameService;
 @RestController
 public class GameControllerImpl implements ConstantManager {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger( GameControllerImpl.class );
+	
     @Autowired
     private GameService gameService;
     
@@ -45,9 +49,14 @@ public class GameControllerImpl implements ConstantManager {
     private GameMatchConverter gameMatchConverter;
     
     @RequestMapping( GAME_CREATE )
-    public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
-    	System.out.println( gameDto.toString() );
-        return gameService.createGame( gameDto );
+    public String createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
+    	LOGGER.info( "HEYYYY *****************************************************************");
+    	LOGGER.info( gameDto.toString() );
+    	LOGGER.debug( gameDto.toString() );
+    	
+    	
+        //return gameService.createGame( gameDto );
+    	return "LEEEL";
     }
     
     @RequestMapping( GAME_GET ) 
@@ -122,7 +131,7 @@ public class GameControllerImpl implements ConstantManager {
     	GameDto gameDto = new GameDto();
     	gameDto.setHomeTeam( homeTeam );
     	gameDto.setAwayTeam( awayTeam );
-    	gameDto.setRefereeList( refereeList );
+    	//gameDto.setRefereeList( refereeList );
     	
     	//home player list
     	//away player list

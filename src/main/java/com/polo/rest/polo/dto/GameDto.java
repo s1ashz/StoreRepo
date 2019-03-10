@@ -3,6 +3,7 @@ package com.polo.rest.polo.dto;
 import java.util.List;
 
 import com.polo.rest.polo.entity.GameEvent;
+import com.polo.rest.polo.entity.GameInformationJson;
 
 public class GameDto
 {
@@ -10,9 +11,7 @@ public class GameDto
     private long id;
     private TeamDto homeTeam;
     private TeamDto awayTeam;
-
-    private String gameInformationJson;
-    
+    private GameInformationJson gameInformationJson;
     private List<GameEvent> activity;
     
     public long getId() {
@@ -33,22 +32,23 @@ public class GameDto
     public void setAwayTeam( TeamDto awayTeam ) {
         this.awayTeam = awayTeam;
     }
-    public List<String> getRefereeList() {
-        return refereeList;
-    }
-    public void setRefereeList( List<String> refereeList ) {
-        this.refereeList = refereeList;
-    }
     public List<GameEvent> getActivity() {
         return activity;
     }
     public void setActivity( List<GameEvent> activity ) {
         this.activity = activity;
     }
-    
+	public GameInformationJson getGameInformationJson() {
+		return gameInformationJson;
+	}
+	public void setGameInformationJson( GameInformationJson gameInformationJson ) {
+		this.gameInformationJson = gameInformationJson;
+	}
+	
 	@Override
 	public String toString() {
-		return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", refereeList=" + refereeList + ", activity=" + activity + "]";
+		return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson=" + gameInformationJson + ", activity=" + activity + "]";
 	}
+
     
 }

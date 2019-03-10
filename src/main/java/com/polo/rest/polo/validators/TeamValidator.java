@@ -7,7 +7,7 @@ import com.polo.rest.polo.dto.TeamDto;
 @Component
 public class TeamValidator {
 
-	public void validateGame( TeamDto teamDto ) {
+	public void validateTeam( TeamDto teamDto ) {
 		// TODO Auto-generated method stub
 		
 	}

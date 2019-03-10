@@ -23,17 +23,19 @@ public class Game {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Team awayTeam;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	private List<Person> referee;
+	private String gameInformationJson;
 	
+//	@ManyToMany(cascade=CascadeType.ALL)
+//	private List<Person> referee;
+//	
+//	@ManyToMany(cascade=CascadeType.ALL)
+//    private List<Person> players;
+//    
+//    @ManyToMany(cascade=CascadeType.ALL)
+//    private List<Person> coaches;
+
 	@ManyToMany(cascade=CascadeType.ALL)
-	private List<GameEvent> activity;
-	
-	@ManyToMany(cascade=CascadeType.ALL)
-    private List<Person> players;
-    
-    @ManyToMany(cascade=CascadeType.ALL)
-    private List<Person> coaches;
+    private List<GameEvent> activity;
 	
     public long getId() {
         return id;
@@ -53,35 +55,22 @@ public class Game {
     public void setAwayTeam( Team awayTeam ) {
         this.awayTeam = awayTeam;
     }
-    public List<Person> getReferee() {
-        return referee;
-    }
-    public void setReferee( List<Person> referee ) {
-        this.referee = referee;
-    }
     public List<GameEvent> getActivity() {
         return activity;
     }
     public void setActivity( List<GameEvent> activity ) {
         this.activity = activity;
     }
-    public List<Person> getPlayers() {
-        return players;
+    public String getGameInformationJson() {
+    	return gameInformationJson;
     }
-    public void setPlayers( List<Person> players ) {
-        this.players = players;
-    }
-    public List<Person> getCoaches() {
-        return coaches;
-    }
-    public void setCoaches( List<Person> coaches ) {
-        this.coaches = coaches;
+    public void setGameInformationJson( String gameInformationJson ) {
+    	this.gameInformationJson = gameInformationJson;
     }
     
-    @Override
-    public String toString() {
-        return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", referee=" + referee + ", activity="
-                + activity + ", players=" + players + ", coaches=" + coaches + "]";
-    }
-	
+	@Override
+	public String toString() {
+		return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson=" + gameInformationJson + ", activity=" + activity + "]";
+	}
+
 }

@@ -35,4 +35,76 @@ public interface RestEndPoints {
     String TEAM_DELETE_BY_ID = "/team/delete/{id}";
     String TEAM_UPDATE = "/team/update";
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+     EVENTS:
+
+{"id":3, "name":"this is the body of the notification","picture":"niceeeee","priority":"hmmm","target":["level1", "level2"],"date":1188615600000,"content":"content", "location":"lisboa", "home":"porto", "away": "benfica", "homePlayers":[2, 3], "awayPlayers":[1, 4], "homeCoaches":[2], "awayCoaches":[3], "referees":["afonso"] }
+
+
+GAME:
+
+{"homeTeam":{"name":"e737324b-28f5-48ed-80da-b128f6230c8c", "logo":"Logo", "players":[null, null, null], "coaches":["coach dude"]}, 
+	"awayTeam":{"name":"f95fd6d7-bb1c-4cf8-9763-2d429bec242d", "logo":"Logo", "players":[null, null, null], "coaches":["coach dude"]}, 
+	"refereeList":["refOne", "refTwo"], "activity":null}
+
+
+{"homeTeam":{"name":"Paredes", "logo":"Logo", "acronym": "PRD"}, 
+	"awayTeam":{"name":"Porto", "logo":"Logo", "acronym": "PT"},
+	"gameInformationJson":{
+							"homeTeamPlayerList":[
+												{"name":"player 1", "number": "4", "type":"PLAYER"}, 
+												{"name":"player 2", "number": "2", "type":"PLAYER"}, 
+												{"name":"player 3", "number": "8", "type":"PLAYER"}
+											],
+							"awayTeamPlayerList":[
+												{"name":"player 4", "number": "3", "type":"PLAYER"}, 
+												{"name":"player 5", "number": "1", "type":"PLAYER"}, 
+												{"name":"player 6", "number": "7", "type":"PLAYER"}
+											],
+							"homeTeamCoacheList":[
+												{"name":"Coach 1", "number": null, "type":"COACH"}, 
+												{"name":"Coach 2", "number": null, "type":"COACH"}
+											],
+							"awayTeamCoacheList":[
+												{"name":"Coach 3", "number": null, "type":"COACH"}, 
+												{"name":"Coach 4", "number": null, "type":"COACH"}
+											],
+							"refereeList":[
+												{"name":"Referee 1", "number": null, "type":"REFEREE"}, 
+												{"name":"Referee 2", "number": null, "type":"REFEREE"}
+											]
+						},
+	"activity":null}
+
+
+TEAM
+
+{"name":"e737324b-28f5-48ed-80da-b128f6230c8c", "logo":"Logo", "acronym":"PRD", "players":[{"name":"player 1", "number": "7", "type":"PLAYER"}, {"name":"player 2", "number": "5", "type":"PLAYER"}], "coaches":["coach dude"]}
+
+
+
+private List<Person> homeTeamPlayerList;
+    private List<Person> awayTeamPlayerList;
+    private List<Person> homeTeamCoacheList;
+    private List<Person> awayTeamCoacheList;
+    private List<Person> refereeList;
+
+
+
+ private String name;
+    private String number;
+    private String type;
+     
+     */
+    
 }
