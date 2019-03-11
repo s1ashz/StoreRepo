@@ -41,12 +41,18 @@ public class GameService {
         return null;
     }
 
-    public EventDto getGame( Long gameId ) {
-        // TODO Auto-generated method stub
-        return null;
+    public GameDto getGame( Long gameId ) {
+        Game game = null;
+        try {
+            game = gameDao.getGame( gameId );
+        } catch( GameException e ) {
+            e.printStackTrace();
+        }
+        GameDto gameDto = gameMatchConverter.convertGameEntityToGameDto( game );
+        return gameDto;
     }
 
-    public List<EventDto> getAllGames() {
+    public List<GameDto> getAllGames() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -56,7 +62,7 @@ public class GameService {
         return null;
     }
 
-    public ResponseJson updateGame( GameDto eventDto ) {
+    public ResponseJson updateGame( GameDto gameDto ) {
         // TODO Auto-generated method stub
         return null;
     }

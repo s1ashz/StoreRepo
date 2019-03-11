@@ -56,6 +56,22 @@ public class GameMatchConverter implements ConstantManager {
 
         return gameEntity;
     }
+    
+    public GameDto convertGameEntityToGameDto( Game gameEntity ) {
+        GameDto gameDto = new GameDto();
+        TeamDto homeTeamDto = convertTeamEntityToTeamDto( gameEntity.getHomeTeam() );
+        TeamDto awayTeamDto = convertTeamEntityToTeamDto( gameEntity.getAwayTeam() );
+        
+        Gson gson = GsonInstance.getGson();
+        GameInformationJson gameInformationJson = gson.fromJson( gameEntity.getGameInformationJson(), GameInformationJson.class );
+        
+        gameDto.setHomeTeam( homeTeamDto );
+        gameDto.setAwayTeam( awayTeamDto );
+        gameDto.setGameInformationJson( gameInformationJson );
+        gameDto.setActivity( gameEntity.getActivity() );
+        
+        return gameDto;
+    }
 
 	public Person convertPersonDtoToPerson( PersonDto personDto ) {
         Person personEntity = new Person();

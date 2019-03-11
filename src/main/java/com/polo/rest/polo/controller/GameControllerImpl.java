@@ -49,23 +49,21 @@ public class GameControllerImpl implements ConstantManager {
     private GameMatchConverter gameMatchConverter;
     
     @RequestMapping( GAME_CREATE )
-    public String createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
+    public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
     	LOGGER.info( "HEYYYY *****************************************************************");
     	LOGGER.info( gameDto.toString() );
     	LOGGER.debug( gameDto.toString() );
     	
-    	
-        //return gameService.createGame( gameDto );
-    	return "LEEEL";
+        return gameService.createGame( gameDto );
     }
     
     @RequestMapping( GAME_GET ) 
-    public EventDto getGame( @PathVariable(value="eventId", required=true ) Long gameId ) throws EventException {
+    public GameDto getGame( @PathVariable(value="gameId", required=true ) Long gameId ) throws EventException {
         return gameService.getGame( gameId );
     }
     
     @RequestMapping( GAME_GET_ALL )
-    public List<EventDto> getAllTeams() {
+    public List<GameDto> getAllTeams() {
         return gameService.getAllGames();
     }
     

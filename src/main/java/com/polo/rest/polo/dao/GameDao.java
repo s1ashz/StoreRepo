@@ -27,9 +27,9 @@ public class GameDao {
         return gamePersisted.getId();
     }
     
-    public Game getEvent( Long eventId ) throws GameException {
-        Optional<Game> gameOp = null;
-        if (!gameOp.isPresent() ) throw new GameException( EXCEPTION_GAME_NOT_EXISTS );
+    public Game getGame( Long gameId ) throws GameException {
+        Optional<Game> gameOp = gameRepository.findById( gameId );
+        if ( !gameOp.isPresent() ) throw new GameException( EXCEPTION_GAME_NOT_EXISTS );
         return gameOp.get();
     }
 
