@@ -2,6 +2,7 @@ package com.polo.rest.polo.convertor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,6 +50,11 @@ public class GameMatchConverter implements ConstantManager {
         Gson gson = GsonInstance.getGson();
         String gameInformationJson = gson.toJson( gameDto.getGameInformationJson() );
         
+        gameEntity.setId( gameDto.getId() );
+        //gameEntity.setDate( gameDto.getDate() );
+        int rand = new Random().nextInt(100);
+        gameEntity.setDate( "" + rand );
+        
         gameEntity.setActivity( null );
         gameEntity.setHomeTeam( homeTeamEntity );
         gameEntity.setAwayTeam( awayTeamEntity );
@@ -65,6 +71,8 @@ public class GameMatchConverter implements ConstantManager {
         Gson gson = GsonInstance.getGson();
         GameInformationJson gameInformationJson = gson.fromJson( gameEntity.getGameInformationJson(), GameInformationJson.class );
         
+        gameDto.setId( gameEntity.getId() );
+        gameDto.setDate( gameEntity.getDate() );
         gameDto.setHomeTeam( homeTeamDto );
         gameDto.setAwayTeam( awayTeamDto );
         gameDto.setGameInformationJson( gameInformationJson );

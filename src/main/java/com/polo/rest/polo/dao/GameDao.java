@@ -28,12 +28,12 @@ public class GameDao {
     }
     
     public Game getGame( Long gameId ) throws GameException {
-        Optional<Game> gameOp = gameRepository.findById( gameId );
-        if ( !gameOp.isPresent() ) throw new GameException( EXCEPTION_GAME_NOT_EXISTS );
-        return gameOp.get();
+        Game game = gameRepository.findGameById( gameId );
+        if ( null == game ) throw new GameException( EXCEPTION_GAME_NOT_EXISTS + gameId );
+        return game;
     }
 
-    public List<Game> getAllEvents() {
+    public List<Game> getAllGames() {
         return (List<Game>) gameRepository.findAll();
     }
 
@@ -41,12 +41,16 @@ public class GameDao {
         gameRepository.deleteById( id );
     }
 
-    public void updateEvent( Game event ) {
-        gameRepository.save( event );
+    public void updateGame( Game game ) {
+        gameRepository.save( game );
     }
 
     public boolean checkEventExists( long id ) {
         return gameRepository.existsById( id );
+    }
+
+    public List<Game> getNextGames( int numberOfGames ) {
+        return gameRepository.findTop5ByOrderByDateDesc( numberOfGames );
     }
     
 }

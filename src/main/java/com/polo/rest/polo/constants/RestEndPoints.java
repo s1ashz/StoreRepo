@@ -26,6 +26,7 @@ public interface RestEndPoints {
     String GAME_CREATE = "/game/create";
     String GAME_GET = "/game/{gameId}";
     String GAME_GET_ALL = "/game/all";
+    String GAME_GET_NEXT_GAMES = "/game/next/{numberOfGames}";
     String GAME_DELETE_BY_ID = "/game/delete/{id}";
     String GAME_UPDATE = "/game/update";
     

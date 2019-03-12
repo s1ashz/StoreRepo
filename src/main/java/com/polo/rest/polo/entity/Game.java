@@ -39,6 +39,8 @@ public class Game {
 	@ManyToMany(cascade=CascadeType.ALL)
     private List<GameEvent> activity;
 	
+	private String date;
+	
     public long getId() {
         return id;
     }
@@ -69,10 +71,17 @@ public class Game {
     public void setGameInformationJson( String gameInformationJson ) {
     	this.gameInformationJson = gameInformationJson;
     }
+    public String getDate() {
+        return date;
+    }
+    public void setDate( String date ) {
+        this.date = date;
+    }
     
-	@Override
-	public String toString() {
-		return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson=" + gameInformationJson + ", activity=" + activity + "]";
-	}
+    @Override
+    public String toString() {
+        return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson="
+                + gameInformationJson + ", activity=" + activity + ", date=" + date + "]";
+    }
 
 }

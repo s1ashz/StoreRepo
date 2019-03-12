@@ -49,21 +49,22 @@ public class GameControllerImpl implements ConstantManager {
     private GameMatchConverter gameMatchConverter;
     
     @RequestMapping( GAME_CREATE )
-    public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
-    	LOGGER.info( "HEYYYY *****************************************************************");
-    	LOGGER.info( gameDto.toString() );
-    	LOGGER.debug( gameDto.toString() );
-    	
+    public ResponseJson createGame( @RequestBody( required=true ) GameDto gameDto ) {
         return gameService.createGame( gameDto );
     }
     
     @RequestMapping( GAME_GET ) 
-    public GameDto getGame( @PathVariable(value="gameId", required=true ) Long gameId ) throws EventException {
+    public GameDto getGame( @PathVariable(value="gameId", required=true ) Long gameId ) throws GameException {
         return gameService.getGame( gameId );
     }
     
+    @RequestMapping( GAME_GET_NEXT_GAMES )
+    public List<GameDto> getNextGames( @PathVariable( value="numberOfGames", required=true) int numberOfGames ) {
+        return gameService.getNextGames( numberOfGames );
+    }
+    
     @RequestMapping( GAME_GET_ALL )
-    public List<GameDto> getAllTeams() {
+    public List<GameDto> getAllGames() {
         return gameService.getAllGames();
     }
     
@@ -73,8 +74,8 @@ public class GameControllerImpl implements ConstantManager {
     }
     
     @RequestMapping( GAME_UPDATE )
-    public ResponseJson updateGame( @RequestBody( required=true ) GameDto eventDto ) throws EventException {
-        return gameService.updateGame( eventDto );
+    public ResponseJson updateGame( @RequestBody( required=true ) GameDto gameDto ) throws EventException {
+        return gameService.updateGame( gameDto );
     }
     
     

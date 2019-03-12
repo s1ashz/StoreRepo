@@ -12,6 +12,7 @@ public class GameDto
     private TeamDto homeTeam;
     private TeamDto awayTeam;
     private GameInformationJson gameInformationJson;
+    private String date;
     private List<GameEvent> activity;
     
     public long getId() {
@@ -44,11 +45,17 @@ public class GameDto
 	public void setGameInformationJson( GameInformationJson gameInformationJson ) {
 		this.gameInformationJson = gameInformationJson;
 	}
-	
-	@Override
-	public String toString() {
-		return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson=" + gameInformationJson + ", activity=" + activity + "]";
-	}
-
+    public String getDate() {
+        return date;
+    }
+    public void setDate( String date ) {
+        this.date = date;
+    }
+    
+    @Override
+    public String toString() {
+        return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson="
+                + gameInformationJson + ", date=" + date + ", activity=" + activity + "]";
+    }
     
 }
