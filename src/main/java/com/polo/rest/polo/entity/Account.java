@@ -29,6 +29,7 @@ public class Account
     private boolean exam;
     private boolean enrolled;
     private String email;
+    private String leeel;
     
     @Column(columnDefinition="TEXT")
     private String token;
@@ -135,12 +136,21 @@ public class Account
 	public void setToken(String token) {
 		this.token = token;
 	}
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode
-				+ ", address=" + address + ", birthday=" + birthday + ", gender=" + gender + ", mobileNumber="
-				+ mobileNumber + ", level=" + level + ", size=" + size + ", observations=" + observations + ", cc=" + cc
-				+ ", exam=" + exam + ", enrolled=" + enrolled + ", email=" + email + ", token=" + token + "]";
-	}
+	
+    public String getLeeel() {
+        return leeel;
+    }
+
+    public void setLeeel( String leeel ) {
+        this.leeel = leeel;
+    }
+
+    @Override
+    public String toString() {
+        return "Account [id=" + id + ", cardId=" + cardId + ", name=" + name + ", postalCode=" + postalCode + ", address=" + address
+                + ", birthday=" + birthday + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", level=" + level
+                + ", size=" + size + ", cc=" + cc + ", exam=" + exam + ", enrolled=" + enrolled + ", email=" + email + ", leeel="
+                + leeel + ", token=" + token + ", observations=" + observations + "]";
+    }
     
 }
