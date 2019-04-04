@@ -27,7 +27,10 @@ public interface ExceptionMessages {
     String EXCEPTION_UPDATED_GAME_ID_NULL = "Updated Game id cannot be null";
     
     String EXCEPTION_TEAM_NOT_CREATED = "The Team was not created. Team Name: ";
+    String EXCEPTION_TEAM_NOT_UPDATED = "The Team was not updated. Team Name: ";
     String EXCEPTION_TEAM_NOT_EXISTS = "Team does not exist with the name: ";
+    String EXCEPTION_TEAM_NAME_NULL = "Team needs a valid name";
+    String EXCEPTION_TEAM_NULL = "Team does cannot be null";
     String EXCEPTION_TEAM_ALREADY_EXISTS = "Team already exists with the name: ";
     
     String EXCEPTION_PERSON_NOT_CREATED = "The person was not created: Name: ";

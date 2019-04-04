@@ -23,7 +23,7 @@ public class TeamDao implements ConstantManager {
 			throw new TeamException( EXCEPTION_TEAM_NOT_CREATED + team.getName() );
 		}
 		Team teamPersisted = teamRepository.save( team );
-	    if ( 0 == teamPersisted.getId() ) throw new TeamException( EXCEPTION_TEAM_NOT_CREATED + team.getName() ); 
+	    if ( null == teamPersisted ) throw new TeamException( EXCEPTION_TEAM_NOT_CREATED + team.getName() ); 
 	    return teamPersisted.getId();
 	}
 	
@@ -41,8 +41,14 @@ public class TeamDao implements ConstantManager {
 	    teamRepository.deleteById( id );
 	}
 	
-	public void updateTeam( Team event ) {
-	    teamRepository.save( event );
+	public void updateTeam( Team team ) throws TeamException {
+	    if ( !checkteamExistsWithName( team.getName() ) ) {
+            throw new TeamException( EXCEPTION_TEAM_NOT_EXISTS + team.getName() );
+        }
+	    Team databaseTeam = getTeamByName( team.getName() );
+	    updateEntityAccountData( databaseTeam, team );
+	    Team teamPersisted = teamRepository.save( databaseTeam );
+	    if ( null == teamPersisted ) throw new TeamException( EXCEPTION_TEAM_NOT_UPDATED + team.getName() ); 
 	}
 	
 	public boolean checkteamExistsWithName( String teamName ) {
@@ -53,4 +59,8 @@ public class TeamDao implements ConstantManager {
 		return teamRepository.findAllByName( teamName );
 	}
 
+	private void updateEntityAccountData( Team databaseTeam, Team team ) {
+	    databaseTeam.setAcronym( team.getAcronym() );
+	    databaseTeam.setLogo( team.getLogo() );
+	}
 }

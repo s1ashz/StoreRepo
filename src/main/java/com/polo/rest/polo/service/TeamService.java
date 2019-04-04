@@ -30,11 +30,9 @@ public class TeamService implements ConstantManager {
 	private GameMatchConverter gameMatchConverter;
 	
     public ResponseJson createTeam( TeamDto teamDto ) {
-        teamValidator.validateTeam( teamDto );
-        
-        Team team = gameMatchConverter.convertTeamDtoToTeam( teamDto );
-        
     	try {
+    	    teamValidator.validateTeam( teamDto );
+    	    Team team = gameMatchConverter.convertTeamDtoToTeam( teamDto );
 			teamDao.createTeam( team );
 			return new ResponseJson( CREATE, true );
 		} catch ( TeamException e ) {
@@ -71,8 +69,15 @@ public class TeamService implements ConstantManager {
     }
 
     public ResponseJson updateTeam( TeamDto teamDto ) {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            teamValidator.validateTeam( teamDto );
+            Team team = gameMatchConverter.convertTeamDtoToTeam( teamDto );
+            teamDao.updateTeam( team );
+            return new ResponseJson( UPDATE, true );
+        } catch ( TeamException e ) {
+            e.printStackTrace();
+        }
+        return new ResponseJson( UPDATE, false );
     }
 	
 	
