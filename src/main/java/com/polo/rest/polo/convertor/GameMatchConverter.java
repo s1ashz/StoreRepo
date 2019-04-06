@@ -51,14 +51,16 @@ public class GameMatchConverter implements ConstantManager {
         String gameInformationJson = gson.toJson( gameDto.getGameInformationJson() );
         
         gameEntity.setId( gameDto.getId() );
-        //gameEntity.setDate( gameDto.getDate() );
-        int rand = new Random().nextInt(100);
-        gameEntity.setDate( "" + rand );
+        gameEntity.setDate( gameDto.getDate() );
         
-        gameEntity.setActivity( null );
+        gameEntity.setActivity( gameDto.getActivity() );
         gameEntity.setHomeTeam( homeTeamEntity );
         gameEntity.setAwayTeam( awayTeamEntity );
         gameEntity.setGameInformationJson( gameInformationJson );
+        gameEntity.setCompetition( gameDto.getCompetition() );
+        gameEntity.setRound( gameDto.getRound() );
+        gameEntity.setTime( gameDto.getTime() );
+        
 
         return gameEntity;
     }
@@ -77,6 +79,9 @@ public class GameMatchConverter implements ConstantManager {
         gameDto.setAwayTeam( awayTeamDto );
         gameDto.setGameInformationJson( gameInformationJson );
         gameDto.setActivity( gameEntity.getActivity() );
+        gameDto.setCompetition( gameEntity.getCompetition() );
+        gameDto.setRound( gameEntity.getRound() );
+        gameDto.setTime( gameEntity.getTime() );
         
         return gameDto;
     }

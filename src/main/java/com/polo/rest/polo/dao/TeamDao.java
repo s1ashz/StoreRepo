@@ -46,7 +46,7 @@ public class TeamDao implements ConstantManager {
             throw new TeamException( EXCEPTION_TEAM_NOT_EXISTS + team.getName() );
         }
 	    Team databaseTeam = getTeamByName( team.getName() );
-	    updateEntityAccountData( databaseTeam, team );
+	    updateEntityTeamData( databaseTeam, team );
 	    Team teamPersisted = teamRepository.save( databaseTeam );
 	    if ( null == teamPersisted ) throw new TeamException( EXCEPTION_TEAM_NOT_UPDATED + team.getName() ); 
 	}
@@ -59,7 +59,7 @@ public class TeamDao implements ConstantManager {
 		return teamRepository.findAllByName( teamName );
 	}
 
-	private void updateEntityAccountData( Team databaseTeam, Team team ) {
+	private void updateEntityTeamData( Team databaseTeam, Team team ) {
 	    databaseTeam.setAcronym( team.getAcronym() );
 	    databaseTeam.setLogo( team.getLogo() );
 	}

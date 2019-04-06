@@ -1,5 +1,6 @@
 package com.polo.rest.polo.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,7 +40,7 @@ public class Game {
 //    private List<Person> coaches;
 
 	
-	private String date;
+	private Date date;
 	private String competition;
 	private int round;
 	private long time;
@@ -74,10 +75,10 @@ public class Game {
     public void setGameInformationJson( String gameInformationJson ) {
     	this.gameInformationJson = gameInformationJson;
     }
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate( String date ) {
+    public void setDate( Date date ) {
         this.date = date;
     }
     public String getCompetition() {

@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.polo.rest.polo.constants.ConstantManager;
 import com.polo.rest.polo.entity.Game;
 import com.polo.rest.polo.entity.Team;
 import com.polo.rest.polo.exceptions.GameException;
@@ -17,7 +18,7 @@ import com.polo.rest.polo.repository.GameRepository;
 import com.polo.rest.polo.repository.TeamRepository;
 
 @Repository
-public class GameDao {
+public class GameDao implements ConstantManager {
 
     @Autowired
     private GameRepository gameRepository;
@@ -43,23 +44,38 @@ public class GameDao {
         gameRepository.deleteById( id );
     }
 
-    public void updateGame( Game game ) {
+    public void updateGame( Game game ) throws GameException {
         if ( !checkGameExists( game.getId() ) ) {
-            throw new TeamException( EXCEPTION_TEAM_NOT_EXISTS + team.getName() );
+            throwGameException( EXCEPTION_GAME_NOT_EXISTS + game.getId() );
         }
-        Team databaseTeam = getTeamByName( team.getName() );
-        updateEntityAccountData( databaseTeam, team );
-        Team teamPersisted = teamRepository.save( databaseTeam );
-        if ( null == teamPersisted ) throw new TeamException( EXCEPTION_TEAM_NOT_UPDATED + team.getName() ); 
+        Game databaseGame = getGame( game.getId() );
+        updateEntityGameData( databaseGame, game );
+        Game gamePersisted = gameRepository.save( databaseGame );
+        if ( null == gamePersisted ) throwGameException( EXCEPTION_TEAM_NOT_UPDATED + game.getId() ); 
         gameRepository.save( game );
     }
 
-    public boolean checkGameExists( long id ) {
+    private void updateEntityGameData( Game databaseGame, Game game ) {
+		databaseGame.setActivity( game.getActivity() );
+		databaseGame.setAwayTeam( game.getAwayTeam() );
+		databaseGame.setHomeTeam( game.getHomeTeam() );
+		databaseGame.setCompetition( game.getCompetition() );
+		databaseGame.setDate( game.getDate() );
+		databaseGame.setGameInformationJson( game.getGameInformationJson() );
+		databaseGame.setRound( game.getRound() );
+		databaseGame.setTime( game.getTime() );
+	}
+
+	public boolean checkGameExists( long id ) {
         return gameRepository.existsById( id );
     }
 
     public List<Game> getNextGames( int numberOfGames ) {
         return gameRepository.findTop5ByOrderByDateDesc( numberOfGames );
+    }
+    
+    private void throwGameException( String message ) throws GameException {
+    	throw new GameException( message );
     }
     
 }

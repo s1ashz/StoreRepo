@@ -86,7 +86,7 @@ public class GameService implements ConstantManager {
         try {
             gameValidator.validateUpdatedGame( gameDto );
             Game game = gameMatchConverter.convertGameDtoToGame( gameDto );
-            gameDao.updateGame( game );
+            //gameDao.updateGame( game );
             return new ResponseJson( UPDATE, true, game.getId() );
         } catch( GameException e ) {
             e.printStackTrace();
