@@ -14,7 +14,10 @@ public class GameDto
     private GameInformationJson gameInformationJson;
     private String date;
     private List<GameEvent> activity;
-    
+    private String competition;
+    private int round;
+    private long time;
+    //asdfsadfsadf
     public long getId() {
         return id;
     }

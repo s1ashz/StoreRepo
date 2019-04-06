@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.polo.rest.polo.entity.Game;
+import com.polo.rest.polo.entity.Team;
 import com.polo.rest.polo.exceptions.GameException;
+import com.polo.rest.polo.exceptions.TeamException;
 import com.polo.rest.polo.repository.GameRepository;
 import com.polo.rest.polo.repository.TeamRepository;
 
@@ -42,10 +44,17 @@ public class GameDao {
     }
 
     public void updateGame( Game game ) {
+        if ( !checkGameExists( game.getId() ) ) {
+            throw new TeamException( EXCEPTION_TEAM_NOT_EXISTS + team.getName() );
+        }
+        Team databaseTeam = getTeamByName( team.getName() );
+        updateEntityAccountData( databaseTeam, team );
+        Team teamPersisted = teamRepository.save( databaseTeam );
+        if ( null == teamPersisted ) throw new TeamException( EXCEPTION_TEAM_NOT_UPDATED + team.getName() ); 
         gameRepository.save( game );
     }
 
-    public boolean checkEventExists( long id ) {
+    public boolean checkGameExists( long id ) {
         return gameRepository.existsById( id );
     }
 

@@ -27,6 +27,8 @@ public class Game {
 	@Column(columnDefinition = "TEXT")
 	private String gameInformationJson;
 	
+	@ManyToMany(cascade=CascadeType.ALL)
+	private List<GameEvent> activity;
 //	@ManyToMany(cascade=CascadeType.ALL)
 //	private List<Person> referee;
 //	
@@ -36,10 +38,11 @@ public class Game {
 //    @ManyToMany(cascade=CascadeType.ALL)
 //    private List<Person> coaches;
 
-	@ManyToMany(cascade=CascadeType.ALL)
-    private List<GameEvent> activity;
 	
 	private String date;
+	private String competition;
+	private int round;
+	private long time;
 	
     public long getId() {
         return id;
@@ -77,11 +80,29 @@ public class Game {
     public void setDate( String date ) {
         this.date = date;
     }
-    
+    public String getCompetition() {
+        return competition;
+    }
+    public void setCompetition( String competition ) {
+        this.competition = competition;
+    }
+    public int getRound() {
+        return round;
+    }
+    public void setRound( int round ) {
+        this.round = round;
+    }
+    public long getTime() {
+        return time;
+    }
+    public void setTime( long time ) {
+        this.time = time;
+    }
     @Override
     public String toString() {
         return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson="
-                + gameInformationJson + ", activity=" + activity + ", date=" + date + "]";
+                + gameInformationJson + ", activity=" + activity + ", date=" + date + ", competition=" + competition + ", round="
+                + round + ", time=" + time + "]";
     }
 
 }
