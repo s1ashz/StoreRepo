@@ -60,6 +60,7 @@ public class GameMatchConverter implements ConstantManager {
         gameEntity.setCompetition( gameDto.getCompetition() );
         gameEntity.setRound( gameDto.getRound() );
         gameEntity.setTime( gameDto.getTime() );
+        gameEntity.setLocal( gameDto.getLocal() );
         
 
         return gameEntity;
@@ -82,6 +83,7 @@ public class GameMatchConverter implements ConstantManager {
         gameDto.setCompetition( gameEntity.getCompetition() );
         gameDto.setRound( gameEntity.getRound() );
         gameDto.setTime( gameEntity.getTime() );
+        gameDto.setLocal( gameEntity.getLocal() );
         
         return gameDto;
     }

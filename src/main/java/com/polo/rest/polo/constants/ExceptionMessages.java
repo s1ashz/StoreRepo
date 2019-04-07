@@ -23,8 +23,15 @@ public interface ExceptionMessages {
 	
 	String EXCEPTION_GAME_NOT_CREATED = "The game was not created.";
     String EXCEPTION_GAME_NOT_EXISTS = "Game does not exist with the id: ";
+    String EXCEPTION_GAME_NOT_UPDATED = "Game does was not updated: Game id:";
     String EXCEPTION_GAME_NULL = "Game cannot be null";
     String EXCEPTION_UPDATED_GAME_ID_NULL = "Updated Game id cannot be null";
+    
+    String EXCEPTION_GAME_EVENT_NOT_CREATED = "The game was not created.";
+    String EXCEPTION_GAME_EVENT_NOT_EXISTS = "Game does not exist with the id: ";
+    String EXCEPTION_GAME_EVENT_NOT_UPDATED = "Game does was not updated: Game id:";
+    String EXCEPTION_GAME_EVENT_NULL = "Game cannot be null";
+    String EXCEPTION_UPDATED_GAME_EVENT_ID_NULL = "Updated Game id cannot be null";
     
     String EXCEPTION_TEAM_NOT_CREATED = "The Team was not created. Team Name: ";
     String EXCEPTION_TEAM_NOT_UPDATED = "The Team was not updated. Team Name: ";

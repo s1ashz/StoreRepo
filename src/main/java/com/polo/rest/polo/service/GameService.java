@@ -78,15 +78,14 @@ public class GameService implements ConstantManager {
     }
 
     public ResponseJson deleteGameById( int gameId ) {
-        // TODO Auto-generated method stub
-        return null;
+        return new ResponseJson( "NOT IMPLEMENTED", false );
     }
 
     public ResponseJson updateGame( GameDto gameDto ) {
         try {
             gameValidator.validateUpdatedGame( gameDto );
             Game game = gameMatchConverter.convertGameDtoToGame( gameDto );
-            //gameDao.updateGame( game );
+            gameDao.updateGame( game );
             return new ResponseJson( UPDATE, true, game.getId() );
         } catch( GameException e ) {
             e.printStackTrace();
