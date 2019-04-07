@@ -6,7 +6,7 @@ import com.polo.rest.polo.entity.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
-    Person findFirstByNameAndNumber( String personName, String personNumber );
+    Person findFirstByNameAndNumber( String personName, int personNumber );
     Person findFirstByNameAndType( String coachName, String personType );
 
 }

@@ -26,7 +26,7 @@ public class Game {
 	private Team awayTeam;
 	
 	@Column(columnDefinition = "TEXT")
-	private String gameInformationJson;
+	private String participants;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<GameEvent> activity;
@@ -45,6 +45,7 @@ public class Game {
 	private int round;
 	private long time;
 	private String local;
+	private String target;
 	
 	public long getId() {
 		return id;
@@ -64,11 +65,11 @@ public class Game {
 	public void setAwayTeam( Team awayTeam ) {
 		this.awayTeam = awayTeam;
 	}
-	public String getGameInformationJson() {
-		return gameInformationJson;
+	public String getParticipants() {
+		return participants;
 	}
-	public void setGameInformationJson( String gameInformationJson ) {
-		this.gameInformationJson = gameInformationJson;
+	public void setParticipants( String participants ) {
+		this.participants = participants;
 	}
 	public List<GameEvent> getActivity() {
 		return activity;
@@ -106,12 +107,17 @@ public class Game {
 	public void setLocal( String local ) {
 		this.local = local;
 	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget( String target ) {
+		this.target = target;
+	}
 	
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson=" + gameInformationJson + ", activity=" + activity + ", date=" + date + ", competition=" + competition + ", round=" + round + ", time="
-				+ time + ", local=" + local + "]";
+		return "Game [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", participants=" + participants + ", activity=" + activity + ", date=" + date + ", competition=" + competition + ", round=" + round + ", time=" + time
+				+ ", local=" + local + ", target=" + target + "]";
 	}
 	
-
 }

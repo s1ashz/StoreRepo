@@ -3,7 +3,6 @@ package com.polo.rest.polo.constants;
 public interface RestEndPoints {
 
     String FILL_DATABASE = "/account/fill";
-    String FILL_DATABASE_PERSONS = "/persons/fill";
 	String ACCOUNT_AUTHENTICATE = "/account/authenticate";
 	String ACCOUNT_LOGOUT = "/account/logout";
 	String ACCOUNT_CREATE = "/account/create";
@@ -36,7 +35,12 @@ public interface RestEndPoints {
     String TEAM_DELETE_BY_ID = "/team/delete/{id}";
     String TEAM_UPDATE = "/team/update";
     
-    
+    String FILL_DATABASE_PERSONS = "/person/fill";
+    String PERSON_CREATE = "/person/create";
+    String PERSON_GET = "/person/{personName}/{personId}";
+    String PERSON_GET_ALL = "/person/all";
+    String PERSON_DELETE_BY_ID = "/person/delete/{id}";
+    String PERSON_UPDATE = "/person/update";
     
     
     

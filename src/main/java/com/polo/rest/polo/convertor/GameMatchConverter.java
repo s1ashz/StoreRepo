@@ -16,7 +16,7 @@ import com.polo.rest.polo.dto.GameDto;
 import com.polo.rest.polo.dto.PersonDto;
 import com.polo.rest.polo.dto.TeamDto;
 import com.polo.rest.polo.entity.Game;
-import com.polo.rest.polo.entity.GameInformationJson;
+import com.polo.rest.polo.entity.Participants;
 import com.polo.rest.polo.entity.Person;
 import com.polo.rest.polo.entity.Team;
 import com.polo.rest.polo.exceptions.PersonException;
@@ -48,7 +48,7 @@ public class GameMatchConverter implements ConstantManager {
         Team awayTeamEntity = convertTeamDtoToTeam( gameDto.getAwayTeam() );
 
         Gson gson = GsonInstance.getGson();
-        String gameInformationJson = gson.toJson( gameDto.getGameInformationJson() );
+        String gameInformationJson = gson.toJson( gameDto.getParticipants() );
         
         gameEntity.setId( gameDto.getId() );
         gameEntity.setDate( gameDto.getDate() );
@@ -56,12 +56,12 @@ public class GameMatchConverter implements ConstantManager {
         gameEntity.setActivity( gameDto.getActivity() );
         gameEntity.setHomeTeam( homeTeamEntity );
         gameEntity.setAwayTeam( awayTeamEntity );
-        gameEntity.setGameInformationJson( gameInformationJson );
+        gameEntity.setParticipants( gameInformationJson );
         gameEntity.setCompetition( gameDto.getCompetition() );
         gameEntity.setRound( gameDto.getRound() );
         gameEntity.setTime( gameDto.getTime() );
         gameEntity.setLocal( gameDto.getLocal() );
-        
+        gameEntity.setTarget( gameDto.getTarget() );
 
         return gameEntity;
     }
@@ -72,18 +72,19 @@ public class GameMatchConverter implements ConstantManager {
         TeamDto awayTeamDto = convertTeamEntityToTeamDto( gameEntity.getAwayTeam() );
         
         Gson gson = GsonInstance.getGson();
-        GameInformationJson gameInformationJson = gson.fromJson( gameEntity.getGameInformationJson(), GameInformationJson.class );
+        Participants gameInformationJson = gson.fromJson( gameEntity.getParticipants(), Participants.class );
         
         gameDto.setId( gameEntity.getId() );
         gameDto.setDate( gameEntity.getDate() );
         gameDto.setHomeTeam( homeTeamDto );
         gameDto.setAwayTeam( awayTeamDto );
-        gameDto.setGameInformationJson( gameInformationJson );
+        gameDto.setParticipants( gameInformationJson );
         gameDto.setActivity( gameEntity.getActivity() );
         gameDto.setCompetition( gameEntity.getCompetition() );
         gameDto.setRound( gameEntity.getRound() );
         gameDto.setTime( gameEntity.getTime() );
         gameDto.setLocal( gameEntity.getLocal() );
+        gameDto.setTarget( gameEntity.getTarget() );
         
         return gameDto;
     }
@@ -93,8 +94,19 @@ public class GameMatchConverter implements ConstantManager {
         personEntity.setName( personDto.getName() );
         personEntity.setNumber( personDto.getNumber() );
         personEntity.setType( personDto.getType() );
+        personEntity.setTeam( personDto.getTeam() );
 
         return personEntity;
+    }
+	
+	public PersonDto convertPersonEntityToPersonDto( Person personEntity ) {
+        PersonDto personDto = new PersonDto();
+        personDto.setName( personEntity.getName() );
+        personDto.setNumber( personEntity.getNumber() );
+        personDto.setType( personEntity.getType() );
+        personDto.setTeam( personEntity.getTeam() );
+
+        return personDto;
     }
     
     public Team convertTeamDtoToTeam( TeamDto teamDto ) {
@@ -102,8 +114,6 @@ public class GameMatchConverter implements ConstantManager {
         teamEntity.setName( teamDto.getName() );
         teamEntity.setLogo( teamDto.getLogo() );
         teamEntity.setAcronym( teamDto.getAcronym() );
-        
-        
         
         //List<Person> playerEntityList = convertPlayerDtoToPlayerEntityList( teamDto.getPlayers() );
         //List<Person> coachesEntityList = convertCoachesNamesToCoachesEntityList( teamDto.getCoaches() );

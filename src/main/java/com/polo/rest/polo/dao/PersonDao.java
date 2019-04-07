@@ -23,7 +23,7 @@ public class PersonDao implements ConstantManager {
         return personPersisted.getId();
     }
     
-    public Person getPersonByNameAndNumber( String personName, String personNumber ) throws PersonException {
+    public Person getPersonByNameAndNumber( String personName, int personNumber ) throws PersonException {
         return personRepository.findFirstByNameAndNumber( personName, personNumber );
     }
 

@@ -66,7 +66,7 @@ public class GameDao implements ConstantManager {
 		databaseGame.setHomeTeam( game.getHomeTeam() );
 		databaseGame.setCompetition( game.getCompetition() );
 		databaseGame.setDate( game.getDate() );
-		databaseGame.setGameInformationJson( game.getGameInformationJson() );
+		databaseGame.setParticipants( game.getParticipants() );
 		databaseGame.setRound( game.getRound() );
 		databaseGame.setTime( game.getTime() );
 	}

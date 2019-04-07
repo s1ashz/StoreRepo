@@ -4,17 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import com.polo.rest.polo.entity.GameEvent;
-import com.polo.rest.polo.entity.GameInformationJson;
+import com.polo.rest.polo.entity.Participants;
 
 public class GameDto {
 
 	private long id;
 	private TeamDto homeTeam;
 	private TeamDto awayTeam;
-	private GameInformationJson gameInformationJson;
+	private Participants participants;
 	private Date date;
 	private List<GameEvent> activity;
 	private String competition;
+	private String target;
 	private String local;
 	private int round;
 	private long time;
@@ -37,11 +38,11 @@ public class GameDto {
 	public void setAwayTeam( TeamDto awayTeam ) {
 		this.awayTeam = awayTeam;
 	}
-	public GameInformationJson getGameInformationJson() {
-		return gameInformationJson;
+	public Participants getParticipants() {
+		return participants;
 	}
-	public void setGameInformationJson( GameInformationJson gameInformationJson ) {
-		this.gameInformationJson = gameInformationJson;
+	public void setParticipants( Participants participants ) {
+		this.participants = participants;
 	}
 	public Date getDate() {
 		return date;
@@ -79,12 +80,18 @@ public class GameDto {
 	public void setTime( long time ) {
 		this.time = time;
 	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget( String target ) {
+		this.target = target;
+	}
 	
 	@Override
 	public String toString() {
-		return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", gameInformationJson=" + gameInformationJson + ", date=" + date + ", activity=" + activity + ", competition=" + competition + ", local=" + local + ", round="
-				+ round + ", time=" + time + "]";
+		return "GameDto [id=" + id + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + ", participants=" + participants + ", date=" + date + ", activity=" + activity + ", competition=" + competition + ", target=" + target + ", local=" + local
+				+ ", round=" + round + ", time=" + time + "]";
 	}
-
+	
 	
 }

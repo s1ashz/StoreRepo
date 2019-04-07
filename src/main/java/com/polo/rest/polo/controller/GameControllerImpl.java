@@ -109,9 +109,9 @@ public class GameControllerImpl implements ConstantManager {
     
     
     private TeamDto createFastTeamDto() {
-    	PersonDto person1 = createPersonDto( "player", "1", PLAYER );
-        PersonDto person2 = createPersonDto( "player", "2", PLAYER );
-        PersonDto person3 = createPersonDto( "player", "3", PLAYER );
+    	PersonDto person1 = createPersonDto( "player", 1, PLAYER );
+        PersonDto person2 = createPersonDto( "player", 2, PLAYER );
+        PersonDto person3 = createPersonDto( "player", 3, PLAYER );
 
         /*List<PersonDto> playerList = new ArrayList<>();
         playerList.add( person1 );
@@ -147,8 +147,8 @@ public class GameControllerImpl implements ConstantManager {
     public String testTeamConvertor() throws AccountException, EventException {
         
         
-        PersonDto person1 = createPersonDto( "player", "1", PLAYER );
-        PersonDto person2 = createPersonDto( "player", "2", PLAYER );
+        PersonDto person1 = createPersonDto( "player", 1, PLAYER );
+        PersonDto person2 = createPersonDto( "player", 2, PLAYER );
         
         List<PersonDto> playerList = new ArrayList<>();
         playerList.add( person1 );
@@ -177,7 +177,7 @@ public class GameControllerImpl implements ConstantManager {
     	return teamDto;
     }
     
-    private PersonDto createPersonDto(String name, String number, String type ) {
+    private PersonDto createPersonDto(String name, int number, String type ) {
     	PersonDto person = new PersonDto();
     	person.setName( name + " " + number );
     	if ( PLAYER == type ) {
@@ -194,17 +194,17 @@ public class GameControllerImpl implements ConstantManager {
         
         Person person1 = new Person();
         person1.setName( "player 1" );
-        person1.setNumber( "1" );
+        person1.setNumber( 1 );
         person1.setType( PLAYER );
         
         Person person2 = new Person();
         person2.setName( "player 2" );
-        person2.setNumber( "2" );
+        person2.setNumber( 2 );
         person2.setType( PLAYER );
         
         Person coach = new Person();
         coach.setName( "coach dude" );
-        coach.setNumber( null );
+        coach.setNumber( 0 );
         coach.setType( COACH );
         
         try {
