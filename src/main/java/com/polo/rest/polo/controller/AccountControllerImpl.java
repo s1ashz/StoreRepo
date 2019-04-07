@@ -249,7 +249,7 @@ public class AccountControllerImpl implements ConstantManager {
 	    eventDto.setLocation( location );
 	    eventDto.setDate( date );
 	    eventDto.setContent( content );
-	    eventDto.setPublicEvent( "true" );
+	    eventDto.setPublicEvent( true );
 	   
 //	    eventDto.setHome( "Porto" );
 //	    eventDto.setAway( "Benfica" );

@@ -29,7 +29,7 @@ public class Event
     private Date date;
     @Column(columnDefinition="TEXT")
     private String content;
-    private String publicEvent;
+    private boolean publicEvent;
     
 //    private boolean isGame;
 //    private String home;
@@ -96,14 +96,14 @@ public class Event
 	public void setContent( String content ) {
 		this.content = content;
 	}
-    public String getPublicEvent() {
-        return publicEvent;
-    }
-    public void setPublicEvent( String publicEvent ) {
-        this.publicEvent = publicEvent;
-    }
-    
-    @Override
+    public boolean isPublicEvent() {
+		return publicEvent;
+	}
+	public void setPublicEvent( boolean publicEvent ) {
+		this.publicEvent = publicEvent;
+	}
+	
+	@Override
     public String toString() {
         return "Event [id=" + id + ", name=" + name + ", picture=" + picture + ", priority=" + priority + ", location=" + location
                 + ", date=" + date + ", content=" + content + ", publicEvent=" + publicEvent + "]";

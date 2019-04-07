@@ -145,7 +145,7 @@ public class ConvertionManager
         eventEntity.setLocation( eventDto.getLocation() );
         eventEntity.setDate( eventDto.getDate() );
         eventEntity.setContent( eventDto.getContent() );
-        eventEntity.setPublicEvent( eventDto.getPublicEvent() );
+        eventEntity.setPublicEvent( eventDto.isPublicEvent() );
         
 //        eventEntity.setGame( eventDto.isGame() );
 //        eventEntity.setHome( eventDto.getHome() );
@@ -175,7 +175,7 @@ public class ConvertionManager
         eventDto.setLocation( event.getLocation() );
         eventDto.setDate( event.getDate() );
         eventDto.setContent( event.getContent() );
-        eventDto.setPublicEvent( event.getPublicEvent() );
+        eventDto.setPublicEvent( event.isPublicEvent() );
         
 //        eventDto.setHome( event.getHome() );
 //        eventDto.setAway( event.getAway() );
